@@ -70,6 +70,11 @@ const items = [
     href: '/404',
     icon: AlertCircleIcon,
     title: 'Error'
+  },
+  {
+    href: '/login',
+    icon: LockIcon,
+    title: 'Login'
   }
 ];
 
