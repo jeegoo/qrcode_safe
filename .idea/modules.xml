@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/qrcode_safe.iml" filepath="$PROJECT_DIR$/qrcode_safe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/react-material-dashboard.iml" filepath="$PROJECT_DIR$/.idea/react-material-dashboard.iml" />
     </modules>
   </component>
 </project>
