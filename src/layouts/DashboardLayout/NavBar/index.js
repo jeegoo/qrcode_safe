@@ -34,47 +34,53 @@ const items = [
   {
     href: '/app/dashboard',
     icon: BarChartIcon,
-    title: 'Dashboard'
+    title: 'Tableau de bord'
   },
   {
     href: '/app/customers',
     icon: UsersIcon,
-    title: 'Customers'
+    title: 'Ouvriers'
   },
+  /**
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
     title: 'Products'
   },
+   **/
   {
     href: '/app/account',
     icon: UserIcon,
-    title: 'Account'
+    title: 'Mon Compte'
   },
   {
     href: '/app/settings',
     icon: SettingsIcon,
-    title: 'Settings'
+    title: 'Paramètres'
   },
+  /**
   {
     href: '/login',
     icon: LockIcon,
     title: 'Login'
   },
+   **/
   {
     href: '/register',
     icon: UserPlusIcon,
-    title: 'Register'
+    title: 'Compte Admin'
   },
+  /**
   {
     href: '/404',
     icon: AlertCircleIcon,
     title: 'Error'
   },
+   **/
   {
     href: '/login',
     icon: LockIcon,
-    title: 'Login'
+    title: 'Se deconnecter'
   }
 ];
 
