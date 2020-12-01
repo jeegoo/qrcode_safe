@@ -94,20 +94,24 @@ const Results = ({ className, customers, ...rest }) => {
                   />
                 </TableCell>
                 <TableCell>
-                  Name
+                  Nom
                 </TableCell>
                 <TableCell>
-                  Email
+                  Prénom
                 </TableCell>
                 <TableCell>
-                  Location
+                  Adresse
                 </TableCell>
                 <TableCell>
-                  Phone
+                  Téléphone
                 </TableCell>
                 <TableCell>
-                  Registration date
+                  Date de création
                 </TableCell>
+                <TableCell>
+                  Apte
+                </TableCell>
+
               </TableRow>
             </TableHead>
             <TableBody>
@@ -154,6 +158,9 @@ const Results = ({ className, customers, ...rest }) => {
                   </TableCell>
                   <TableCell>
                     {moment(customer.createdAt).format('DD/MM/YYYY')}
+                  </TableCell>
+                  <TableCell>
+                    {customer.safety}
                   </TableCell>
                 </TableRow>
               ))}
