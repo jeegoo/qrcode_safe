@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import ClientEditPopUp from "./ClientEditPopUp";
+
 import {
   Avatar,
   Box,
@@ -19,6 +21,8 @@ import {
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
 
+
+
 const useStyles = makeStyles((theme) => ({
   root: {},
   avatar: {
@@ -27,10 +31,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Results = ({ className, customers, ...rest }) => {
+
   const classes = useStyles();
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [open,setOpen] = useState(false);
+
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -64,6 +71,10 @@ const Results = ({ className, customers, ...rest }) => {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
+  const noClientSelected=()=>{
+       return selectedCustomerIds.length==0;
+  }
+
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
@@ -71,6 +82,18 @@ const Results = ({ className, customers, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
+
+  const handelClickOnClient= (event,customer) => {
+      if(noClientSelected())
+        setOpen(true);
+
+  };
+
+  const handleClosePopup = () => {
+        setOpen(false);
+  };
+
+
 
   return (
     <Card
@@ -93,21 +116,7 @@ const Results = ({ className, customers, ...rest }) => {
                     onChange={handleSelectAll}
                   />
                 </TableCell>
-                <TableCell>
-                  Nom
-                </TableCell>
-                <TableCell>
-                  Prénom
-                </TableCell>
-                <TableCell>
-                  Adresse
-                </TableCell>
-                <TableCell>
-                  Téléphone
-                </TableCell>
-                <TableCell>
-                  Date de création
-                </TableCell>
+                <TableCell>Nom</TableCell><TableCell>Prénom</TableCell><TableCell>Adresse</TableCell><TableCell>Téléphone</TableCell><TableCell>Date de création</TableCell>
                 <TableCell>
                   Apte
                 </TableCell>
@@ -120,6 +129,7 @@ const Results = ({ className, customers, ...rest }) => {
                   hover
                   key={customer.id}
                   selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -128,7 +138,7 @@ const Results = ({ className, customers, ...rest }) => {
                       value="true"
                     />
                   </TableCell>
-                  <TableCell>
+                  <TableCell onClick={(event)=>{handelClickOnClient(event,customer)}}>
                     <Box
                       alignItems="center"
                       display="flex"
@@ -177,6 +187,9 @@ const Results = ({ className, customers, ...rest }) => {
         rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 25]}
       />
+
+      <ClientEditPopUp open={open} handleClose={handleClosePopup}/>
+
     </Card>
   );
 };
