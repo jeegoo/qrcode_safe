@@ -8,6 +8,7 @@ import ClientEditPopUp from "./ClientEditPopUp";
 import {
   Avatar,
   Box,
+  Link,
   Card,
   Checkbox,
   Table,
@@ -37,6 +38,7 @@ const Results = ({ className, customers, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [open,setOpen] = useState(false);
+  const [clickedWorker,setClickedWorker]=useState({});
 
 
   const handleSelectAll = (event) => {
@@ -84,8 +86,11 @@ const Results = ({ className, customers, ...rest }) => {
   };
 
   const handelClickOnClient= (event,customer) => {
-      if(noClientSelected())
-        setOpen(true);
+      if(noClientSelected()){
+          setClickedWorker(customer);
+          setOpen(true);
+      }
+
 
   };
 
@@ -137,7 +142,9 @@ const Results = ({ className, customers, ...rest }) => {
                       onChange={(event) => handleSelectOne(event, customer.id)}
                       value="true"
                     />
+
                   </TableCell>
+
                   <TableCell onClick={(event)=>{handelClickOnClient(event,customer)}}>
                     <Box
                       alignItems="center"
@@ -147,13 +154,13 @@ const Results = ({ className, customers, ...rest }) => {
                         className={classes.avatar}
                         src={customer.avatarUrl}
                       >
-                        {getInitials(customer.name)}
+                       {getInitials(customer.name)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        <Link href="#" >{customer.name}</Link>
                       </Typography>
                     </Box>
                   </TableCell>
@@ -188,7 +195,7 @@ const Results = ({ className, customers, ...rest }) => {
         rowsPerPageOptions={[5, 10, 25]}
       />
 
-      <ClientEditPopUp open={open} handleClose={handleClosePopup}/>
+      <ClientEditPopUp open={open} handleClose={handleClosePopup} clickedWorker={clickedWorker}/>
 
     </Card>
   );

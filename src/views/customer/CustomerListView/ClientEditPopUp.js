@@ -8,6 +8,9 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import clsx from "clsx";
+import {Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
+import moment from "moment";
 
 
 
@@ -63,27 +66,187 @@ export default function CustomizedDialogs(props) {
 
       <Dialog onClose={props.handleClose} aria-labelledby="customized-dialog-title" open={props.open}>
         <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
-          Modal title
+          Fiche d'ouvrier
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-            lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </Typography>
+            <form
+              autoComplete="off"
+              noValidate
+
+            >
+              <Card>
+                <Card>
+                  <CardContent>
+                    <Box
+                      alignItems="center"
+                      display="flex"
+                      flexDirection="column"
+                    >
+                      <Avatar src={props.clickedWorker.avatarUrl}/>
+                      <Typography
+                        color="textPrimary"
+                        gutterBottom
+                        variant="h3"
+                      >
+
+                      </Typography>
+                      <Typography
+                        color="textSecondary"
+                        variant="body1"
+                      >
+
+                      </Typography>
+                      <Typography
+
+                        color="textSecondary"
+                        variant="body1"
+                      >
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                  <Divider />
+                  <CardActions>
+                    <Button
+                      color="primary"
+                      fullWidth
+                      variant="text"
+                    >
+                      Upload picture
+                    </Button>
+                  </CardActions>
+                </Card>
+
+                <CardHeader
+                  subheader="The information can be edited"
+                  title="Profile"
+                />
+
+                <Divider />
+                <CardContent>
+                  <Grid
+                    container
+                    spacing={3}
+                  >
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        helperText="Please specify the first name"
+                        label="First name"
+                        name="firstName"
+                        value={props.clickedWorker.name}
+                        required
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Last name"
+                        name="lastName"
+
+                        required
+                        value={props.clickedWorker.name}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Email Address"
+                        name="email"
+                        value={props.clickedWorker.email}
+                        required
+
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Phone Number"
+                        name="phone"
+                        value={props.clickedWorker.phone}
+                        type="number"
+
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Country"
+                        name="country"
+                        value={props.clickedWorker.address}
+                        required
+
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Select State"
+                        name="state"
+
+                        required
+                        select
+                        SelectProps={{ native: true }}
+
+                        variant="outlined"
+                      >
+
+                      </TextField>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+                <Divider />
+
+              </Card>
+            </form>
         </DialogContent>
         <DialogActions>
+
           <Button autoFocus onClick={props.handleClose} color="primary">
-            Save changes
+            Annuler
           </Button>
+
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            p={2}
+          >
+            <Button
+              color="primary"
+              variant="contained"
+              autoFocus onClick={props.handleClose}
+            >
+              ENREGISTRER
+            </Button>
+          </Box>
         </DialogActions>
       </Dialog>
     </div>
