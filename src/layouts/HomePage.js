@@ -15,7 +15,7 @@ export default class CreateClient extends Component{
         }
 
         is_logged_in (){
-             return true;
+             return false;
         }
 
         displayRightPage(){

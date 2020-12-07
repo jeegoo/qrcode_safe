@@ -85,13 +85,11 @@ const Results = ({ className, customers, ...rest }) => {
     setPage(newPage);
   };
 
-  const handelClickOnClient= (event,customer) => {
+  const handleClickOnClient= (event,customer) => {
       if(noClientSelected()){
           setClickedWorker(customer);
           setOpen(true);
       }
-
-
   };
 
   const handleClosePopup = () => {
@@ -142,10 +140,9 @@ const Results = ({ className, customers, ...rest }) => {
                       onChange={(event) => handleSelectOne(event, customer.id)}
                       value="true"
                     />
-
                   </TableCell>
 
-                  <TableCell onClick={(event)=>{handelClickOnClient(event,customer)}}>
+                  <TableCell onClick={(event)=>{handleClickOnClient(event,customer)}}>
                     <Box
                       alignItems="center"
                       display="flex"

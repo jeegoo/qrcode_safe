@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -61,6 +61,14 @@ const DialogActions = withStyles((theme) => ({
 
 export default function CustomizedDialogs(props) {
 
+
+  function getData(data){
+
+           if(props.clickedWorker==null)
+               return "";
+           return props.clickedWorker[data];
+  }
+
   return (
     <div>
 
@@ -82,7 +90,7 @@ export default function CustomizedDialogs(props) {
                       display="flex"
                       flexDirection="column"
                     >
-                      <Avatar src={props.clickedWorker.avatarUrl}/>
+                      <Avatar src={getData("avatarUrl")}/>
                       <Typography
                         color="textPrimary"
                         gutterBottom
@@ -117,7 +125,7 @@ export default function CustomizedDialogs(props) {
                 </Card>
 
                 <CardHeader
-                  subheader="The information can be edited"
+                  subheader="Veuillez remplir tous les champs"
                   title="Profile"
                 />
 
@@ -135,9 +143,9 @@ export default function CustomizedDialogs(props) {
                       <TextField
                         fullWidth
                         helperText="Please specify the first name"
-                        label="First name"
-                        name="firstName"
-                        value={props.clickedWorker.name}
+                        label="Nom"
+                        name="Nom"
+                        value={getData("name")}
                         required
                         variant="outlined"
                       />
@@ -151,9 +159,8 @@ export default function CustomizedDialogs(props) {
                         fullWidth
                         label="Last name"
                         name="lastName"
-
                         required
-                        value={props.clickedWorker.name}
+                        value={getData("name")}
                         variant="outlined"
                       />
                     </Grid>
@@ -166,7 +173,7 @@ export default function CustomizedDialogs(props) {
                         fullWidth
                         label="Email Address"
                         name="email"
-                        value={props.clickedWorker.email}
+                        value={getData("email")}
                         required
 
                         variant="outlined"
@@ -181,7 +188,7 @@ export default function CustomizedDialogs(props) {
                         fullWidth
                         label="Phone Number"
                         name="phone"
-                        value={props.clickedWorker.phone}
+                        value={getData("phone")}
                         type="number"
 
                         variant="outlined"
@@ -196,7 +203,7 @@ export default function CustomizedDialogs(props) {
                         fullWidth
                         label="Country"
                         name="country"
-                        value={props.clickedWorker.address}
+                        value={getData("adress")}
                         required
 
                         variant="outlined"

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+
 import {
   Box,
   Button,
@@ -12,6 +13,8 @@ import {
   makeStyles
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
+import ClientEditPopUp from "./ClientEditPopUp";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -23,8 +26,26 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
+
+
+
+
 const Toolbar = ({ className, ...rest }) => {
+
   const classes = useStyles();
+  const [open,setOpen]=useState(false);
+
+  const handleOnAddCustomerClicked=()=>{
+
+      setOpen(true);
+
+  }
+
+  const handleClosePopup = () => {
+     setOpen(false);
+  };
+
 
   return (
     <div
@@ -44,8 +65,10 @@ const Toolbar = ({ className, ...rest }) => {
         <Button
           color="primary"
           variant="contained"
+          onClick={handleOnAddCustomerClicked}
         >
           Ajouter un ouvrier
+
         </Button>
       </Box>
       <Box mt={3}>
@@ -73,7 +96,12 @@ const Toolbar = ({ className, ...rest }) => {
           </CardContent>
         </Card>
       </Box>
+
+       <ClientEditPopUp open={open} handleClose={handleClosePopup} clickedWorker={null}/>
+
     </div>
+
+
   );
 };
 
