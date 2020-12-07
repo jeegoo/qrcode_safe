@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import ClientEditPopUp from "./ClientEditPopUp";
+import ClientEditPopUp from "./util/ClientEditPopUp";
 
 import {
   Avatar,
@@ -39,7 +39,6 @@ const Results = ({ className, customers, ...rest }) => {
   const [page, setPage] = useState(0);
   const [open,setOpen] = useState(false);
   const [clickedWorker,setClickedWorker]=useState({});
-
 
 
   const handleSelectAll = (event) => {

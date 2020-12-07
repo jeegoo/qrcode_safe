@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import clsx from "clsx";
 import {Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
 import moment from "moment";
+import DatePicker from "./DatePicker";
 
 
 
@@ -165,6 +166,15 @@ export default function CustomizedDialogs(props) {
                         variant="outlined"
                       />
                     </Grid>
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <DatePicker/>
+                    </Grid>
+
                     <Grid
                       item
                       md={6}
@@ -181,6 +191,7 @@ export default function CustomizedDialogs(props) {
                         variant="outlined"
                       />
                     </Grid>
+
                     <Grid
                       item
                       md={6}
@@ -225,6 +236,7 @@ export default function CustomizedDialogs(props) {
                         variant="outlined"
                       >
                       </TextField>
+
                     </Grid>
                   </Grid>
                 </CardContent>

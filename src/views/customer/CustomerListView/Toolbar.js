@@ -13,7 +13,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
-import ClientEditPopUp from "./ClientEditPopUp";
+import ClientEditPopUp from "./util/ClientEditPopUp";
 
 
 const useStyles = makeStyles((theme) => ({
