@@ -8,14 +8,9 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import clsx from "clsx";
 import {Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
-import moment from "moment";
 import DatePicker from "./DatePicker";
-
-
-
-
+import UploadButton from "./UploadButton";
 
 const styles = (theme) => ({
   root: {
@@ -81,7 +76,6 @@ export default function CustomizedDialogs(props) {
             <form
               autoComplete="off"
               noValidate
-
             >
               <Card>
                 <Card>
@@ -110,18 +104,13 @@ export default function CustomizedDialogs(props) {
                         variant="body1"
                       >
                       </Typography>
+                      <Divider />
+                      <CardActions>
+                        <UploadButton/>
+                      </CardActions>
                     </Box>
                   </CardContent>
-                  <Divider />
-                  <CardActions>
-                    <Button
-                      color="primary"
-                      fullWidth
-                      variant="text"
-                    >
-                      Upload picture
-                    </Button>
-                  </CardActions>
+
                 </Card>
 
                 <CardHeader
@@ -142,7 +131,7 @@ export default function CustomizedDialogs(props) {
                     >
                       <TextField
                         fullWidth
-                        helperText="Please specify the first name"
+                        helperText="Préciser votre nom"
                         label="Nom"
                         name="name"
                         value={getData("name")}
