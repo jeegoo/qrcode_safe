@@ -28,22 +28,38 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
-
-
 const Toolbar = ({ className, ...rest }) => {
 
   const classes = useStyles();
   const [open,setOpen]=useState(false);
 
+  const resetWorkerValues=()=>{
+      return {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        state: '',
+        country: ''
+      }
+  }
+  const [workerValues, setWorkerValues] = useState(resetWorkerValues);
+
+
   const handleOnAddCustomerClicked=()=>{
-
       setOpen(true);
-
   }
 
   const handleClosePopup = () => {
      setOpen(false);
+     setWorkerValues(resetWorkerValues());   //effacer toutes les informations saisies dans le popup
+  }
+
+  const handleChange = (event) => {
+    setWorkerValues({
+      ...workerValues,
+      [event.target.name]: event.target.value
+    });
   };
 
 
@@ -97,7 +113,7 @@ const Toolbar = ({ className, ...rest }) => {
         </Card>
       </Box>
 
-       <ClientEditPopUp open={open} handleClose={handleClosePopup} clickedWorker={null}/>
+       <ClientEditPopUp open={open} handleClose={handleClosePopup} worker={workerValues} handleChange={handleChange}/>
 
     </div>
 

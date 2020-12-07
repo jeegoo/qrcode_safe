@@ -41,6 +41,7 @@ const Results = ({ className, customers, ...rest }) => {
   const [clickedWorker,setClickedWorker]=useState({});
 
 
+
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
 
@@ -94,6 +95,13 @@ const Results = ({ className, customers, ...rest }) => {
 
   const handleClosePopup = () => {
         setOpen(false);
+  };
+
+  const handleChange = (event) => {
+    setClickedWorker({
+      ...clickedWorker,
+      [event.target.name]: event.target.value
+    });
   };
 
 
@@ -192,7 +200,7 @@ const Results = ({ className, customers, ...rest }) => {
         rowsPerPageOptions={[5, 10, 25]}
       />
 
-      <ClientEditPopUp open={open} handleClose={handleClosePopup} clickedWorker={clickedWorker}/>
+      <ClientEditPopUp open={open} handleClose={handleClosePopup} worker={clickedWorker}  handleChange={handleChange}/>
 
     </Card>
   );

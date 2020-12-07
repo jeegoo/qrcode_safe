@@ -64,9 +64,9 @@ export default function CustomizedDialogs(props) {
 
   function getData(data){
 
-           if(props.clickedWorker==null)
+           if(props.worker==null)
                return "";
-           return props.clickedWorker[data];
+           return props.worker[data];
   }
 
   return (
@@ -96,14 +96,13 @@ export default function CustomizedDialogs(props) {
                         gutterBottom
                         variant="h3"
                       >
-
                       </Typography>
                       <Typography
                         color="textSecondary"
                         variant="body1"
                       >
-
                       </Typography>
+
                       <Typography
 
                         color="textSecondary"
@@ -144,8 +143,9 @@ export default function CustomizedDialogs(props) {
                         fullWidth
                         helperText="Please specify the first name"
                         label="Nom"
-                        name="Nom"
+                        name="name"
                         value={getData("name")}
+                        onChange={props.handleChange}
                         required
                         variant="outlined"
                       />
@@ -157,10 +157,11 @@ export default function CustomizedDialogs(props) {
                     >
                       <TextField
                         fullWidth
-                        label="Last name"
-                        name="lastName"
+                        label="Prénom"
+                        name="name"
                         required
                         value={getData("name")}
+                        onChange={props.handleChange}
                         variant="outlined"
                       />
                     </Grid>
@@ -171,9 +172,10 @@ export default function CustomizedDialogs(props) {
                     >
                       <TextField
                         fullWidth
-                        label="Email Address"
+                        label="Adresse mail"
                         name="email"
                         value={getData("email")}
+                        onChange={props.handleChange}
                         required
 
                         variant="outlined"
@@ -186,11 +188,10 @@ export default function CustomizedDialogs(props) {
                     >
                       <TextField
                         fullWidth
-                        label="Phone Number"
+                        label="Numéro de téléphone"
                         name="phone"
                         value={getData("phone")}
-                        type="number"
-
+                        onChange={props.handleChange}
                         variant="outlined"
                       />
                     </Grid>
@@ -201,11 +202,11 @@ export default function CustomizedDialogs(props) {
                     >
                       <TextField
                         fullWidth
-                        label="Country"
-                        name="country"
+                        label="Pays"
+                        name="Pays"
                         value={getData("adress")}
+                        onChange={props.handleChange}
                         required
-
                         variant="outlined"
                       />
                     </Grid>
@@ -218,14 +219,11 @@ export default function CustomizedDialogs(props) {
                         fullWidth
                         label="Select State"
                         name="state"
-
                         required
                         select
                         SelectProps={{ native: true }}
-
                         variant="outlined"
                       >
-
                       </TextField>
                     </Grid>
                   </Grid>
