@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import {Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
 import DatePicker from "./DatePicker";
 import UploadButton from "./UploadButton";
+const QRCode = require('qrcode.react');
 
 const styles = (theme) => ({
   root: {
@@ -99,7 +100,6 @@ export default function CustomizedDialogs(props) {
                       </Typography>
 
                       <Typography
-
                         color="textSecondary"
                         variant="body1"
                       >
@@ -210,6 +210,7 @@ export default function CustomizedDialogs(props) {
                         variant="outlined"
                       />
                     </Grid>
+
                     <Grid
                       item
                       md={6}
@@ -225,9 +226,17 @@ export default function CustomizedDialogs(props) {
                         variant="outlined"
                       >
                       </TextField>
-
                     </Grid>
                   </Grid>
+
+                  <Box
+                    alignItems="center"
+                    display="flex"
+                    flexDirection="column"
+                    p={2}
+                  >
+                    <QRCode value="http://facebook.github.io/react/" />
+                  </Box>
                 </CardContent>
                 <Divider />
 
