@@ -8,9 +8,9 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import {Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
-import DatePicker from "./DatePicker";
-import UploadButton from "./UploadButton";
+import {Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ProfilePicture from "./ProfilePicture";
 const QRCode = require('qrcode.react');
 
 const styles = (theme) => ({
@@ -22,8 +22,10 @@ const styles = (theme) => ({
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500],
+    color: theme.palette.grey[500]
   },
+
+
 });
 
 const DialogTitle = withStyles(styles)((props) => {
@@ -39,6 +41,7 @@ const DialogTitle = withStyles(styles)((props) => {
     </MuiDialogTitle>
   );
 });
+
 
 const DialogContent = withStyles((theme) => ({
   root: {
@@ -86,7 +89,9 @@ export default function CustomizedDialogs(props) {
                       display="flex"
                       flexDirection="column"
                     >
-                      <Avatar src={getData("avatarUrl")}/>
+                      <ProfilePicture src={getData("avatarUrl")}
+
+                      />
                       <Typography
                         color="textPrimary"
                         gutterBottom
@@ -94,10 +99,15 @@ export default function CustomizedDialogs(props) {
                       >
                       </Typography>
                       <Typography
-                        color="textSecondary"
-                        variant="body1"
+
+                        variant="h4"
                       >
+                        Jugurtha KEBIR
                       </Typography>
+                      <CheckCircleIcon
+                      color="primary"
+
+                      />
 
                       <Typography
                         color="textSecondary"
@@ -105,137 +115,23 @@ export default function CustomizedDialogs(props) {
                       >
                       </Typography>
                       <Divider />
-                      <CardActions>
-                        <UploadButton/>
-                      </CardActions>
+
                     </Box>
                   </CardContent>
 
                 </Card>
 
-                <CardHeader
-                  subheader="Veuillez remplir tous les champs"
-                  title="Profile"
-                />
 
                 <Divider />
                 <CardContent>
-                  <Grid
-                    container
-                    spacing={3}
-                  >
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <TextField
-                        fullWidth
-                        helperText="Préciser votre nom"
-                        label="Nom"
-                        name="name"
-                        value={getData("name")}
-                        onChange={props.handleChange}
-                        required
-                        variant="outlined"
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <TextField
-                        fullWidth
-                        label="Prénom"
-                        name="name"
-                        required
-                        value={getData("name")}
-                        onChange={props.handleChange}
-                        variant="outlined"
-                      />
-                    </Grid>
-
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <DatePicker/>
-                    </Grid>
-
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <TextField
-                        fullWidth
-                        label="Adresse mail"
-                        name="email"
-                        value={getData("email")}
-                        onChange={props.handleChange}
-                        required
-
-                        variant="outlined"
-                      />
-                    </Grid>
-
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <TextField
-                        fullWidth
-                        label="Numéro de téléphone"
-                        name="phone"
-                        value={getData("phone")}
-                        onChange={props.handleChange}
-                        variant="outlined"
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <TextField
-                        fullWidth
-                        label="Pays"
-                        name="Pays"
-                        value={getData("adress")}
-                        onChange={props.handleChange}
-                        required
-                        variant="outlined"
-                      />
-                    </Grid>
-
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <TextField
-                        fullWidth
-                        label="Select State"
-                        name="state"
-                        required
-                        select
-                        SelectProps={{ native: true }}
-                        variant="outlined"
-                      >
-                      </TextField>
-                    </Grid>
-                  </Grid>
 
                   <Box
                     alignItems="center"
                     display="flex"
                     flexDirection="column"
-                    p={2}
+                    p={3}
                   >
-                    <QRCode value="http://facebook.github.io/react/" />
+                    <QRCode value="http://facebook.com/" />
                   </Box>
                 </CardContent>
                 <Divider />
@@ -259,7 +155,7 @@ export default function CustomizedDialogs(props) {
               variant="contained"
               autoFocus onClick={props.handleClose}
             >
-              ENREGISTRER
+              DETAILS
             </Button>
           </Box>
         </DialogActions>

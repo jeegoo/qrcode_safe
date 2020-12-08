@@ -13,7 +13,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
-import ClientEditPopUp from "./util/ClientEditPopUp";
+import CreateClientPopUp from "./util/CreateClientPopUp";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -113,7 +113,7 @@ const Toolbar = ({ className, ...rest }) => {
         </Card>
       </Box>
 
-       <ClientEditPopUp open={open} handleClose={handleClosePopup} worker={workerValues} handleChange={handleChange}/>
+       <CreateClientPopUp open={open} handleClose={handleClosePopup} worker={workerValues} handleChange={handleChange}/>
 
     </div>
 

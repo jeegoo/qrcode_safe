@@ -28,7 +28,7 @@ export default function UploadButton() {
             multiple
             type="file"
           />
-          Upload
+          Téléverser
         </Button>
       </label>
 
