@@ -7,6 +7,8 @@ import {
 import Page from 'src/components/Page';
 import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
+import { useParams } from "react-router";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,8 +19,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Account = () => {
+const Account = (props) => {
   const classes = useStyles();
+  let { id } = useParams();
+  console.log(useParams());
 
   return (
     <Page
@@ -44,7 +48,7 @@ const Account = () => {
             md={6}
             xs={12}
           >
-            <ProfileDetails />
+            <ProfileDetails  workerid={id} />
           </Grid>
         </Grid>
       </Container>

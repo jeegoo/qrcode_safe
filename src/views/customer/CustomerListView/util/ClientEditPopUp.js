@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import {Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ProfilePicture from "./ProfilePicture";
+import {Link} from "react-router-dom";
 const QRCode = require('qrcode.react');
 
 const styles = (theme) => ({
@@ -150,13 +151,16 @@ export default function CustomizedDialogs(props) {
             justifyContent="flex-end"
             p={2}
           >
-            <Button
-              color="primary"
-              variant="contained"
-              autoFocus onClick={props.handleClose}
-            >
-              DETAILS
-            </Button>
+            <Link to="/app/account">
+              <Button
+                color="primary"
+                variant="contained"
+                autoFocus
+              >
+                DETAILS
+              </Button>
+            </Link>
+
           </Box>
         </DialogActions>
       </Dialog>
