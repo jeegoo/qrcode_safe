@@ -103,7 +103,7 @@ export default function CustomizedDialogs(props) {
 
                         variant="h4"
                       >
-                        Jugurtha KEBIR
+                        {getData("name")}
                       </Typography>
                       <CheckCircleIcon
                       color="primary"
@@ -151,7 +151,7 @@ export default function CustomizedDialogs(props) {
             justifyContent="flex-end"
             p={2}
           >
-            <Link to="/app/account">
+            <Link to={`/app/customers/${getData("id")}`}>
               <Button
                 color="primary"
                 variant="contained"

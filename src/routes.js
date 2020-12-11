@@ -12,6 +12,23 @@ import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import WorkerDetailsView from 'src/views/customer/WorkerDetailsView/index';
 
+/**
+const routes = {
+  '/': () => <HomePage />,
+  '/login': () => <LoginView />,
+  '/register': () => <RegisterView />,
+  '/app/account': () => <AccountView /> ,
+  '/app/customers': () => <CustomerListView /> ,
+  '/app/products': () => <ProductListView /> ,
+  '/app/settings': () => <SettingsView /> ,
+  '/app/dashboard': () => <DashboardView />  ,
+  '/app/*': () => <Navigate to="/404" /> ,
+
+
+}
+**/
+
+
 const routes = [
   {
     path: '/',
@@ -25,27 +42,20 @@ const routes = [
     ]
   },
 
-
-
   //
   {
-
     path: 'app',
     element: <DashboardLayout />,
     children: [
       { path: '/account', element: <AccountView /> },
-      { path: '/customers', element: <CustomerListView />,
-          children:[
-            { path: '/:id', element: <WorkerDetailsView  /> },
-          ]
-      },
+      { path: '/customers', element: <CustomerListView />},
+      { path: '/customers/:id', element: <WorkerDetailsView />},
       { path: '/dashboard', element: <DashboardView /> },
       { path: '/products', element: <ProductListView /> },
       { path: '/settings', element: <SettingsView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   }
-
 ];
 
 export default routes;
