@@ -22,6 +22,7 @@ import {
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
 import InfoSafety from "./util/InfoSafety";
+import MoreOptionsIcon from "./util/MoreOptionsIcon";
 
 
 
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Results = ({ className, customers,setworkerselected,...rest }) => {
+const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected,...rest }) => {
 
   const classes = useStyles();
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -42,7 +43,7 @@ const Results = ({ className, customers,setworkerselected,...rest }) => {
   const [clickedWorker,setClickedWorker]=useState({});
 
 
-  const handleSelectAll = (event) => {
+  const handleSelectAll = (event,setWorkerSelected) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
@@ -52,13 +53,12 @@ const Results = ({ className, customers,setworkerselected,...rest }) => {
     }
 
     setSelectedCustomerIds(newSelectedCustomerIds);
+    displayOptionMenu(newSelectedCustomerIds,setWorkerSelected);
   };
 
   const handleSelectOne = (event, id,setWorkerSelected) => {
     const selectedIndex = selectedCustomerIds.indexOf(id);
     let newSelectedCustomerIds = [];
-
-
 
     if (selectedIndex === -1) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
@@ -79,11 +79,17 @@ const Results = ({ className, customers,setworkerselected,...rest }) => {
 
   };
 
+
   const displayOptionMenu=(selectedWorkers,setWorkerSelected)=>{
       if(selectedWorkers.length===0)
         setWorkerSelected(false);
-      else
+      else {
+        if (selectedWorkers.length === 1)   // if only one worker selected
+          setIsOneWorkerSelected(true);
+        else
+          setIsOneWorkerSelected(false);
         setWorkerSelected(true);
+      }
   }
 
   const noClientSelected=()=>{
@@ -99,10 +105,10 @@ const Results = ({ className, customers,setworkerselected,...rest }) => {
   };
 
   const handleClickOnClient= (event,customer) => {
-      if(noClientSelected()){
+     // if(noClientSelected()){
           setClickedWorker(customer);
           setOpen(true);
-      }
+      //}
   };
 
   const handleClosePopup = () => {
@@ -135,7 +141,7 @@ const Results = ({ className, customers,setworkerselected,...rest }) => {
                       selectedCustomerIds.length > 0
                       && selectedCustomerIds.length < customers.length
                     }
-                    onChange={handleSelectAll}
+                    onChange={(event)=>handleSelectAll(event,setworkerselected)}
                   />
                 </TableCell>
                 <TableCell>Nom</TableCell><TableCell>Prénom</TableCell><TableCell>Adresse</TableCell><TableCell>Téléphone</TableCell><TableCell>Date de création</TableCell>
@@ -177,6 +183,7 @@ const Results = ({ className, customers,setworkerselected,...rest }) => {
                         variant="body1"
                       >
                         <Link href="#" >{customer.name}</Link>
+
                       </Typography>
                     </Box>
                   </TableCell>
@@ -195,6 +202,7 @@ const Results = ({ className, customers,setworkerselected,...rest }) => {
                   <TableCell>
                     <InfoSafety safety={customer.safety} message={customer.safety} />
                   </TableCell>
+
                 </TableRow>
               ))}
             </TableBody>

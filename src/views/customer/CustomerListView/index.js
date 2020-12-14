@@ -22,6 +22,7 @@ const CustomerListView = () => {
   const classes = useStyles();
   const [customers] = useState(data);
   const [workerSelected,setWorkerSelected]=useState(false);
+  const [isOneWorkerSelected,setIsOneWorkerSelected]=useState(false);
 
   return (
     <Page
@@ -29,9 +30,9 @@ const CustomerListView = () => {
       title="Customers"
     >
       <Container maxWidth={false}>
-        <Toolbar workerselected={workerSelected}/>
+        <Toolbar workerselected={workerSelected} isOneWorkerSelected={isOneWorkerSelected}/>
         <Box mt={3}>
-          <Results customers={customers} setworkerselected={setWorkerSelected} />
+          <Results customers={customers} setworkerselected={setWorkerSelected} setIsOneWorkerSelected={setIsOneWorkerSelected}/>
         </Box>
       </Container>
     </Page>

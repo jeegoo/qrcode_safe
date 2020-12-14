@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const Toolbar = ({ className,workerselected, ...rest }) => {
+const Toolbar = ({ className,workerselected,isOneWorkerSelected, ...rest }) => {
 
   const classes = useStyles();
   const [open,setOpen]=useState(false);
@@ -66,10 +66,10 @@ const Toolbar = ({ className,workerselected, ...rest }) => {
     });
   };
 
-  const displayWorkerOptions=(isSelected)=>{
+  const displayWorkerOptions=()=>{
 
-       if(isSelected)
-         return  <OptionNavMenu />;
+       if(workerselected)
+         return  <OptionNavMenu isoneworkerselected={isOneWorkerSelected}/>;
   }
 
   return (
@@ -89,7 +89,7 @@ const Toolbar = ({ className,workerselected, ...rest }) => {
         </Button>
         <Button className={classes.exportButton}
                 color={"primary"}
-        startIcon={<CloudDownloadIcon/>}
+                startIcon={<CloudDownloadIcon/>}
         >
           Exporter
         </Button>
@@ -126,11 +126,10 @@ const Toolbar = ({ className,workerselected, ...rest }) => {
                       placeholder="Chercher un ouvrier"
                       variant="outlined"
                     />
-
                   </Box>
                </Grid>
                <Grid item mt={4} xs={12}>
-                    {displayWorkerOptions(workerselected)}
+                    {displayWorkerOptions()}
                 </Grid>
              </Grid>
           </CardContent>
