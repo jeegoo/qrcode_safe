@@ -23,7 +23,6 @@ const Account = (props) => {
   const classes = useStyles();
   let { id } = useParams();
   console.log(useParams());
- // console.log(props.match.params);
 
   return (
     <Page

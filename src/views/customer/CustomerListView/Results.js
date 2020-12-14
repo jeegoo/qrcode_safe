@@ -21,6 +21,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
+import InfoSafety from "./util/InfoSafety";
 
 
 
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Results = ({ className, customers, ...rest }) => {
+const Results = ({ className, customers,setworkerselected,...rest }) => {
 
   const classes = useStyles();
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -53,12 +54,15 @@ const Results = ({ className, customers, ...rest }) => {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleSelectOne = (event, id) => {
+  const handleSelectOne = (event, id,setWorkerSelected) => {
     const selectedIndex = selectedCustomerIds.indexOf(id);
     let newSelectedCustomerIds = [];
 
+
+
     if (selectedIndex === -1) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
+      console.log(selectedIndex)
     } else if (selectedIndex === 0) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
     } else if (selectedIndex === selectedCustomerIds.length - 1) {
@@ -71,10 +75,19 @@ const Results = ({ className, customers, ...rest }) => {
     }
 
     setSelectedCustomerIds(newSelectedCustomerIds);
+    displayOptionMenu(newSelectedCustomerIds,setWorkerSelected);
+
   };
 
+  const displayOptionMenu=(selectedWorkers,setWorkerSelected)=>{
+      if(selectedWorkers.length===0)
+        setWorkerSelected(false);
+      else
+        setWorkerSelected(true);
+  }
+
   const noClientSelected=()=>{
-       return selectedCustomerIds.length==0;
+       return selectedCustomerIds.length===0;
   }
 
   const handleLimitChange = (event) => {
@@ -102,7 +115,6 @@ const Results = ({ className, customers, ...rest }) => {
       [event.target.name]: event.target.value
     });
   };
-
 
 
   return (
@@ -144,7 +156,7 @@ const Results = ({ className, customers, ...rest }) => {
                   <TableCell padding="checkbox">
                     <Checkbox
                       checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      onChange={(event) => handleSelectOne(event, customer.id,setworkerselected)}
                       value="true"
                     />
                   </TableCell>
@@ -181,7 +193,7 @@ const Results = ({ className, customers, ...rest }) => {
                     {moment(customer.createdAt).format('DD/MM/YYYY')}
                   </TableCell>
                   <TableCell>
-                    {customer.safety}
+                    <InfoSafety safety={customer.safety} message={customer.safety} />
                   </TableCell>
                 </TableRow>
               ))}

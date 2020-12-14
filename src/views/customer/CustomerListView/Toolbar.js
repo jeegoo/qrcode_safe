@@ -14,7 +14,11 @@ import {
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 import CreateClientPopUp from "./util/CreateClientPopUp";
-
+import OptionMenu from "./util/OptionMenu";
+import OptionNavMenu from "./util/OptionNavMenu";
+import Grid from "@material-ui/core/Grid";
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -28,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const Toolbar = ({ className, ...rest }) => {
+const Toolbar = ({ className,workerselected, ...rest }) => {
 
   const classes = useStyles();
   const [open,setOpen]=useState(false);
@@ -62,6 +66,11 @@ const Toolbar = ({ className, ...rest }) => {
     });
   };
 
+  const displayWorkerOptions=(isSelected)=>{
+
+       if(isSelected)
+         return  <OptionNavMenu />;
+  }
 
   return (
     <div
@@ -72,10 +81,16 @@ const Toolbar = ({ className, ...rest }) => {
         display="flex"
         justifyContent="flex-end"
       >
-        <Button className={classes.importButton}>
+        <Button className={classes.importButton}
+        startIcon={<CloudUploadIcon/>}
+                color={"default"}
+        >
           Importer
         </Button>
-        <Button className={classes.exportButton}>
+        <Button className={classes.exportButton}
+                color={"primary"}
+        startIcon={<CloudDownloadIcon/>}
+        >
           Exporter
         </Button>
         <Button
@@ -90,25 +105,34 @@ const Toolbar = ({ className, ...rest }) => {
       <Box mt={3}>
         <Card>
           <CardContent>
-            <Box maxWidth={500}>
-              <TextField
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SvgIcon
-                        fontSize="small"
-                        color="action"
-                      >
-                        <SearchIcon />
-                      </SvgIcon>
-                    </InputAdornment>
-                  )
-                }}
-                placeholder="Chercher un ouvrier"
-                variant="outlined"
-              />
-            </Box>
+             <Grid container >
+               <Grid item mt={4} xs={12}>
+                  <Box maxWidth={500}
+                  >
+                    <TextField
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SvgIcon
+                              fontSize="small"
+                              color="action"
+                            >
+                              <SearchIcon />
+                            </SvgIcon>
+                          </InputAdornment>
+                        )
+                      }}
+                      placeholder="Chercher un ouvrier"
+                      variant="outlined"
+                    />
+
+                  </Box>
+               </Grid>
+               <Grid item mt={4} xs={12}>
+                    {displayWorkerOptions(workerselected)}
+                </Grid>
+             </Grid>
           </CardContent>
         </Card>
       </Box>

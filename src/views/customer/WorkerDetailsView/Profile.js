@@ -13,6 +13,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
+import UploadButton from "../CustomerListView/util/UploadButton";
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -73,13 +74,13 @@ const Profile = ({ className, ...rest }) => {
       </CardContent>
       <Divider />
       <CardActions>
-        <Button
-          color="primary"
-          fullWidth
-          variant="text"
+        <Box
+          alignItems="center"
+          display="flex"
+          flexDirection="column"
         >
-          Upload picture
-        </Button>
+         <UploadButton/>
+        </Box>
       </CardActions>
     </Card>
   );

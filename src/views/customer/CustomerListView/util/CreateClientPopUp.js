@@ -12,6 +12,7 @@ import {Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, 
 import DatePicker from "./DatePicker";
 import UploadButton from "./UploadButton";
 import ProfilePicture from "./ProfilePicture";
+import SaveIcon from "@material-ui/icons/Save";
 const QRCode = require('qrcode.react');
 
 const styles = (theme) => ({
@@ -259,6 +260,7 @@ export default function CreateClientPopUp(props) {
               color="primary"
               variant="contained"
               autoFocus onClick={props.handleClose}
+              startIcon={<SaveIcon />}
             >
               ENREGISTRER
             </Button>

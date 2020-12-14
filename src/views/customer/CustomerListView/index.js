@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 const CustomerListView = () => {
   const classes = useStyles();
   const [customers] = useState(data);
+  const [workerSelected,setWorkerSelected]=useState(false);
 
   return (
     <Page
@@ -28,9 +29,9 @@ const CustomerListView = () => {
       title="Customers"
     >
       <Container maxWidth={false}>
-        <Toolbar />
+        <Toolbar workerselected={workerSelected}/>
         <Box mt={3}>
-          <Results customers={customers} />
+          <Results customers={customers} setworkerselected={setWorkerSelected} />
         </Box>
       </Container>
     </Page>

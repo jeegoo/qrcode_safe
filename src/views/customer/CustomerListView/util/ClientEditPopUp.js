@@ -90,9 +90,7 @@ export default function CustomizedDialogs(props) {
                       display="flex"
                       flexDirection="column"
                     >
-                      <ProfilePicture src={getData("avatarUrl")}
-
-                      />
+                      <ProfilePicture src={getData("avatarUrl")}/>
                       <Typography
                         color="textPrimary"
                         gutterBottom

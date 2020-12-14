@@ -59,7 +59,7 @@ export default [
     email: 'anje.keizer@devias.io',
     name: 'Anje Keizer',
     phone: '908-691-3242',
-    safety:'not_safe'
+    safety:'not_very_safe'
   },
   {
     id: uuid(),
@@ -104,7 +104,7 @@ export default [
     email: 'ava.gregoraci@devias.io',
     name: 'Ava Gregoraci',
     phone: '415-907-2647',
-    safety:'not_safe'
+    safety:'not_very_safe'
   },
   {
     id: uuid(),
