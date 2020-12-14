@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+
 import {
   Box,
   Button,
@@ -12,6 +13,8 @@ import {
   TextField,
   makeStyles
 } from '@material-ui/core';
+import AgreePopUp from "../CustomerListView/util/AgreePopUp";
+import SaveIcon from "@material-ui/icons/Save";
 
 const states = [
   {
@@ -28,12 +31,14 @@ const states = [
   }
 ];
 
+const QRCode = require('qrcode.react');
 const useStyles = makeStyles(() => ({
   root: {}
 }));
 
 const ProfileDetails = ({ className, ...rest }) => {
   const classes = useStyles();
+  const [openPopUp,setOpenPopUp]=useState(false);   // for popup
   const [values, setValues] = useState({
     firstName: 'Katarina',
     lastName: 'Smith',
@@ -49,6 +54,14 @@ const ProfileDetails = ({ className, ...rest }) => {
       [event.target.name]: event.target.value
     });
   };
+
+  const handleOnFormSubmit=()=>{
+      setOpenPopUp(true);
+  }
+
+  const handlePopUpClose=()=>{
+      setOpenPopUp(false);
+  }
 
   return (
     <form
@@ -173,6 +186,20 @@ const ProfileDetails = ({ className, ...rest }) => {
           </Grid>
         </CardContent>
         <Divider />
+
+        <CardContent>
+
+          <Box
+            alignItems="center"
+            display="flex"
+            flexDirection="column"
+            p={3}
+          >
+            <QRCode value="http://facebook.com/" />
+          </Box>
+        </CardContent>
+
+        <Divider />
         <Box
           display="flex"
           justifyContent="flex-end"
@@ -181,12 +208,18 @@ const ProfileDetails = ({ className, ...rest }) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={handleOnFormSubmit}
+            startIcon={<SaveIcon/>}
           >
             Save details
           </Button>
         </Box>
+
       </Card>
+      <AgreePopUp open={openPopUp} handleClose={handlePopUpClose} message={"Les modifications ont été bien enregistré"}/>
     </form>
+
+
   );
 };
 

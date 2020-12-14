@@ -12,6 +12,7 @@ import {
   TextField,
   makeStyles
 } from '@material-ui/core';
+import SaveIcon from "@material-ui/icons/Save";
 
 const states = [
   {
@@ -181,6 +182,7 @@ const ProfileDetails = ({ className, ...rest }) => {
           <Button
             color="primary"
             variant="contained"
+            startIcon={<SaveIcon/>}
           >
             Save details
           </Button>

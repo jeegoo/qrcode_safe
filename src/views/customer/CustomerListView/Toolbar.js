@@ -20,6 +20,7 @@ import Grid from "@material-ui/core/Grid";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {},
   importButton: {
@@ -130,7 +131,7 @@ const Toolbar = ({ className,workerselected,isOneWorkerSelected, ...rest }) => {
                </Grid>
                <Grid item mt={4} xs={12}>
                     {displayWorkerOptions()}
-                </Grid>
+               </Grid>
              </Grid>
           </CardContent>
         </Card>
