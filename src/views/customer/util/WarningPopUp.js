@@ -7,6 +7,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import SuccessMessage from "./SuccessMessage";
+import Alert from "@material-ui/lab/Alert";
+import AlertTitle from "@material-ui/lab/AlertTitle";
+import WarningMessage from "./WarningMessage";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -14,11 +17,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 
-export default function AgreePopUp({handleClose,open,message}) {
+export default function AgreePopUp({handleClose,handleOnAgree,open,message}) {
 
   const [openSuccessMessage,setOpenSuccessMessage] = useState(false);
 
   const handleClickOnAgree=()=>{
+           handleOnAgree();
            setOpenSuccessMessage(true);
   }
 
@@ -43,26 +47,28 @@ export default function AgreePopUp({handleClose,open,message}) {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">
+
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
-          </DialogContentText>
+          <Alert severity="warning">
+            <AlertTitle>Attention</AlertTitle>
+               Vos Modifications seront supprimées!
+          </Alert>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Disagree
+            Annuler
           </Button>
           <Button onClick={()=>{
                    handleClose();
                    handleClickOnAgree();
           }} color="primary">
-            Agree
+            Valider
           </Button>
         </DialogActions>
       </Dialog>
-      <SuccessMessage open={openSuccessMessage} handleClose={handleSuccessMessageClose} message={message}/>
+      <WarningMessage open={openSuccessMessage} handleClose={handleSuccessMessageClose} message={message}/>
     </div>
   );
 }

@@ -7,16 +7,36 @@ import PrintIcon from '@material-ui/icons/Print';
 import EditIcon from '@material-ui/icons/Edit';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import EmailIcon from '@material-ui/icons/Email';
-export default function OptionMenu() {
+import SaveIcon from '@material-ui/icons/Save';
+
+export default function OptionMenu({disabledInput,setDisabledInput,handleOnFormSubmit}) {
+
+  const handleOnClickEditButton=()=>{
+       setDisabledInput(false);
+  }
+
   return (
     <div>
-      <Tooltip title="Add">
+        {!disabledInput ? (
+          <Tooltip TransitionComponent={Zoom} title="Enregister les modifications">
+            <Button
+            onClick={handleOnFormSubmit}
+            ><SaveIcon/></Button>
+          </Tooltip>
+        ) : null
+        }
+
+        <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Modifier">
+            <Button
+            onClick={handleOnClickEditButton}
+            ><EditIcon/></Button>
+        </Tooltip>
+
+
+      <Tooltip title="Envoyer un mail">
         <Button><EmailIcon/></Button>
       </Tooltip>
-      <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Add">
-        <Button><EditIcon/></Button>
-      </Tooltip>
-      <Tooltip TransitionComponent={Zoom} title="Add">
+      <Tooltip TransitionComponent={Zoom} title="Imprimer la fiche">
         <Button><PrintIcon/></Button>
       </Tooltip>
     </div>

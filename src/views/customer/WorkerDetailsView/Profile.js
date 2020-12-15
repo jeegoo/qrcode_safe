@@ -13,7 +13,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import UploadButton from "../CustomerListView/util/UploadButton";
+import UploadButton from "../util/UploadButton";
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',

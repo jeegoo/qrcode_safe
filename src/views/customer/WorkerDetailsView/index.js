@@ -49,7 +49,7 @@ const Account = (props) => {
             md={6}
             xs={12}
           >
-            <ProfileDetails  disabledInput={disabledInput} />
+            <ProfileDetails  disabledInput={disabledInput} setDisabledInput={setDisabledInput}/>
           </Grid>
         </Grid>
       </Container>
