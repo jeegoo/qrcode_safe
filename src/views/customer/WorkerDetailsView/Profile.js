@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Profile = ({ className, ...rest }) => {
+const Profile = ({ className,disabledInput, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -72,16 +72,23 @@ const Profile = ({ className, ...rest }) => {
           </Typography>
         </Box>
       </CardContent>
-      <Divider />
-      <CardActions>
-        <Box
-          alignItems="center"
-          display="flex"
-          flexDirection="column"
-        >
-         <UploadButton/>
-        </Box>
-      </CardActions>
+
+      {!disabledInput ?(
+        <span>
+            <Divider />
+            <CardActions>
+              <Box
+                alignItems="center"
+                display="flex"
+                flexDirection="column"
+              >
+                <UploadButton/>
+
+              </Box>
+            </CardActions>
+          </span>
+          ):null}
+
     </Card>
   );
 };

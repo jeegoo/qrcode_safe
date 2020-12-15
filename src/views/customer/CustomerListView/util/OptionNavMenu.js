@@ -8,6 +8,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import EditIcon from '@material-ui/icons/Edit';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import {Link} from "react-router-dom";
+import PrintIcon from '@material-ui/icons/Print';
 import MoreOptionsIcon from "./MoreOptionsIcon";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +44,10 @@ const displayOneWorkerMenuOptions=(isOneWorkerSelected,classes,selectedWorker) =
                     >
                       Modifier
                     </Button>
+
+
+
+
          </span>);
 
 }

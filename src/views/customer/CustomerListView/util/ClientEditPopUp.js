@@ -141,7 +141,7 @@ export default function CustomizedDialogs(props) {
         <DialogActions>
 
           <Button autoFocus onClick={props.handleClose} color="primary">
-            Annuler
+            Fermer
           </Button>
 
           <Box

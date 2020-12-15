@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import AgreePopUp from "../CustomerListView/util/AgreePopUp";
 import SaveIcon from "@material-ui/icons/Save";
+import OptionMenu from "./util/OptionsMenu";
 
 const states = [
   {
@@ -36,9 +37,10 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const ProfileDetails = ({ className, ...rest }) => {
+const ProfileDetails = ({ className,disabledInput,...rest }) => {
   const classes = useStyles();
-  const [openPopUp,setOpenPopUp]=useState(false);   // for popup
+  const [openPopUp,setOpenPopUp]=useState(false);   // for agree change popup
+
   const [values, setValues] = useState({
     firstName: 'Katarina',
     lastName: 'Smith',
@@ -77,6 +79,10 @@ const ProfileDetails = ({ className, ...rest }) => {
         />
         <Divider />
         <CardContent>
+          <OptionMenu />
+        </CardContent>
+        <Divider />
+        <CardContent>
           <Grid
             container
             spacing={3}
@@ -92,6 +98,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 label="First name"
                 name="firstName"
                 onChange={handleChange}
+                disabled={disabledInput}
                 required
                 value={values.firstName}
                 variant="outlined"
@@ -107,6 +114,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 label="Last name"
                 name="lastName"
                 onChange={handleChange}
+                disabled={disabledInput}
                 required
                 value={values.lastName}
                 variant="outlined"
@@ -122,6 +130,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 label="Email Address"
                 name="email"
                 onChange={handleChange}
+                disabled={disabledInput}
                 required
                 value={values.email}
                 variant="outlined"
@@ -137,6 +146,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 label="Phone Number"
                 name="phone"
                 onChange={handleChange}
+                disabled={disabledInput}
                 type="number"
                 value={values.phone}
                 variant="outlined"
@@ -152,6 +162,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 label="Country"
                 name="country"
                 onChange={handleChange}
+                disabled={disabledInput}
                 required
                 value={values.country}
                 variant="outlined"
@@ -167,8 +178,10 @@ const ProfileDetails = ({ className, ...rest }) => {
                 label="Select State"
                 name="state"
                 onChange={handleChange}
+                disabled={disabledInput}
                 required
                 select
+                disabled
                 SelectProps={{ native: true }}
                 value={values.state}
                 variant="outlined"
@@ -210,9 +223,11 @@ const ProfileDetails = ({ className, ...rest }) => {
             variant="contained"
             onClick={handleOnFormSubmit}
             startIcon={<SaveIcon/>}
+            disabled={disabledInput}
           >
-            Save details
+            Enregistrer
           </Button>
+
         </Box>
 
       </Card>

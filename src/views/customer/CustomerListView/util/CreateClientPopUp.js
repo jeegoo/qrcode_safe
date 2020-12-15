@@ -13,6 +13,7 @@ import DatePicker from "./DatePicker";
 import UploadButton from "./UploadButton";
 import ProfilePicture from "./ProfilePicture";
 import SaveIcon from "@material-ui/icons/Save";
+import SuccessMessage from "./SuccessMessage";
 const QRCode = require('qrcode.react');
 
 const styles = (theme) => ({
@@ -59,6 +60,20 @@ const DialogActions = withStyles((theme) => ({
 
 
 export default function CreateClientPopUp(props) {
+
+  const [openSuccessMessage,setOpenSuccessMessage] = useState(false);
+
+  const handleOnSubmitClientCreation=()=>{
+      setOpenSuccessMessage(true);
+  }
+
+
+  const handleSuccessMessageClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSuccessMessage(false);
+  };
 
 
   function getData(data){
@@ -259,7 +274,9 @@ export default function CreateClientPopUp(props) {
             <Button
               color="primary"
               variant="contained"
-              autoFocus onClick={props.handleClose}
+              autoFocus onClick={(event)=>{props.handleSubmit();
+                                           handleOnSubmitClientCreation();
+              }}
               startIcon={<SaveIcon />}
             >
               ENREGISTRER
@@ -267,6 +284,8 @@ export default function CreateClientPopUp(props) {
           </Box>
         </DialogActions>
       </Dialog>
+      <SuccessMessage open={openSuccessMessage} handleClose={handleSuccessMessageClose} message={"Le salarié a été bien créé"}/>
     </div>
+
   );
 }

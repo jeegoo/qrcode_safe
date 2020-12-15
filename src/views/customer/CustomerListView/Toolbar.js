@@ -67,6 +67,11 @@ const Toolbar = ({ className,workerselected,isOneWorkerSelected, ...rest }) => {
     });
   };
 
+  const handleCreateWorkerSubmit = ()=>{
+     setOpen(false);
+
+  }
+
   const displayWorkerOptions=()=>{
 
        if(workerselected)
@@ -137,7 +142,7 @@ const Toolbar = ({ className,workerselected,isOneWorkerSelected, ...rest }) => {
         </Card>
       </Box>
 
-       <CreateClientPopUp open={open} handleClose={handleClosePopup} worker={workerValues} handleChange={handleChange}/>
+       <CreateClientPopUp open={open} handleClose={handleClosePopup} handleSubmit={handleCreateWorkerSubmit} worker={workerValues} handleChange={handleChange}/>
 
     </div>
 

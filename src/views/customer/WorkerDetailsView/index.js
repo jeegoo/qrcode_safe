@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Container,
   Grid,
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Account = (props) => {
   const classes = useStyles();
+  const [disabledInput,setDisabledInput]=useState(true);
   let { id } = useParams();
   console.log(useParams());
 
@@ -40,7 +41,7 @@ const Account = (props) => {
             md={6}
             xs={12}
           >
-            <Profile />
+            <Profile disabledInput={disabledInput} />
           </Grid>
           <Grid
             item
@@ -48,7 +49,7 @@ const Account = (props) => {
             md={6}
             xs={12}
           >
-            <ProfileDetails   />
+            <ProfileDetails  disabledInput={disabledInput} />
           </Grid>
         </Grid>
       </Container>
