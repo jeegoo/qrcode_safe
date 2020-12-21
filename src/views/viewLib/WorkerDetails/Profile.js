@@ -13,16 +13,9 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import UploadButton from "../util/UploadButton";
+import UploadButton from "../../util/UploadButton";
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
-};
+
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -32,7 +25,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Profile = ({ className,disabledInput, ...rest }) => {
+const Profile = ({ className,disabledInput,values, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -41,34 +34,34 @@ const Profile = ({ className,disabledInput, ...rest }) => {
       {...rest}
     >
       <CardContent>
-        <Box
-          alignItems="center"
-          display="flex"
-          flexDirection="column"
-        >
+          <Box
+            alignItems="center"
+            display="flex"
+            flexDirection="column"
+          >
           <Avatar
             className={classes.avatar}
-            src={user.avatar}
+            src={values.avatar}
           />
           <Typography
             color="textPrimary"
             gutterBottom
             variant="h3"
           >
-            {user.name}
+            {values.name}
           </Typography>
           <Typography
             color="textSecondary"
             variant="body1"
           >
-            {`${user.city} ${user.country}`}
+            {`${values.city} ${values.country}`}
           </Typography>
           <Typography
             className={classes.dateText}
             color="textSecondary"
             variant="body1"
           >
-            {`${moment().format('hh:mm A')} ${user.timezone}`}
+            {`${moment().format('hh:mm A')} ${values.timezone}`}
           </Typography>
         </Box>
       </CardContent>

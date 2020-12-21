@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import ClientEditPopUp from "../util/ClientEditPopUp";
+import ClientEditPopUp from "../../util/ClientEditPopUp";
 
 import {
   Avatar,
@@ -21,8 +21,8 @@ import {
   makeStyles
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
-import InfoSafety from "../util/InfoSafety";
-import MoreOptionsIcon from "../util/MoreOptionsIcon";
+import InfoSafety from "../../util/InfoSafety";
+import MoreOptionsIcon from "../../util/MoreOptionsIcon";
 
 
 

@@ -10,23 +10,9 @@ import NotFoundView from 'src/views/errors/NotFoundView';
 import ProductListView from 'src/views/product/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
-import WorkerDetailsView from 'src/views/customer/WorkerDetailsView/index';
-
-/**
-const routes = {
-  '/': () => <HomePage />,
-  '/login': () => <LoginView />,
-  '/register': () => <RegisterView />,
-  '/app/account': () => <AccountView /> ,
-  '/app/customers': () => <CustomerListView /> ,
-  '/app/products': () => <ProductListView /> ,
-  '/app/settings': () => <SettingsView /> ,
-  '/app/dashboard': () => <DashboardView />  ,
-  '/app/*': () => <Navigate to="/404" /> ,
+import WorkerDetailsView from 'src/views/customer/WorkerDetailsView';
 
 
-}
-**/
 
 
 const routes = [
