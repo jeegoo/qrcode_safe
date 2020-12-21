@@ -38,11 +38,8 @@ const ProfileDetails = ({ className,disabledInput,setDisabledInput,
   const [openWarningPopUp,setWarningPopUp]=useState(false);
 
 
-
-
   const handleOnFormSubmit=()=>{
 
-    console.log(valuesChanged)
     if(valuesChanged)  //if some changed were occured on the page
     {
       setAgreeOpenPopUp(true);
@@ -51,6 +48,7 @@ const ProfileDetails = ({ className,disabledInput,setDisabledInput,
   }
 
   const handleOnAgreeChanges=()=>{
+
         setDisabledInput(true);
         setValuesChanged(false);
   }

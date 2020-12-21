@@ -11,9 +11,14 @@ import ProductListView from 'src/views/product/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import WorkerDetailsView from 'src/views/customer/WorkerDetailsView';
+import Session from "./lib/Session";
 
 
-
+const getView=(view)=>{
+      if (Session.isConnected())
+          return view;
+      return <LoginView />;
+}
 
 const routes = [
   {
@@ -33,12 +38,12 @@ const routes = [
     path: 'app',
     element: <DashboardLayout />,
     children: [
-      { path: '/account', element: <AccountView /> },
-      { path: '/customers', element: <CustomerListView />},
-      { path: '/customers/:id', element: <WorkerDetailsView />},
-      { path: '/dashboard', element: <DashboardView /> },
-      { path: '/products', element: <ProductListView /> },
-      { path: '/settings', element: <SettingsView /> },
+      { path: '/account', element: getView(<AccountView />) },
+      { path: '/customers', element: getView(<CustomerListView />)},
+      { path: '/customers/:id', element: getView(<WorkerDetailsView />)},
+      { path: '/dashboard', element: getView(<DashboardView />) },
+      { path: '/products', element: getView(<ProductListView />) },
+      { path: '/settings', element: getView(<SettingsView />) },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   }

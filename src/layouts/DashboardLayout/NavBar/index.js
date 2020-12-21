@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import {Link as RouterLink, useLocation, useNavigate} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
@@ -23,6 +23,7 @@ import {
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
+import Session from "../../../lib/Session";
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -103,6 +104,14 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
+  const navigate = useNavigate();
+
+
+  const handleDisconnectClick=()=>{
+       Session.removeUser();
+       Session.removeJwt();
+       navigate('/login');
+  }
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -153,8 +162,21 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               title={item.title}
               icon={item.icon}
             />
+
           ))}
+
+          <Button
+            key="Se deconnecter"
+            title="Se deconnecter"
+            icon={<LockIcon/>}
+            onClick={handleDisconnectClick}
+          >
+            Se deconnecter
+          </Button>
+
+
         </List>
+
       </Box>
       <Box flexGrow={1} />
 

@@ -7,7 +7,6 @@ const QRCode = require('qrcode.react');
 export default function  AdminDetailsView () {
 
 
-
     const [values, setValues] = useState({
 
       firstName: 'Katarina',
@@ -47,6 +46,8 @@ export default function  AdminDetailsView () {
       });
       setValuesChanged(true);
     };
+
+
 
     const displayContent=()=>{
            return  (<span>
@@ -169,17 +170,7 @@ export default function  AdminDetailsView () {
                   </CardContent>
                       <Divider />
 
-                  <CardContent>
 
-                    <Box
-                      alignItems="center"
-                      display="flex"
-                      flexDirection="column"
-                      p={3}
-                    >
-                      <QRCode value="http://facebook.com/" />
-                    </Box>
-              </CardContent>
                </span>)
     }
 

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import {Formik, useFormik} from 'formik';
 import {
   Box,
   Button,
@@ -13,6 +13,9 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import Session from "../../lib/Session";
+const axios = require('axios')
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,9 +26,31 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
+
+
+
+
 const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [isConnected,setIsConnected]=useState()
+
+
+
+  const handleOnSubmitLoginForm=(values)=>{
+        axios.post('http://82.165.184.180:1337/auth/local',{
+              identifier:values.email,
+              password:values.password
+        }).then((res)=>{
+             if( Session.saveUser(res.data.user) && Session.saveJwt(res.data.jwt)) //save the user and jwt  on the session
+                  navigate('/app/dashboard', { replace: true })
+        }).catch( error =>{
+               console.log(error)
+        })
+
+  }
+
 
   return (
     <Page
@@ -41,19 +66,17 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
+              email: '',
+              password: ''
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
-            }}
+            onSubmit={(values) => handleOnSubmitLoginForm(values)}
           >
             {({
-              errors,
+              errors ,
               handleBlur,
               handleChange,
               handleSubmit,

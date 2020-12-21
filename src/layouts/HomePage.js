@@ -1,40 +1,24 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import Login from '../views/auth/LoginView';
 import MainLayout from "./MainLayout";
+import Session from "../lib/Session";
 
 
+export default function HomePage (props){
 
-export default class CreateClient extends Component{
+
+        const [isLogged,setIsLogged] = useState(Session.isConnected());
 
 
-        constructor(props){
-              super(props);
-              this.is_logged_in = this.is_logged_in.bind(this);
-              this.displayRightPage = this.displayRightPage.bind(this);
+        const displayRightPage=()=>{
 
-        }
-
-        is_logged_in (){
-             return false;
-        }
-
-        displayRightPage(){
-
-              if(this.is_logged_in())
+              if(isLogged)
                    return <MainLayout />;
               return <Login />;
-
-
         }
 
+        return <div className="login"> {displayRightPage()} </div>
 
-        render() {
-                  return (
-                    <div className="login">
-                      {this.displayRightPage()}
-                    </div>
-                  );
-          }
 
 
 };
