@@ -9,6 +9,7 @@
              this.removeUser=this.removeUser.bind(this);
              this.saveJwt=this.saveJwt.bind(this);
              this.removeJwt=this.removeJwt.bind(this);
+             this.logOut=this.logOut.bind(this);
 
 
            }
@@ -49,6 +50,10 @@
                 localStorage.removeItem("jwt");
            }
 
+           logOut(){
+                this.removeUser();
+                 this.removeJwt();
+           }
 }
 
  export default Session = new Session();

@@ -66,11 +66,14 @@ const items = [
     title: 'Login'
   },
    **/
+
+  /**
   {
     href: '/register',
     icon: UserPlusIcon,
     title: 'Compte Admin'
   },
+   **/
   /**
   {
     href: '/404',
@@ -108,8 +111,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
 
   const handleDisconnectClick=()=>{
-       Session.removeUser();
-       Session.removeJwt();
+       Session.logOut();
        navigate('/login');
   }
 
@@ -163,19 +165,18 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               icon={item.icon}
             />
 
-          ))}
+          ))
+          }
 
           <Button
             key="Se deconnecter"
             title="Se deconnecter"
             icon={<LockIcon/>}
             onClick={handleDisconnectClick}
-          >
-            Se deconnecter
-          </Button>
-
+          />
 
         </List>
+
 
       </Box>
       <Box flexGrow={1} />
