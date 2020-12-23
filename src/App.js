@@ -10,7 +10,6 @@ import Session from "./lib/Session";
 
 const App = () => {
 
- // const [isConnected,setIsConnected] = useState(Session.isConnected());
   const routing = useRoutes(routes(Session.isConnected()));
 
 

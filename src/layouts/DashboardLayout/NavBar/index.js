@@ -80,12 +80,13 @@ const items = [
     icon: AlertCircleIcon,
     title: 'Error'
   },
-   **/
+
   {
     href: '/login',
     icon: LockIcon,
     title: 'Se deconnecter'
   }
+   **/
 ];
 
 const useStyles = makeStyles(() => ({
@@ -173,7 +174,9 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             title="Se deconnecter"
             icon={<LockIcon/>}
             onClick={handleDisconnectClick}
-          />
+          >
+            Se déconnecter
+          </Button>
 
         </List>
 

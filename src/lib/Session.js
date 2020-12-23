@@ -42,6 +42,13 @@
 
            }
 
+           login(user,jwt){
+             if(this.saveUser(user) && this.saveJwt(jwt))
+                 return true;
+             else
+               this.logOut();
+           }
+
            removeUser(){
                 localStorage.removeItem("user");
            }

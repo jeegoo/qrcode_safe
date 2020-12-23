@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Session from "../../lib/Session";
+import Alert from "@material-ui/lab/Alert";
 const axios = require('axios')
 
 
@@ -34,7 +35,19 @@ const useStyles = makeStyles((theme) => ({
 const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const [isConnected,setIsConnected]=useState()
+  const formik=useFormik({
+     initialValues:{
+        email: '',
+        password: ''
+     },
+    validationSchema:Yup.object().shape({
+        email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+        password: Yup.string().max(255).required('Password is required')
+      }),
+    onSubmit:(values) => handleOnSubmitLoginForm(values)
+
+  });
+  const [isError,setIsError]=useState(false);
 
 
 
@@ -43,10 +56,14 @@ const LoginView = () => {
               identifier:values.email,
               password:values.password
         }).then((res)=>{
-             if( Session.saveUser(res.data.user) && Session.saveJwt(res.data.jwt)) //save the user and jwt  on the session
-                  navigate('/app/dashboard', { replace: true })
+             if( Session.login(res.data.user,res.data.jwt) ) {//save the user and jwt  on the session
+               navigate('/app/dashboard', {replace: true})
+
+             }
         }).catch( error =>{
-               console.log(error)
+               setIsError(true);
+               formik.setSubmitting(false);
+
         })
 
   }
@@ -64,27 +81,7 @@ const LoginView = () => {
         justifyContent="center"
       >
         <Container maxWidth="sm">
-          <Formik
-            initialValues={{
-              email: '',
-              password: ''
-            }}
-            validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
-            })}
-            onSubmit={(values) => handleOnSubmitLoginForm(values)}
-          >
-            {({
-              errors ,
-              handleBlur,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-              touched,
-              values
-            }) => (
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={formik.handleSubmit}>
                 <Box mb={3}>
                   <Typography
                     color="textPrimary"
@@ -103,35 +100,35 @@ const LoginView = () => {
 
 
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
+                  error={Boolean(formik.touched.email && formik.errors.email)}
                   fullWidth
-                  helperText={touched.email && errors.email}
+                  helperText={formik.touched.email && formik.errors.email}
                   label="Email Address"
                   margin="normal"
                   name="email"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                   type="email"
-                  value={values.email}
+                  value={formik.values.email}
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.password && errors.password)}
+                  error={Boolean(formik.touched.password && formik.errors.password)}
                   fullWidth
-                  helperText={touched.password && errors.password}
+                  helperText={formik.touched.password && formik.errors.password}
                   label="Password"
                   margin="normal"
                   name="password"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                   type="password"
-                  value={values.password}
+                  value={formik.values.password}
                   variant="outlined"
                 />
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    disabled={formik.isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
@@ -154,9 +151,10 @@ const LoginView = () => {
                     Créer un compte
                   </Link>
                 </Typography>
+                { isError ?(
+                   <Alert severity="error">Identifiant ou mot de passe erroné!</Alert>):null
+                }
               </form>
-            )}
-          </Formik>
         </Container>
       </Box>
     </Page>
