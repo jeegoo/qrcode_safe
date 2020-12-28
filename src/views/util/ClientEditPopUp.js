@@ -8,11 +8,13 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import {Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
+import {Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ProfilePicture from "./ProfilePicture";
 import {Link} from "react-router-dom";
 const QRCode = require('qrcode.react');
+
+
 
 const styles = (theme) => ({
   root: {
@@ -60,21 +62,16 @@ const DialogActions = withStyles((theme) => ({
 
 
 
-export default function CustomizedDialogs(props) {
+export default function CustomizedDialogs({worker,handleClose,open,...rest}) {
 
+console.log(worker.photo_profil)
 
-  function getData(data){
-
-           if(props.worker==null)
-               return "";
-           return props.worker[data];
-  }
 
   return (
     <div>
 
-      <Dialog onClose={props.handleClose} aria-labelledby="customized-dialog-title" open={props.open}>
-        <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Fiche d'ouvrier
         </DialogTitle>
         <DialogContent dividers>
@@ -90,7 +87,7 @@ export default function CustomizedDialogs(props) {
                       display="flex"
                       flexDirection="column"
                     >
-                      <ProfilePicture src={getData("avatarUrl")}/>
+                      <ProfilePicture  src={worker.photo_profil!==undefined ? `http://82.165.184.180:1337${worker.photo_profil[0].url}`:""}/>
                       <Typography
                         color="textPrimary"
                         gutterBottom
@@ -101,7 +98,7 @@ export default function CustomizedDialogs(props) {
 
                         variant="h4"
                       >
-                        {getData("name")}
+                        {worker.nom}
                       </Typography>
                       <CheckCircleIcon
                       color="primary"
@@ -140,7 +137,7 @@ export default function CustomizedDialogs(props) {
         </DialogContent>
         <DialogActions>
 
-          <Button autoFocus onClick={props.handleClose} color="primary">
+          <Button autoFocus onClick={handleClose} color="primary">
             Fermer
           </Button>
 
@@ -149,7 +146,7 @@ export default function CustomizedDialogs(props) {
             justifyContent="flex-end"
             p={2}
           >
-            <Link to={`/app/customers/${getData("id")}`}>
+            <Link to={`/app/customers/${worker.id}`}>
               <Button
                 color="primary"
                 variant="contained"

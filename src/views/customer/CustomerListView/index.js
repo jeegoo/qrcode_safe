@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Box,
   Container,
@@ -8,6 +8,7 @@ import Page from 'src/components/Page';
 import Results from './Results';
 import Toolbar from './Toolbar';
 import data from './data';
+import WorkerData from '../../util/workerData';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,10 +20,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CustomerListView = () => {
+
   const classes = useStyles();
-  const [customers] = useState(data);
-  const [workerSelected,setWorkerSelected]=useState(false);
-  const [isOneWorkerSelected,setIsOneWorkerSelected]=useState(false);
+  const [customers,setCustomers] = useState([]);
+  const [workerSelected, setWorkerSelected] = useState(false);
+  const [isOneWorkerSelected, setIsOneWorkerSelected] = useState(false);
+
+
+
+  useEffect(()=>{
+            WorkerData.getAllEmployees().then(res=>{
+                  setCustomers(res.data);
+            })
+  }
+  ,[]
+  )
+
+    console.log(customers)
+
 
   return (
     <Page
@@ -32,7 +47,8 @@ const CustomerListView = () => {
       <Container maxWidth={false}>
         <Toolbar workerselected={workerSelected} isOneWorkerSelected={isOneWorkerSelected}/>
         <Box mt={3}>
-          <Results customers={customers} setworkerselected={setWorkerSelected} setIsOneWorkerSelected={setIsOneWorkerSelected}/>
+          <Results customers={customers} setworkerselected={setWorkerSelected}
+                   setIsOneWorkerSelected={setIsOneWorkerSelected}/>
         </Box>
       </Container>
     </Page>

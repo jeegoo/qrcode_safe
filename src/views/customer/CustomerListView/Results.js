@@ -105,6 +105,7 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
   };
 
   const handleClickOnClient= (event,customer) => {
+    console.log(customer)
      // if(noClientSelected()){
           setClickedWorker(customer);
           setOpen(true);
@@ -152,7 +153,7 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {customers.slice(0, limit).map((customer,id) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -174,15 +175,16 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
                     >
                       <Avatar
                         className={classes.avatar}
-                        src={customer.avatarUrl}
+                        src={`http://82.165.184.180:1337${customer.photo_profil[0].url}`}
                       >
-                       {getInitials(customer.name)}
+
+                       {getInitials(customer.nom)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        <Link href="#" >{customer.name}</Link>
+                        <Link href="#" >{customer.nom}</Link>
 
                       </Typography>
                     </Box>
@@ -191,16 +193,16 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {`${customer.adresse.ville}, ${customer.adresse.region}, ${customer.adresse.pays}`}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {customer.telephone}
                   </TableCell>
                   <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                    {moment(customer.published_at).format('DD/MM/YYYY')}
                   </TableCell>
                   <TableCell>
-                    <InfoSafety safety={customer.safety} message={customer.safety} />
+                    <InfoSafety safety={customer.information_employes[0].apte} message={customer.information_employes[0].apte} />
                   </TableCell>
 
                 </TableRow>

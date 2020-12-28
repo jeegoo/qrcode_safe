@@ -1,13 +1,40 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import WorkerDetails from "../../viewLib/WorkerDetails"
 import {Box, Card, CardContent, Divider, Grid, TextField} from "@material-ui/core";
+import {useParams} from "react-router-dom";
+import WorkerData from '../../util/workerData';
+
 
 const QRCode = require('qrcode.react');
 
 export default function  AdminDetailsView () {
 
+  const {id}=useParams();
 
+  useEffect(()=>{
 
+        WorkerData.getEmployeeById(id).then(res=>{
+                 //setValues(res.data)
+          console.log(res.data)
+        })
+
+  },[])
+
+ // const [values, setValues] = useState({
+
+  const [values, setValues] = useState({
+
+    nom: 'Katarina',
+    prenom: 'Smith',
+    email: 'demo@devias.io',
+    telephone: '',
+    region: 'Alabama',
+    pays: 'USA',
+    photo_profil: '/static/images/avatars/avatar_6.png',
+    timezone: 'GTM-7'
+  });
+
+/**
   const [values, setValues] = useState({
 
     firstName: 'Katarina',
@@ -22,6 +49,7 @@ export default function  AdminDetailsView () {
     name: 'Katarina Smith',
     timezone: 'GTM-7'
   });
+**/
 
   const [disabledInput,setDisabledInput]=useState(true);
   const [valuesChanged,setValuesChanged]=useState(false);
