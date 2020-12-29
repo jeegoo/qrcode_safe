@@ -15,6 +15,7 @@ import {
 import Page from 'src/components/Page';
 import Session from "../../lib/Session";
 import Alert from "@material-ui/lab/Alert";
+import DIR from '../../dir/dir'
 const axios = require('axios')
 
 
@@ -52,7 +53,7 @@ const LoginView = () => {
 
 
   const handleOnSubmitLoginForm=(values)=>{
-        axios.post('http://82.165.184.180:1337/auth/local',{
+        axios.post(`${DIR}/auth/local`,{
               identifier:values.email,
               password:values.password
         }).then((res)=>{

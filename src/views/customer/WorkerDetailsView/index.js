@@ -3,7 +3,7 @@ import WorkerDetails from "../../viewLib/WorkerDetails"
 import {Box, Card, CardContent, Divider, Grid, TextField} from "@material-ui/core";
 import {useParams} from "react-router-dom";
 import WorkerData from '../../util/workerData';
-
+import FilterData from "../../../lib/FilterData";
 
 const QRCode = require('qrcode.react');
 
@@ -14,8 +14,9 @@ export default function  AdminDetailsView () {
   useEffect(()=>{
 
         WorkerData.getEmployeeById(id).then(res=>{
-                 //setValues(res.data)
-          console.log(res.data)
+
+                 setValues(FilterData.filterWorkerDetailsData(res.data))
+
         })
 
   },[])
@@ -24,14 +25,15 @@ export default function  AdminDetailsView () {
 
   const [values, setValues] = useState({
 
-    nom: 'Katarina',
-    prenom: 'Smith',
-    email: 'demo@devias.io',
+    nom: '',
+    prenom: '',
+    email: '',
     telephone: '',
-    region: 'Alabama',
-    pays: 'USA',
-    photo_profil: '/static/images/avatars/avatar_6.png',
+    region: '',
+    pays: '',
+    photo_profil: '',
     timezone: 'GTM-7'
+
   });
 
 /**
@@ -77,6 +79,8 @@ export default function  AdminDetailsView () {
   };
 
   const displayContent=()=>{
+
+    console.log(values)
     return  (<span>
 
              <Divider />
@@ -98,7 +102,7 @@ export default function  AdminDetailsView () {
                       onChange={handleChange}
                       disabled={disabledInput}
                       required
-                      value={values.firstName}
+                      value={values.nom}
                       variant="outlined"
                     />
                   </Grid>
@@ -114,7 +118,7 @@ export default function  AdminDetailsView () {
                       onChange={handleChange}
                       disabled={disabledInput}
                       required
-                      value={values.lastName}
+                      value={values.prenom}
                       variant="outlined"
                     />
                   </Grid>
@@ -146,7 +150,7 @@ export default function  AdminDetailsView () {
                       onChange={handleChange}
                       disabled={disabledInput}
                       type="number"
-                      value={values.phone}
+                      value={values.telephone}
                       variant="outlined"
                     />
                   </Grid>
@@ -162,7 +166,7 @@ export default function  AdminDetailsView () {
                       onChange={handleChange}
                       disabled={disabledInput}
                       required
-                      value={values.country}
+                      value={values.pays}
                       variant="outlined"
                     />
                   </Grid>
