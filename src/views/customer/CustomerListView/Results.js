@@ -23,7 +23,7 @@ import {
 import getInitials from 'src/utils/getInitials';
 import InfoSafety from "../../util/InfoSafety";
 import MoreOptionsIcon from "../../util/MoreOptionsIcon";
-
+import DIR from "../../../utils/dir";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -105,7 +105,7 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
   };
 
   const handleClickOnClient= (event,customer) => {
-    console.log(customer)
+
      // if(noClientSelected()){
           setClickedWorker(customer);
           setOpen(true);
@@ -153,7 +153,7 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer,id) => (
+              {customers.slice(0, limit).map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -175,7 +175,7 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
                     >
                       <Avatar
                         className={classes.avatar}
-                        src={`http://82.165.184.180:1337${customer.photo_profil[0].url}`}
+                        src={`${DIR}${customer.photo_profil}`}
                       >
 
                        {getInitials(customer.nom)}
@@ -193,7 +193,7 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.adresse.ville}, ${customer.adresse.region}, ${customer.adresse.pays}`}
+                    {`${customer.ville}, ${customer.region}, ${customer.pays}`}
                   </TableCell>
                   <TableCell>
                     {customer.telephone}
@@ -202,7 +202,7 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
                     {moment(customer.published_at).format('DD/MM/YYYY')}
                   </TableCell>
                   <TableCell>
-                    <InfoSafety safety={customer.information_employes[0].apte} message={customer.information_employes[0].apte} />
+                    <InfoSafety safety={customer.apte} message={customer.apte} />
                   </TableCell>
 
                 </TableRow>

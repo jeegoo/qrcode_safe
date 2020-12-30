@@ -15,7 +15,8 @@ import {
 import Page from 'src/components/Page';
 import Session from "../../lib/Session";
 import Alert from "@material-ui/lab/Alert";
-import DIR from '../../dir/dir'
+import DIR from '../../utils/dir'
+import FilterData from "../../lib/FilterData";
 const axios = require('axios')
 
 
@@ -57,8 +58,9 @@ const LoginView = () => {
               identifier:values.email,
               password:values.password
         }).then((res)=>{
-             if( Session.login(res.data.user,res.data.jwt) ) {//save the user and jwt  on the session
-               navigate('/app/dashboard', {replace: true})
+
+             if( Session.login(FilterData.filterUserDetailsData(res.data.user),res.data.jwt)  ) {//save the user and jwt  on the session
+                 navigate('/app/dashboard', {replace: true})
 
              }
         }).catch( error =>{

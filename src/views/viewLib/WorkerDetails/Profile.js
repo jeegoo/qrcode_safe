@@ -14,7 +14,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import UploadButton from "../../util/UploadButton";
-import DIR from "../../../dir/dir";
+import DIR from "../../../utils/dir";
 
 
 
@@ -42,7 +42,7 @@ const Profile = ({ className,disabledInput,values, ...rest }) => {
           >
           <Avatar
             className={classes.avatar}
-            src={DIR+values.photo_profil}
+            src={DIR+values.photo_profil[0].url}
           />
           <Typography
             color="textPrimary"

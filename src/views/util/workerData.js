@@ -17,8 +17,6 @@ class WorkerData{
          getAllEmployees() {
 
               return   axios.get("http://82.165.184.180:1337/employes");
-
-
         }
 
         getEmployeeById(id){

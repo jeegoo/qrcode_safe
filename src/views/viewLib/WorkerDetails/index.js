@@ -7,8 +7,6 @@ import {
 import Page from 'src/components/Page';
 import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
-import { useParams } from "react-router-dom";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Account = ({values,setValues,disabledInput,setDisabledInput,displayContent,valuesChanged,setValuesChanged,...rest}) => {
+const Account = ({values,setValues,disabledInput,setDisabledInput,displayContent,valuesChanged,setValuesChanged,resetInitialWorkerValues,...rest}) => {
   const classes = useStyles();
 
   return (
@@ -36,6 +34,7 @@ const Account = ({values,setValues,disabledInput,setDisabledInput,displayContent
           <Grid item lg={8} md={6} xs={12}>
             <ProfileDetails  disabledInput={disabledInput}
                              setDisabledInput={setDisabledInput}
+                             resetInitialWorkerValues={resetInitialWorkerValues}
                              values={values}
                              valuesChanged={valuesChanged}
                              setValuesChanged={setValuesChanged}

@@ -4,10 +4,11 @@ import {Box, Card, CardContent, Divider, Grid, TextField} from "@material-ui/cor
 import {useParams} from "react-router-dom";
 import WorkerData from '../../util/workerData';
 import FilterData from "../../../lib/FilterData";
+import DIR from "../../../utils/dir";
 
 const QRCode = require('qrcode.react');
 
-export default function  AdminDetailsView () {
+export default function  WorkerDetailsView () {
 
   const {id}=useParams();
 
@@ -15,13 +16,13 @@ export default function  AdminDetailsView () {
 
         WorkerData.getEmployeeById(id).then(res=>{
 
-                 setValues(FilterData.filterWorkerDetailsData(res.data))
+                 setValues(FilterData.filterWorkerDetailsData(res.data));
+                 setInitialWorkerValues(FilterData.filterWorkerDetailsData(res.data))
 
         })
 
   },[])
 
- // const [values, setValues] = useState({
 
   const [values, setValues] = useState({
 
@@ -36,25 +37,11 @@ export default function  AdminDetailsView () {
 
   });
 
-/**
-  const [values, setValues] = useState({
-
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA',
-    avatar: '/static/images/avatars/avatar_6.png',
-    city: 'Los Angeles',
-    jobTitle: 'Senior Developer',
-    name: 'Katarina Smith',
-    timezone: 'GTM-7'
-  });
-**/
 
   const [disabledInput,setDisabledInput]=useState(true);
   const [valuesChanged,setValuesChanged]=useState(false);
+  const [initialWorkerValues,setInitialWorkerValues]=useState({});
+
   const states = [
     {
       value: 'alabama',
@@ -71,16 +58,27 @@ export default function  AdminDetailsView () {
   ];
 
   const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-    setValuesChanged(true);
+
+
+      setValues({
+        ...values,
+        [event.target.name]: event.target.value
+      });
+      setValuesChanged(true);
+
   };
+
+
+
+  const resetInitialWorkerValues =()=>{
+
+           setValues({...initialWorkerValues})
+
+  }
 
   const displayContent=()=>{
 
-    console.log(values)
+
     return  (<span>
 
              <Divider />
@@ -98,7 +96,7 @@ export default function  AdminDetailsView () {
                       fullWidth
                       helperText="Please specify the first name"
                       label="First name"
-                      name="firstName"
+                      name="nom"
                       onChange={handleChange}
                       disabled={disabledInput}
                       required
@@ -114,7 +112,7 @@ export default function  AdminDetailsView () {
                     <TextField
                       fullWidth
                       label="Last name"
-                      name="lastName"
+                      name="prenom"
                       onChange={handleChange}
                       disabled={disabledInput}
                       required
@@ -146,7 +144,7 @@ export default function  AdminDetailsView () {
                     <TextField
                       fullWidth
                       label="Phone Number"
-                      name="phone"
+                      name="telephone"
                       onChange={handleChange}
                       disabled={disabledInput}
                       type="number"
@@ -162,7 +160,7 @@ export default function  AdminDetailsView () {
                     <TextField
                       fullWidth
                       label="Country"
-                      name="country"
+                      name="pays"
                       onChange={handleChange}
                       disabled={disabledInput}
                       required
@@ -209,7 +207,7 @@ export default function  AdminDetailsView () {
                       flexDirection="column"
                       p={3}
                     >
-                      <QRCode value="http://facebook.com/" />
+                      <QRCode value={DIR+`/app/customers/${id}`} />
                     </Box>
               </CardContent>
                </span>)
@@ -220,6 +218,7 @@ export default function  AdminDetailsView () {
                          handleChange={handleChange}
                          valuesChanged={valuesChanged}
                          setValuesChanged={setValuesChanged}
+                         resetInitialWorkerValues={resetInitialWorkerValues}
                          disabledInput={disabledInput}
                          setDisabledInput={setDisabledInput}
                          displayContent={displayContent}/>

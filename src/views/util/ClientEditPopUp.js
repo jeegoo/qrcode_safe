@@ -87,7 +87,7 @@ console.log(worker.photo_profil)
                       display="flex"
                       flexDirection="column"
                     >
-                      <ProfilePicture  src={worker.photo_profil!==undefined ? `http://82.165.184.180:1337${worker.photo_profil[0].url}`:""}/>
+                      <ProfilePicture  src={worker.photo_profil!==undefined ? `http://82.165.184.180:1337${worker.photo_profil}`:""}/>
                       <Typography
                         color="textPrimary"
                         gutterBottom

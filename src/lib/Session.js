@@ -10,6 +10,7 @@
              this.saveJwt=this.saveJwt.bind(this);
              this.removeJwt=this.removeJwt.bind(this);
              this.logOut=this.logOut.bind(this);
+             this.getUser=this.getUser.bind(this);
 
 
            }
@@ -19,10 +20,15 @@
            }
 
 
+           getUser(){
+             return JSON.parse(localStorage.getItem('user'));
+
+           }
+
            saveUser(user){
              try{
-               localStorage.setItem("user",user);
-               console.log("yes")
+               localStorage.setItem("user",JSON.stringify(user));
+
                return true;
              }
                catch (error){
@@ -43,6 +49,7 @@
            }
 
            login(user,jwt){
+
              if(this.saveUser(user) && this.saveJwt(jwt))
                  return true;
              else

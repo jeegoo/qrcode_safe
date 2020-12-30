@@ -9,20 +9,15 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  Grid,
-  TextField,
   makeStyles
 } from '@material-ui/core';
 import AgreePopUp from "../../util/AgreePopUp";
 import SaveIcon from "@material-ui/icons/Save";
 import CancelIcon from '@material-ui/icons/Cancel';
 import OptionMenu from "../../util/OptionsMenu";
-import WarningMessage from "../../util/WarningMessage";
 import WarningPopUp from "../../util/WarningPopUp";
 
 
-
-const QRCode = require('qrcode.react');
 const useStyles = makeStyles(() => ({
   root: {},
   button:{
@@ -31,13 +26,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ProfileDetails = ({ className,disabledInput,setDisabledInput,
-                                  valuesChanged,setValuesChanged,
+                                  valuesChanged,setValuesChanged,resetInitialWorkerValues,
                                    displayContent,values,setValues,...rest }) => {
   const classes = useStyles();
   const [openAgreePopUp,setAgreeOpenPopUp]=useState(false);   // for agree change popup
   const [openWarningPopUp,setWarningPopUp]=useState(false);
 
 
+  //save popup
   const handleOnFormSubmit=()=>{
 
     if(valuesChanged)  //if some changed were occured on the page
@@ -47,18 +43,25 @@ const ProfileDetails = ({ className,disabledInput,setDisabledInput,
     else setDisabledInput(true);
   }
 
+  const handleOnFormCancel=()=>{
+    if(valuesChanged) //if some changed were occured on the page
+      setWarningPopUp(true);
+    else setDisabledInput(true);
+    //setDisabledInput(true);
+  }
+
   const handleOnAgreeChanges=()=>{
 
         setDisabledInput(true);
         setValuesChanged(false);
   }
 
-  const handleOnFormCancel=()=>{
-    if(valuesChanged) //if some changed were occured on the page
-       setWarningPopUp(true);
-    else setDisabledInput(true);
-      //setDisabledInput(true);
+  const handleOnAgreeCancelChange=()=>{
+        resetInitialWorkerValues();
+        setDisabledInput(true);
+        setValuesChanged(false);
   }
+
 
   const handleAgreePopUpClose=()=>{
     setAgreeOpenPopUp(false);
@@ -123,7 +126,7 @@ const ProfileDetails = ({ className,disabledInput,setDisabledInput,
 
       </Card>
       <AgreePopUp open={openAgreePopUp} handleClose={handleAgreePopUpClose} handleOnAgreeChanges={handleOnAgreeChanges} message={"Les modifications ont été bien enregistré"} />
-      <WarningPopUp open={openWarningPopUp} handleClose={handleWarningPopUpClose} handleOnAgree={handleOnAgreeChanges} message={"Les modifications ont été ecrasées"} />
+      <WarningPopUp open={openWarningPopUp} handleClose={handleWarningPopUpClose} handleOnAgree={handleOnAgreeCancelChange} message={"Les modifications ont été ecrasées"} />
     </form>
 
 
