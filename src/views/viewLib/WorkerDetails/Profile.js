@@ -42,7 +42,7 @@ const Profile = ({ className,disabledInput,values, ...rest }) => {
           >
           <Avatar
             className={classes.avatar}
-            src={DIR+values.photo_profil[0].url}
+            src={DIR+values.photo_profil}
           />
           <Typography
             color="textPrimary"

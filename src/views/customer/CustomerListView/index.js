@@ -46,7 +46,7 @@ const CustomerListView = () => {
       title="Customers"
     >
       <Container maxWidth={false}>
-        <Toolbar workerselected={workerSelected} isOneWorkerSelected={isOneWorkerSelected}/>
+        <Toolbar workerselected={workerSelected} isOneWorkerSelected={isOneWorkerSelected} customers={customers} setCustomers={setCustomers}/>
         <Box mt={3}>
           <Results customers={customers} setworkerselected={setWorkerSelected}
                    setIsOneWorkerSelected={setIsOneWorkerSelected}/>

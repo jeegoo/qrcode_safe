@@ -38,6 +38,13 @@ class WorkerData{
           return axios.post("http://82.165.184.180:1337/information-employes",data);
        }
 
+       postEmployeeWithAllAttributes({nom, prenom, email, telephone, fonction, apte,
+                                     pays, region, ville, codePostal, photo_profil},callback){
+                     
+
+
+       }
+
 
 }
 

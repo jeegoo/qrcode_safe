@@ -19,7 +19,7 @@ import OptionNavMenu from "../../util/OptionNavMenu";
 import Grid from "@material-ui/core/Grid";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-
+import WorkerData from '../../util/workerData'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -33,25 +33,27 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const Toolbar = ({ className,workerselected,isOneWorkerSelected, ...rest }) => {
+const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSelected, ...rest }) => {
 
   const classes = useStyles();
   const [open,setOpen]=useState(false);
 
   const resetWorkerValues=()=>{
       return {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        state: '',
-        country: ''
+
+          nom:'',
+          prenom:'',
+          email:'',
+          telephone: '',
+          ville:'',
+          region:'',
+          pays:'',
+          codePostal:''
       }
   }
+
   const [workerValues, setWorkerValues] = useState(resetWorkerValues);
-
-
-  const handleOnAddCustomerClicked=()=>{
+  const handleOnAddCustomerClicked=(newWorker)=>{
       setOpen(true);
   }
 
@@ -61,6 +63,7 @@ const Toolbar = ({ className,workerselected,isOneWorkerSelected, ...rest }) => {
   }
 
   const handleChange = (event) => {
+
     setWorkerValues({
       ...workerValues,
       [event.target.name]: event.target.value
@@ -68,7 +71,14 @@ const Toolbar = ({ className,workerselected,isOneWorkerSelected, ...rest }) => {
   };
 
   const handleCreateWorkerSubmit = ()=>{
-     setOpen(false);
+     WorkerData.postEmployee(workerValues).then(res=>{
+         console.log(res);
+         setCustomers([
+             ...customers,workerValues
+         ]);
+         setOpen(false);
+     })
+
 
   }
 
@@ -142,7 +152,7 @@ const Toolbar = ({ className,workerselected,isOneWorkerSelected, ...rest }) => {
         </Card>
       </Box>
 
-       <CreateClientPopUp open={open} handleClose={handleClosePopup} handleSubmit={handleCreateWorkerSubmit} worker={workerValues} handleChange={handleChange}/>
+       <CreateClientPopUp open={open} handleClose={handleClosePopup} handleSubmit={handleCreateWorkerSubmit} workerValues={workerValues} setWorkerValues={setWorkerValues} handleChange={handleChange}/>
 
     </div>
 

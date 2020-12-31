@@ -59,7 +59,7 @@ const DialogActions = withStyles((theme) => ({
 
 
 
-export default function CreateClientPopUp(props) {
+export default function CreateClientPopUp({handleClose,handleSubmit,open,workerValues,setWorkerValues,handleChange,...rest}) {
 
   const [openSuccessMessage,setOpenSuccessMessage] = useState(false);
 
@@ -76,18 +76,19 @@ export default function CreateClientPopUp(props) {
   };
 
 
+
   function getData(data){
 
-           if(props.worker==null)
+           if(workerValues==null)
                return "";
-           return props.worker[data];
+           return workerValues[data];
   }
 
   return (
     <div>
 
-      <Dialog onClose={props.handleClose} aria-labelledby="customized-dialog-title" open={props.open}>
-        <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Fiche d'ouvrier
         </DialogTitle>
         <DialogContent dividers>
@@ -150,9 +151,8 @@ export default function CreateClientPopUp(props) {
                         fullWidth
                         helperText="Préciser votre nom"
                         label="Nom"
-                        name="name"
-                        value={getData("name")}
-                        onChange={props.handleChange}
+                        name="nom"
+                        onChange={handleChange}
                         required
                         variant="outlined"
                       />
@@ -165,10 +165,9 @@ export default function CreateClientPopUp(props) {
                       <TextField
                         fullWidth
                         label="Prénom"
-                        name="name"
+                        name="prenom"
                         required
-                        value={getData("name")}
-                        onChange={props.handleChange}
+                        onChange={handleChange}
                         variant="outlined"
                       />
                     </Grid>
@@ -190,10 +189,8 @@ export default function CreateClientPopUp(props) {
                         fullWidth
                         label="Adresse mail"
                         name="email"
-                        value={getData("email")}
-                        onChange={props.handleChange}
+                        onChange={handleChange}
                         required
-
                         variant="outlined"
                       />
                     </Grid>
@@ -206,9 +203,37 @@ export default function CreateClientPopUp(props) {
                       <TextField
                         fullWidth
                         label="Numéro de téléphone"
-                        name="phone"
-                        value={getData("phone")}
-                        onChange={props.handleChange}
+                        name="telephone"
+                        onChange={handleChange}
+                        variant="outlined"
+                        required
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Ville"
+                        name="ville"
+                        onChange={handleChange}
+                        required
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Region"
+                        name="region"
+                        onChange={handleChange}
+                        required
                         variant="outlined"
                       />
                     </Grid>
@@ -220,9 +245,8 @@ export default function CreateClientPopUp(props) {
                       <TextField
                         fullWidth
                         label="Pays"
-                        name="Pays"
-                        value={getData("adress")}
-                        onChange={props.handleChange}
+                        name="pays"
+                        onChange={handleChange}
                         required
                         variant="outlined"
                       />
@@ -262,7 +286,7 @@ export default function CreateClientPopUp(props) {
         </DialogContent>
         <DialogActions>
 
-          <Button autoFocus onClick={props.handleClose} color="primary">
+          <Button autoFocus onClick={handleClose} color="primary">
             Annuler
           </Button>
 
@@ -274,7 +298,7 @@ export default function CreateClientPopUp(props) {
             <Button
               color="primary"
               variant="contained"
-              autoFocus onClick={(event)=>{props.handleSubmit();
+              autoFocus onClick={(event)=>{handleSubmit();
                                            handleOnSubmitClientCreation();
               }}
               startIcon={<SaveIcon />}
