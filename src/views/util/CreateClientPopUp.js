@@ -124,7 +124,7 @@ export default function CreateClientPopUp({handleClose,handleSubmit,open,workerV
                       </Typography>
                       <Divider />
                       <CardActions>
-                        <UploadButton/>
+                        <UploadButton handleChange={handleChange}/>
                       </CardActions>
                     </Box>
                   </CardContent>

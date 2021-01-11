@@ -14,10 +14,11 @@ export default function WorkerModel(nom, prenom, email, telephone, fonction, apt
             codePostal:codePostal
         }
         this.information_employes={
-            fonction:fonction
+            fonction:fonction,
+            apte:apte
         }
-        this.fonction=prenom;
-        this.prenom=prenom;
-        this.prenom=prenom;
+        this.telephone=telephone;
+        this.photo_profil={url:photo_profil};
+
 
 }

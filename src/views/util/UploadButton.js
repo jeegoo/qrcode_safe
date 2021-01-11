@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UploadButton() {
+export default function UploadButton({handleChange}) {
   const classes = useStyles();
 
   return (
@@ -22,10 +22,11 @@ export default function UploadButton() {
                 fullWidth
                >
           <input
+            name="photo_profil"
             accept="image/*"
             className={classes.input}
             id="contained-button-file"
-            multiple
+            onChange={(event)=>{handleChange(event,true)}}
             type="file"
           />
           Téléverser

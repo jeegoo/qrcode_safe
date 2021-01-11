@@ -48,36 +48,42 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
           ville:'',
           region:'',
           pays:'',
-          codePostal:''
+          codePostal:'',
+          photo_profil:''
       }
   }
 
-  const [workerValues, setWorkerValues] = useState(resetWorkerValues);
+  const [workerValues, setWorkerValues] = useState(resetWorkerValues());
   const handleOnAddCustomerClicked=(newWorker)=>{
       setOpen(true);
   }
 
   const handleClosePopup = () => {
-     setOpen(false);
-     setWorkerValues(resetWorkerValues());   //effacer toutes les informations saisies dans le popup
+
+       setOpen(false);
+       setWorkerValues(resetWorkerValues());   //effacer toutes les informations saisies dans le popup
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event,img) => {
 
-    setWorkerValues({
-      ...workerValues,
-      [event.target.name]: event.target.value
-    });
-  };
+      const value= !img ? event.target.value :event.target.files[0];
+      setWorkerValues({
+            ...workerValues,
+            [event.target.name]: value
+          });
+
+  }
 
   const handleCreateWorkerSubmit = ()=>{
-     WorkerData.postEmployee(workerValues).then(res=>{
-         console.log(res);
-         setCustomers([
-             ...customers,workerValues
-         ]);
-         setOpen(false);
-     })
+
+       WorkerData.postEmployeeWithAllAttributes(workerValues).then(res=>{
+          console.log(workerValues.photo_profil)
+           setCustomers([
+               ...customers,{photo_profil:workerValues.photo_profil.url,...workerValues}
+           ]);
+           setOpen(false);
+       })
+
 
 
   }

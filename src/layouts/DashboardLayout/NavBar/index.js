@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link as RouterLink, useLocation, useNavigate} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -24,6 +24,7 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 import Session from "../../../lib/Session";
+import DIR from "../../../utils/dir";
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -110,6 +111,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [user,setUser] = useState(Session.getUser());
+
 
   const handleDisconnectClick=()=>{
        Session.logOut();
@@ -138,7 +141,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         <Avatar
           className={classes.avatar}
           component={RouterLink}
-          src={user.avatar}
+          src={DIR+user.photo_profil}
           to="/app/account"
         />
         <Typography
@@ -146,8 +149,9 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           color="textPrimary"
           variant="h5"
         >
-          {user.name}
+          {user.nom+" "+user.prenom}
         </Typography>
+
         <Typography
           color="textSecondary"
           variant="body2"

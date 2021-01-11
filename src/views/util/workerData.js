@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import WorkerModel from "../../models/workerModel";
 const axios = require('axios')
 
 
@@ -11,6 +12,8 @@ class WorkerData{
               this.getEmployeeInfoById=this.getEmployeeInfoById.bind(this);
               this.postEmployee=this.postEmployee.bind(this);
               this.postEmployeeInfo=this.postEmployeeInfo.bind(this);
+              this.postAdresse=this.postAdresse.bind(this);
+              this.postProfilPicture=this.postProfilPicture.bind(this);
         }
 
 
@@ -35,14 +38,45 @@ class WorkerData{
         }
 
         postEmployeeInfo(data){
-          return axios.post("http://82.165.184.180:1337/information-employes",data);
+                 return axios.post("http://82.165.184.180:1337/information-employes",data);
        }
+
+        postAdresse(data){
+                 return axios.post("http://82.165.184.180:1337/adresses",data);
+        }
+
+        postProfilPicture(data){
+
+                 const formData = new FormData();
+                 formData.append('files',data);
+
+                 return axios.post("http://82.165.184.180:1337/upload",formData,
+                   {
+                     headers: { 'Content-Type': 'image/jpeg' }
+                   }
+                   );
+
+        }
 
        postEmployeeWithAllAttributes({nom, prenom, email, telephone, fonction, apte,
                                      pays, region, ville, codePostal, photo_profil},callback){
-                     
 
 
+                const workerModel= new WorkerModel(nom, prenom, email, telephone, fonction, apte,
+                  pays, region, ville, codePostal, photo_profil);
+
+                return  this.postProfilPicture(photo_profil).then(photo_profil_strapi=>{
+
+                             this.postEmployee({nom,prenom,email,telephone,photo_profil:photo_profil_strapi.data}).then(employe=>{
+
+                                 this.postEmployeeInfo({employe:employe.data.id,...workerModel.information_employes}).then(info_employe=>{
+                               //console.log({employe:employe.data.id,...workerModel.adresse});
+                                        this.postAdresse({employe:employe.data.id,...workerModel.adresse}).then(res=>{
+
+                               })
+                        })
+                    })
+                })
        }
 
 
