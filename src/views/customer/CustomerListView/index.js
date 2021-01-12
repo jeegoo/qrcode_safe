@@ -8,7 +8,7 @@ import Page from 'src/components/Page';
 import Results from './Results';
 import Toolbar from './Toolbar';
 import data from './data';
-import WorkerData from '../../util/workerData';
+import WorkerData from '../../util/WorkerData';
 import FilterData from "../../../lib/FilterData";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,14 +30,15 @@ const CustomerListView = () => {
 
 
   useEffect(()=>{
-            WorkerData.getAllEmployees().then(res=>{
-                  setCustomers(FilterData.filterAllWorkerData(res.data));
-            })
-  }
-  ,[]
+      WorkerData.getAllEmployees().then(res=>{
+        setCustomers(FilterData.filterAllWorkerData(res.data));
+        console.log(res.data)
+      })
+    }
+    ,[]
   )
 
-    console.log(customers)
+  console.log(customers)
 
 
   return (

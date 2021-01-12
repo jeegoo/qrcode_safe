@@ -65,15 +65,12 @@ class WorkerData{
                 const workerModel= new WorkerModel(nom, prenom, email, telephone, fonction, apte,
                   pays, region, ville, codePostal, photo_profil);
 
-                return  this.postProfilPicture(photo_profil).then(photo_profil_strapi=>{
+                 return this.postProfilPicture(photo_profil).then(photo_profil_strapi=>{
 
-                             this.postEmployee({nom,prenom,email,telephone,photo_profil:photo_profil_strapi.data}).then(employe=>{
+                           return this.postEmployee({nom,prenom,email,telephone,photo_profil:photo_profil_strapi.data}).then(employe=>{
 
-                                 this.postEmployeeInfo({employe:employe.data.id,...workerModel.information_employes}).then(info_employe=>{
-                               //console.log({employe:employe.data.id,...workerModel.adresse});
-                                        this.postAdresse({employe:employe.data.id,...workerModel.adresse}).then(res=>{
-
-                               })
+                             return this.postEmployeeInfo({employe:employe.data.id,...workerModel.information_employes}).then(info_employe=>{
+                                        this.postAdresse({employe:employe.data.id,...workerModel.adresse});
                         })
                     })
                 })

@@ -29,7 +29,7 @@ export default function  WorkerDetailsView () {
         region: '',
         ville:'',
         pays: '',
-        photo_profil: '',
+        photo_profil_url: '',
         codePostal:'',
         role:'',
         confirmed:''

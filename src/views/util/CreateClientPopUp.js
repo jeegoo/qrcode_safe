@@ -104,7 +104,7 @@ export default function CreateClientPopUp({handleClose,handleSubmit,open,workerV
                       display="flex"
                       flexDirection="column"
                     >
-                      <ProfilePicture src={getData("avatarUrl")}/>
+                      <ProfilePicture src={getData("photo_profil_url")}/>
                       <Typography
                         color="textPrimary"
                         gutterBottom
@@ -308,7 +308,9 @@ export default function CreateClientPopUp({handleClose,handleSubmit,open,workerV
           </Box>
         </DialogActions>
       </Dialog>
+
       <SuccessMessage open={openSuccessMessage} handleClose={handleSuccessMessageClose} message={"Le salarié a été bien créé"}/>
+
     </div>
 
   );

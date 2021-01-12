@@ -45,26 +45,7 @@ const Profile = ({ className,disabledInput,values, ...rest }) => {
             src={DIR+values.photo_profil_url}
           />
             {console.log(DIR+values.photo_profil_url)}
-          <Typography
-            color="textPrimary"
-            gutterBottom
-            variant="h3"
-          >
-            {values.nom}
-          </Typography>
-          <Typography
-            color="textSecondary"
-            variant="body1"
-          >
-            {`${values.ville} ${values.pays}`}
-          </Typography>
-          <Typography
-            className={classes.dateText}
-            color="textSecondary"
-            variant="body1"
-          >
-            {`${moment().format('hh:mm A')} ${values.timezone}`}
-          </Typography>
+
         </Box>
       </CardContent>
 

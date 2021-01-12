@@ -10,15 +10,11 @@ import ProductListView from 'src/views/product/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import WorkerDetailsView from 'src/views/customer/WorkerDetailsView';
-import Session from "./lib/Session";
 import MainLayout from "./layouts/MainLayout";
+import MachineDetailsView from "./views/machines/MachineDetailsView";
+import MachinesListView from "./views/machines/MachinesListView";
 
 
-const getView=(view)=>{
-      if (Session.isConnected())
-          return view;
-      return <LoginView />;
-}
 
 const routes =(isConnected)=> [
   {
@@ -40,6 +36,8 @@ const routes =(isConnected)=> [
       { path: '/account', element: <AccountView /> },
       { path: '/customers', element: <CustomerListView />},
       { path: '/customers/:id', element: <WorkerDetailsView />},
+      { path: '/machines', element: <MachinesListView />},
+      { path: '/machines/:id', element: <MachineDetailsView />},
       { path: '/dashboard', element: <DashboardView />},
       { path: '/products', element: <ProductListView /> },
       { path: '/settings', element: <SettingsView /> },

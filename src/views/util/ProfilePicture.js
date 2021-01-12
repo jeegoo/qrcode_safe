@@ -25,7 +25,7 @@ export default function ProfilePicture(props) {
   return (
     <div className={classes.root}>
 
-      <Avatar alt="Remy Sharp" src={props.src} className={classes.large} />
+      <Avatar alt="Remy Sharp" src={props.src} className={classes.large}  />
     </div>
   );
 }

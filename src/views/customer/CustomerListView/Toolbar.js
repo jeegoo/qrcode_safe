@@ -19,7 +19,7 @@ import OptionNavMenu from "../../util/OptionNavMenu";
 import Grid from "@material-ui/core/Grid";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import WorkerData from '../../util/workerData'
+import WorkerData from '../../util/WorkerData'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -49,7 +49,9 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
           region:'',
           pays:'',
           codePostal:'',
-          photo_profil:''
+          photo_profil:'',
+          photo_profil_url:'',
+          apte:'safe'
       }
   }
 
@@ -64,26 +66,38 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
        setWorkerValues(resetWorkerValues());   //effacer toutes les informations saisies dans le popup
   }
 
+
   const handleChange = (event,img) => {
 
-      const value= !img ? event.target.value :event.target.files[0];
-      setWorkerValues({
+     // const value= !img ? event.target.value :event.target.files[0];
+        if(!img) {
+            setWorkerValues({
+              ...workerValues,
+              [event.target.name]: event.target.value
+            });
+        }
+        else { //si c'est une image => charger l'image
+          setWorkerValues({
             ...workerValues,
-            [event.target.name]: value
+            [event.target.name]: event.target.files[0],
+            photo_profil_url: URL.createObjectURL(event.target.files[0])
           });
+        }
+
+
+     // console.log(workerValues)
 
   }
 
-  const handleCreateWorkerSubmit = ()=>{
+  const handleCreateWorkerSubmit = async () => {
 
-       WorkerData.postEmployeeWithAllAttributes(workerValues).then(res=>{
-          console.log(workerValues.photo_profil)
-           setCustomers([
-               ...customers,{photo_profil:workerValues.photo_profil.url,...workerValues}
-           ]);
-           setOpen(false);
-       })
+    await WorkerData.postEmployeeWithAllAttributes(workerValues).then(res => {
 
+      setCustomers([
+        ...customers, {photo_profil_url: workerValues.photo_profil_url, ...workerValues}
+      ]);
+      setOpen(false);
+    })
 
 
   }

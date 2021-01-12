@@ -12,6 +12,7 @@ import {Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ProfilePicture from "./ProfilePicture";
 import {Link} from "react-router-dom";
+import DIR from "../../utils/dir";
 const QRCode = require('qrcode.react');
 
 
@@ -87,7 +88,7 @@ console.log(worker.photo_profil)
                       display="flex"
                       flexDirection="column"
                     >
-                      <ProfilePicture  src={worker.photo_profil!==undefined ? `http://82.165.184.180:1337${worker.photo_profil}`:""}/>
+                      <ProfilePicture  src={DIR+worker.photo_profil_url}/>
                       <Typography
                         color="textPrimary"
                         gutterBottom

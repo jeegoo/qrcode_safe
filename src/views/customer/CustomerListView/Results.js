@@ -62,7 +62,7 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
 
     if (selectedIndex === -1) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-      console.log(selectedIndex)
+
     } else if (selectedIndex === 0) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
     } else if (selectedIndex === selectedCustomerIds.length - 1) {
@@ -175,9 +175,8 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
                     >
                       <Avatar
                         className={classes.avatar}
-                        src={`${DIR}${customer.photo_profil}`}
+                        src={`${DIR}${customer.photo_profil_url}`}
                       >
-
                        {getInitials(customer.nom)}
                       </Avatar>
                       <Typography

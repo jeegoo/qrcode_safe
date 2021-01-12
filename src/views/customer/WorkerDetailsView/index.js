@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import WorkerDetails from "../../viewLib/WorkerDetails"
 import {Box, Card, CardContent, Divider, Grid, TextField} from "@material-ui/core";
 import {useParams} from "react-router-dom";
-import WorkerData from '../../util/workerData';
+import WorkerData from '../../util/WorkerData';
 import FilterData from "../../../lib/FilterData";
 import DIR from "../../../utils/dir";
 

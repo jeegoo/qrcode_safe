@@ -23,6 +23,7 @@ import {
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import Session from "../../../lib/Session";
 import DIR from "../../../utils/dir";
 
@@ -42,6 +43,11 @@ const items = [
     href: '/app/customers',
     icon: UsersIcon,
     title: 'Ouvriers'
+  },
+  {
+    href: '/app/machines',
+    icon: LocalShippingIcon,
+    title: 'Machines'
   },
   /**
   {
@@ -141,7 +147,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         <Avatar
           className={classes.avatar}
           component={RouterLink}
-          src={DIR+user.photo_profil}
+          src={DIR+user.photo_profil_url}
           to="/app/account"
         />
         <Typography

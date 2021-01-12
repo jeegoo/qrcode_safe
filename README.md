@@ -23,7 +23,7 @@ We also have a pro version of this product which bundles even more pages and com
 ## Demo
 
 - [Dashboard Page](https://react-material-dashboard.devias.io/app/dashboard)
-- [Users Page](https://react-material-dashboard.devias.io/app/customers)
+- [Users Page](https://react-material-dashboard.devias.io/app/machines)
 - [Products Page](https://react-material-dashboard.devias.io/app/products)
 - [Register Page](https://react-material-dashboard.devias.io/register)
 - [Login Page](https://react-material-dashboard.devias.io/login)
