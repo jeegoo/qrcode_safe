@@ -9,6 +9,8 @@ import Results from './Results';
 import Toolbar from './Toolbar';
 import FilterData from "../../../lib/FilterData";
 import MachineData from "../../util/MachineData";
+import {useParams} from "react-router-dom";
+import Session from "../../../lib/Session";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,13 +27,14 @@ const MachinesListView = () => {
   const [machines,setMachines] = useState([]);
   const [machineSelected, setMachineSelected] = useState(false);
   const [isOneMachineSelected, setIsOneMachineSelected] = useState(false);
-
+  const {id}= Session.getUser(); // l'utilisateur connecté
 
 
   useEffect(()=>{
-      MachineData.getAllMachines().then(res=>{
+      MachineData.getAllMachinesForWorkerById(id).then(res=>{
+        
         setMachines(FilterData.filterAllMachinesDetailsData(res.data));
-        console.log(FilterData.filterAllMachinesDetailsData(res.data))
+
       })
 
     }

@@ -42,9 +42,9 @@ const Profile = ({ className,disabledInput,values, ...rest }) => {
           >
           <Avatar
             className={classes.avatar}
-            src={DIR+values.photo_profil_url}
+            src={DIR+values.photo_url}
           />
-            {console.log(DIR+values.photo_profil_url)}
+            {console.log(DIR+values.photo_url)}
 
         </Box>
       </CardContent>

@@ -27,11 +27,6 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import Session from "../../../lib/Session";
 import DIR from "../../../utils/dir";
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
-};
 
 const items = [
   {
@@ -48,6 +43,11 @@ const items = [
     href: '/app/machines',
     icon: LocalShippingIcon,
     title: 'Machines'
+  },
+  {
+    href: `/app/mesMachines`,   //les machines du user connecté
+    icon: LocalShippingIcon,
+    title: 'Mes Machines'
   },
   /**
   {

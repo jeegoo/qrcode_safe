@@ -82,7 +82,7 @@ const MachineDetails = ({ className,disabledInput,setDisabledInput,handleChange,
       <Card>
         <CardHeader
           subheader="Vous pouvez modifier les informations"
-          title="Fiche Salarié"
+          title="Fiche Machine"
         />
         <Divider />
         <CardContent>

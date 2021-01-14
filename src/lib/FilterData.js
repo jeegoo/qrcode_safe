@@ -10,6 +10,8 @@ class FilterData {
                this.filterUserDetailsData=this.filterUserDetailsData.bind(this);
                this.filterAllWorkerData=this.filterAllWorkerData.bind(this);
                this.filterAllMachinesDetailsData=this.filterAllMachinesDetailsData.bind(this);
+               this.filterMachineDetailsData=this.filterMachineDetailsData.bind(this);
+
                this.getValue=this.getValue.bind(this);
        }
 
@@ -90,18 +92,30 @@ class FilterData {
 
         const allMachines=[];
 
-        data.map(({id,nom,categorie,photo,...rest})=> {
+        data.map(({id,nom,categorie,photo,employe,...rest})=> {
           allMachines.push({
                id:this.getValue(id),
                nom:this.getValue(nom),
                categorie:this.getValue(categorie),
-               photo_url:this.getValue(photo) !== "" ? photo[0].url: ""
+               photo_url:this.getValue(photo) !== "" ? photo[0].url: "",
+               employe:employe!=null ? this.filterWorkerDetailsData(employe):null
           }
           )
         });
 
         return allMachines;
       }
+
+      filterMachineDetailsData({id,nom,categorie,photo,employe,...rest}) {
+              return {
+                id:this.getValue(id),
+                nom:this.getValue(nom),
+                categorie:this.getValue(categorie),
+                photo_url:this.getValue(photo) !== "" ? photo[0].url: "",
+                employe:employe!=null ? this.filterWorkerDetailsData(employe):null
+              }
+       }
+
 
 
       getValue(data){

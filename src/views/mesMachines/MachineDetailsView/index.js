@@ -9,10 +9,11 @@ import FilterData from "../../../lib/FilterData";
 export default function  MachineDetailsView () {
 
   const {id}=useParams(); //id de la machine
+  console.log("id use:"+id);
 
   useEffect(()=>{
 
-     MachineData.getMachineById(id).then(machine=>{
+     MachineData.getMachineById(id).then( machine =>{
             setValues(FilterData.filterMachineDetailsData(machine.data));
      })
 
@@ -32,9 +33,7 @@ export default function  MachineDetailsView () {
   const [initialMachineValues,setInitialMachineValues]=useState({});
 
 
-
   const handleChange = (event) => {
-
 
       setValues({
         ...values,
@@ -42,7 +41,7 @@ export default function  MachineDetailsView () {
       });
       setValuesChanged(true);
 
-  };
+   };
 
 
 

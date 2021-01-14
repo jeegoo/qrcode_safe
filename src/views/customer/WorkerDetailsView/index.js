@@ -26,14 +26,14 @@ export default function  WorkerDetailsView () {
 
   const [values, setValues] = useState({
 
-    nom: '',
-    prenom: '',
-    email: '',
-    telephone: '',
-    region: '',
-    pays: '',
-    photo_profil: '',
-    timezone: 'GTM-7'
+      nom: '',
+      prenom: '',
+      email: '',
+      telephone: '',
+      region: '',
+      pays: '',
+      photo_profil: '',
+      timezone: 'GTM-7'
 
   });
 
@@ -210,6 +210,7 @@ export default function  WorkerDetailsView () {
                       <QRCode value={DIR+`/app/customers/${id}`} />
                     </Box>
               </CardContent>
+
                </span>)
   }
 

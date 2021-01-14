@@ -20,6 +20,9 @@ import Grid from "@material-ui/core/Grid";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import WorkerData from '../../util/WorkerData'
+import SettingsEthernetIcon from "@material-ui/icons/SettingsEthernet";
+import Machine from "../../viewLib/MachineDetails";
+import MachineAttribution from "../../util/MachineAttributorPopUp";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -129,6 +132,14 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
         >
           Exporter
         </Button>
+
+        <Button className={classes.exportButton}
+                color={"primary"}
+                startIcon={<SettingsEthernetIcon/>}
+        >
+          Attributions
+        </Button>
+
         <Button
           color="primary"
           variant="contained"
@@ -172,7 +183,14 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
         </Card>
       </Box>
 
-       <CreateClientPopUp open={open} handleClose={handleClosePopup} handleSubmit={handleCreateWorkerSubmit} workerValues={workerValues} setWorkerValues={setWorkerValues} handleChange={handleChange}/>
+       <CreateClientPopUp open={open} handleClose={handleClosePopup}
+                          handleSubmit={handleCreateWorkerSubmit}
+                          workerValues={workerValues}
+                          setWorkerValues={setWorkerValues}
+                          handleChange={handleChange}/>
+
+
+        <MachineAttribution />
 
     </div>
 

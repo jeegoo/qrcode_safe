@@ -13,7 +13,7 @@ import WorkerDetailsView from 'src/views/customer/WorkerDetailsView';
 import MainLayout from "./layouts/MainLayout";
 import MachineDetailsView from "./views/machines/MachineDetailsView";
 import MachinesListView from "./views/machines/MachinesListView";
-
+import MesMachinesListView from "./views/mesMachines/MesMachinesListView";
 
 
 const routes =(isConnected)=> [
@@ -38,6 +38,7 @@ const routes =(isConnected)=> [
       { path: '/customers/:id', element: <WorkerDetailsView />},
       { path: '/machines', element: <MachinesListView />},
       { path: '/machines/:id', element: <MachineDetailsView />},
+      { path: '/mesMachines', element: <MesMachinesListView />},
       { path: '/dashboard', element: <DashboardView />},
       { path: '/products', element: <ProductListView /> },
       { path: '/settings', element: <SettingsView /> },

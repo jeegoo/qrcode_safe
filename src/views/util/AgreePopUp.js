@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 
-export default function AgreePopUp({handleClose,handleOnAgreeChanges,open,message}) {
+export default function AgreePopUp({handleClose,handleOnAgreeChanges,open,message,successMessage}) {
 
   const [openSuccessMessage,setOpenSuccessMessage] = useState(false);
 
@@ -47,7 +47,7 @@ export default function AgreePopUp({handleClose,handleOnAgreeChanges,open,messag
         <DialogTitle id="alert-dialog-slide-title"></DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Validez-vous vos modifications?
+            {message}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -62,7 +62,7 @@ export default function AgreePopUp({handleClose,handleOnAgreeChanges,open,messag
           </Button>
         </DialogActions>
       </Dialog>
-      <SuccessMessage open={openSuccessMessage} handleClose={handleSuccessMessageClose} message={message}/>
+      <SuccessMessage open={openSuccessMessage} handleClose={handleSuccessMessageClose} message={successMessage} />
     </div>
   );
 }

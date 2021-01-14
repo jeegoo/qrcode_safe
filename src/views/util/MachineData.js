@@ -10,12 +10,18 @@ class MachineData{
               this.getMachineById=this.getMachineById.bind(this);
               this.postMachine=this.postMachine.bind(this);
               this.postProfilPicture=this.postProfilPicture.bind(this);
+              this.getAllMachinesForWorkerById = this.getAllMachinesForWorkerById.bind(this);
         }
 
 
        getAllMachines() {
 
-              return   axios.get("http://82.165.184.180:1337/machines");
+                 return axios.get("http://82.165.184.180:1337/machines");
+        }
+
+        getAllMachinesForWorkerById(id) {
+
+          return axios.get(`http://82.165.184.180:1337/machines?employe=${id}`);
         }
 
         getMachineById(id){
@@ -36,8 +42,8 @@ class MachineData{
 
                  return axios.post("http://82.165.184.180:1337/upload",formData,
                    {
-                     headers: { 'Content-Type': 'image/jpeg' }
-                   }
+                       headers: { 'Content-Type': 'image/jpeg' }
+                    }
                    );
 
         }

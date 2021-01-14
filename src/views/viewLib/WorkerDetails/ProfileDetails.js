@@ -125,8 +125,10 @@ const ProfileDetails = ({ className,disabledInput,setDisabledInput,
 
 
       </Card>
-      <AgreePopUp open={openAgreePopUp} handleClose={handleAgreePopUpClose} handleOnAgreeChanges={handleOnAgreeChanges} message={"Les modifications ont été bien enregistré"} />
-      <WarningPopUp open={openWarningPopUp} handleClose={handleWarningPopUpClose} handleOnAgree={handleOnAgreeCancelChange} message={"Les modifications ont été ecrasées"} />
+      <AgreePopUp open={openAgreePopUp} handleClose={handleAgreePopUpClose} handleOnAgreeChanges={handleOnAgreeChanges}
+                  successMessage={"Les modifications ont été bien enregistré"} message={"Validez-vous les modifications?"} />
+      <WarningPopUp open={openWarningPopUp} handleClose={handleWarningPopUpClose}
+                    handleOnAgree={handleOnAgreeCancelChange} message={"Les modifications ont été ecrasées"} />
     </form>
 
 

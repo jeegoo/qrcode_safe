@@ -128,7 +128,7 @@ console.log(worker.photo_profil)
                     flexDirection="column"
                     p={3}
                   >
-                    <QRCode value="http://facebook.com/" />
+                    <QRCode value={`${DIR}/${worker.id}`} />
                   </Box>
                 </CardContent>
                 <Divider />

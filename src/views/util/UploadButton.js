@@ -18,7 +18,8 @@ export default function UploadButton({handleChange}) {
 
     >
       <label htmlFor="contained-button-file">
-        <Button variant="contained" color="primary" component="span"
+        <Button variant="outlined"
+                color="secondary" component="span"
                 fullWidth
                >
           <input
