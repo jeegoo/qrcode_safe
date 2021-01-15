@@ -10,6 +10,7 @@ import Toolbar from './Toolbar';
 import data from './data';
 import WorkerData from '../../util/WorkerData';
 import FilterData from "../../../lib/FilterData";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,13 +27,15 @@ const CustomerListView = () => {
   const [customers,setCustomers] = useState([]);
   const [workerSelected, setWorkerSelected] = useState(false);
   const [isOneWorkerSelected, setIsOneWorkerSelected] = useState(false);
-
+  const [allEmployeesLoading,setAllEmployeesLoading] = useState(false);
 
 
   useEffect(()=>{
+      setAllEmployeesLoading(true);
       WorkerData.getAllEmployees().then(res=>{
         setCustomers(FilterData.filterAllWorkerData(res.data));
-        console.log(res.data)
+        setAllEmployeesLoading(false);
+
       })
     }
     ,[]
@@ -49,8 +52,12 @@ const CustomerListView = () => {
       <Container maxWidth={false}>
         <Toolbar workerselected={workerSelected} isOneWorkerSelected={isOneWorkerSelected} customers={customers} setCustomers={setCustomers}/>
         <Box mt={3}>
-          <Results customers={customers} setworkerselected={setWorkerSelected}
-                   setIsOneWorkerSelected={setIsOneWorkerSelected}/>
+          {!allEmployeesLoading?(
+              <Results customers={customers} setworkerselected={setWorkerSelected}
+                       setIsOneWorkerSelected={setIsOneWorkerSelected}/>)
+            :(<LinearProgress />)
+
+          }
         </Box>
       </Container>
     </Page>

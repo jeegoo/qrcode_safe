@@ -16,8 +16,10 @@ export default function QrReaderView({qrcodeScanned,setQrcodeScanned,scannedWork
 
   const handleScan = async data => {
       if (data) {
+
               getScannedEmployeById(Util.getIdFromUrl(data));  //notifier le component parent
               setDisplayQrcodeReader(false);
+
 
       }
   }

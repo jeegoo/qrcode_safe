@@ -9,6 +9,7 @@ import Results from './Results';
 import Toolbar from './Toolbar';
 import FilterData from "../../../lib/FilterData";
 import MachineData from "../../util/MachineData";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,12 +26,15 @@ const MachinesListView = () => {
   const [machines,setMachines] = useState([]);
   const [machineSelected, setMachineSelected] = useState(false);
   const [isOneMachineSelected, setIsOneMachineSelected] = useState(false);
+  const [allMachinesLoading,setAllMachinesLoading] = useState(false);
 
 
 
   useEffect(()=>{
-      MachineData.getAllMachines().then(res=>{
+       setAllMachinesLoading(true);
+       MachineData.getAllMachines().then(res=>{
         setMachines(FilterData.filterAllMachinesDetailsData(res.data));
+         setAllMachinesLoading(false);
         console.log(FilterData.filterAllMachinesDetailsData(res.data))
       })
 
@@ -49,8 +53,12 @@ const MachinesListView = () => {
       <Container maxWidth={false}>
         <Toolbar machineSelected={machineSelected} isOneMachineSelected={isOneMachineSelected} machines={machines} setMachines={setMachines}/>
         <Box mt={3}>
-          <Results machines={machines} setMachineSelected={setMachineSelected}
-                   setIsOneMachineSelected={setIsOneMachineSelected}/>
+          {!allMachinesLoading?(
+            <Results machines={machines} setMachineSelected={setMachineSelected}
+             setIsOneMachineSelected={setIsOneMachineSelected}/>)
+            :(<LinearProgress />)
+
+          }
         </Box>
       </Container>
     </Page>

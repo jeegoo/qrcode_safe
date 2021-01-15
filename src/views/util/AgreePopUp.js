@@ -19,8 +19,8 @@ export default function AgreePopUp({handleClose,handleOnAgreeChanges,open,messag
   const [openSuccessMessage,setOpenSuccessMessage] = useState(false);
 
   const handleClickOnAgree=()=>{
-           handleOnAgreeChanges();
            setOpenSuccessMessage(true);
+           handleOnAgreeChanges();
   }
 
 
@@ -55,8 +55,9 @@ export default function AgreePopUp({handleClose,handleOnAgreeChanges,open,messag
             Annuler
           </Button>
           <Button onClick={()=>{
-                   handleClose();
                    handleClickOnAgree();
+                   handleClose();
+
           }} color="primary">
             Valider
           </Button>

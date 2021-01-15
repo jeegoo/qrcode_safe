@@ -20,6 +20,8 @@ import Util from "../../lib/Util";
 import WorkerData from "./WorkerData";
 import FilterData from "../../lib/FilterData";
 import AgreePopUp from "./AgreePopUp";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import WarningPopUp from "./WarningPopUp";
 
 
 
@@ -73,41 +75,65 @@ export default function MachinePopUp({machine,qrReader,setQrReader,handleClose,o
     const [qrcodeScanned,setQrcodeScanned]=useState(false);
     const [scannedWorker,setScannedWorker] = useState({}) ;
     const [photosTaken,setPhotosTaken] = useState(false) ;
+    const [warningPopUp,setWarningPopUp] = useState(false);
+    const [qrcodeScanningLoading,setQrcodeScanningLoading]=useState(false);
 
 
-   const handleValidationPopUpClose =()=>{
-        setQrcodeScanned(false);
+  const getScannedEmployeeById= (workerId) => {   //récuperer l'employé scanné
 
-    }
+    setQrcodeScanningLoading(true);
+    setTimeout(()=>{
+       WorkerData.getEmployeeById(workerId).then(worker => {
+         setScannedWorker(FilterData.filterWorkerDetailsData(worker.data));
+            setQrcodeScanningLoading(false);
+            setQrcodeScanned(true);
+            }).catch(err => {
+         window.alert("une erreur de connexion veuillez rafrichir la page!")
+            })
+    },2000)
+  }
 
-    const handleOnMachineAffectationSubmit=()=>{   //quand on valide sur le popup
-      setQrcodeScanned(false);
-    }
+  const cancelImagePicker=()=>{
+    setQrcodeScanned(false);
+    setPhotosTaken(false);
+    setScannedWorker({});
+    setImages([]);
+  }
 
-  const getScannedEmployeById= (workerId) => {
 
-     WorkerData.getEmployeeById(workerId).then(worker => {
-      setScannedWorker(FilterData.filterWorkerDetailsData(worker.data))
-      setQrcodeScanned(true);
+  const handleValidationPopUpClose =()=>{
+        cancelImagePicker();
+  }
 
-    }).catch(err => {
-      window.alert("une erreur de connexion veuillez rafrichir la page!")
-    })
+  const handleOnMachineAffectationSubmit=()=>{   //quand on valide sur le popup
+        cancelImagePicker();
   }
 
   const handleCloseMachineDetails=()=>{
-        setQrcodeScanned(false);
-        setPhotosTaken(false);
-        setScannedWorker({});
+        cancelImagePicker();
         setImages([]);
         handleClose();//excuter la fonction pour fermer le popup machine details
   }
 
+  const showWarningPopUp=()=>{
+      setWarningPopUp(true);
+  }
+
+  const hideWarningPopUp=()=>{
+    setWarningPopUp(false);
+  }
+
+  const showAgreePopUp=()=>{
+      setPhotosTaken(true);
+  }
+
+  const hideAgreePopUp=()=>{
+    setPhotosTaken(false);
+  }
+
 
   const handleImageTaken =(src)=>{
-         setImages([
-           ...images,{src:src,title:0}
-         ])
+         setImages(oldImages=>[...oldImages,{src:src,title:oldImages.length}])
   }
 
   return (
@@ -178,14 +204,38 @@ export default function MachinePopUp({machine,qrReader,setQrReader,handleClose,o
                 >
 
                   <QrReaderView scannedWorker={scannedWorker} setScannedWorker={setScannedWorker}
-                                qrcodeScanned={qrcodeScanned} setQrcodeScanned={setQrcodeScanned} getScannedEmployeById={getScannedEmployeById}/>
-                  <CameraPicker handleImageTaken={handleImageTaken} qrcodeScanned={qrcodeScanned} />
-                  <ImageSlider images={images} setImages={setImages} photo/>
+                                qrcodeScanned={qrcodeScanned} setQrcodeScanned={setQrcodeScanned}
+                                getScannedEmployeById={getScannedEmployeeById}/>
 
-                  <AgreePopUp open={photosTaken} handleClose={handleValidationPopUpClose}
+                  <Divider />
+                  {!qrcodeScanningLoading?(
+                    qrcodeScanned ?(
+                     <>
+
+                       <Typography variant={'h4'}>
+                         Employé scanné: {`${scannedWorker.nom} ${scannedWorker.prenom} `}
+                       </Typography>
+                     <CameraPicker handleImageTaken={handleImageTaken}
+                                   qrcodeScanned={qrcodeScanned}
+                                   setQrcodeScanned={setQrcodeScanned}
+                                   cancelImagePicker={cancelImagePicker}
+                     />
+                    <Divider />
+                    <ImageSlider images={images} setImages={setImages} photo/>
+
+                     </>):null)
+                    :(<CircularProgress />)
+
+                  }
+
+                  <AgreePopUp open={photosTaken} handleClose={handleValidationPopUpClose}  //quand on valide l'attribution de la machine
                               handleOnAgreeChanges={handleOnMachineAffectationSubmit}
                               message={`Cette machine sera affecté à ${scannedWorker.nom} ${scannedWorker.prenom}: \nValidez-vous?`}
                               successMessage={`Cette machine a été affectée à: ${scannedWorker.nom} ${scannedWorker.prenom}`}/>
+
+                  <WarningPopUp handleClose={hideWarningPopUp} open={warningPopUp}
+                                message={"Vous allez perdre toutes les informations saisies! Voulez-vous quitter?"}
+                                handleOnAgree={handleCloseMachineDetails} />
 
 
                 </Box>
@@ -197,7 +247,9 @@ export default function MachinePopUp({machine,qrReader,setQrReader,handleClose,o
         </DialogContent>
         <DialogActions>
 
-          <Button autoFocus onClick={handleCloseMachineDetails} color="primary">
+          <Button autoFocus
+                  onClick={showWarningPopUp}
+                  color="primary">
             Fermer
           </Button>
 
@@ -206,15 +258,27 @@ export default function MachinePopUp({machine,qrReader,setQrReader,handleClose,o
             justifyContent="flex-end"
             p={2}
           >
-            <Link to={`/app/machines/${machine.id}`}>
-              <Button
-                color="primary"
-                variant="contained"
-                autoFocus
-              >
-                DETAILS
-              </Button>
-            </Link>
+            {!qrcodeScanned?(
+              <Link to={`/app/machines/${machine.id}`}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  autoFocus
+                >
+                  DETAILS
+                </Button>
+              </Link>):
+              (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  autoFocus
+                  onClick={showAgreePopUp}
+                >
+                  ENREGISTRER
+                </Button>
+              )
+            }
 
           </Box>
         </DialogActions>
