@@ -54,7 +54,7 @@ const MachinesListView = () => {
         <Toolbar machineSelected={machineSelected} isOneMachineSelected={isOneMachineSelected} machines={machines} setMachines={setMachines}/>
         <Box mt={3}>
           {!allMachinesLoading?(
-            <Results machines={machines} setMachineSelected={setMachineSelected}
+            <Results machines={machines} setMachines={setMachines} setMachineSelected={setMachineSelected}
              setIsOneMachineSelected={setIsOneMachineSelected}/>)
             :(<LinearProgress />)
 

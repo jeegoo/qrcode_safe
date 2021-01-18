@@ -42,12 +42,12 @@ const items = [
   {
     href: '/app/machines',
     icon: LocalShippingIcon,
-    title: 'Machines'
+    title: 'Outils'
   },
   {
     href: `/app/mesMachines`,   //les machines du user connecté
     icon: LocalShippingIcon,
-    title: 'Mes Machines'
+    title: 'Mes Outils'
   },
   /**
   {

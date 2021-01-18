@@ -9,6 +9,7 @@ class MachineData{
               this.getAllMachines=this.getAllMachines.bind(this);
               this.getMachineById=this.getMachineById.bind(this);
               this.postMachine=this.postMachine.bind(this);
+              this.updateMachine=this.updateMachine.bind(this);
               this.postProfilPicture=this.postProfilPicture.bind(this);
               this.getAllMachinesForWorkerById = this.getAllMachinesForWorkerById.bind(this);
         }
@@ -29,8 +30,12 @@ class MachineData{
          }
 
 
-        postMachine(data,id_employe){
+        postMachine(data){
                   return axios.post("http://82.165.184.180:1337/machines",data);
+        }
+
+        updateMachine(data,id){
+          return axios.put(`http://82.165.184.180:1337/machines/${id}`,data);
         }
 
 

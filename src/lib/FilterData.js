@@ -11,7 +11,7 @@ class FilterData {
                this.filterAllWorkerData=this.filterAllWorkerData.bind(this);
                this.filterAllMachinesDetailsData=this.filterAllMachinesDetailsData.bind(this);
                this.filterMachineDetailsData=this.filterMachineDetailsData.bind(this);
-
+               this.getOccupantName=this.getOccupantName.bind(this);
                this.getValue=this.getValue.bind(this);
        }
 
@@ -116,10 +116,12 @@ class FilterData {
               }
        }
 
-
+      getOccupantName(employe){
+           return employe !=null ? employe.nom : "Dépôt";
+      }
 
       getValue(data){
-           return data != null ? data :"";
+           return data != null ? data :'';
       }
 
 

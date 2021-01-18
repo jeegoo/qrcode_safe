@@ -52,7 +52,7 @@ const MachinesListView = () => {
       <Container maxWidth={false}>
         <Toolbar machineSelected={machineSelected} isOneMachineSelected={isOneMachineSelected} machines={machines} setMachines={setMachines}/>
         <Box mt={3}>
-          <Results machines={machines} setMachineSelected={setMachineSelected}
+          <Results machines={machines} setMachines={setMachines} setMachineSelected={setMachineSelected}
                    setIsOneMachineSelected={setIsOneMachineSelected}/>
         </Box>
       </Container>

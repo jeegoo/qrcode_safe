@@ -44,7 +44,7 @@ export default function AgreePopUp({handleClose,handleOnAgreeChanges,open,messag
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title"></DialogTitle>
+       
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             {message}

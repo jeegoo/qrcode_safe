@@ -17,7 +17,7 @@ export default function WebcamCapture({handleImageTaken,qrcodeScanned,cancelImag
     () => {
       const imageSrc = webcamRef.current.getScreenshot();
       handleImageTaken(imageSrc);
-      console.log(imageSrc)
+
     },
     [webcamRef]
   );

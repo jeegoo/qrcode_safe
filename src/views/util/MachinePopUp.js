@@ -8,7 +8,18 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import {Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  TableCell,
+  TextField
+} from "@material-ui/core";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ProfilePicture from "./ProfilePicture";
 import {Link} from "react-router-dom";
@@ -22,6 +33,7 @@ import FilterData from "../../lib/FilterData";
 import AgreePopUp from "./AgreePopUp";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import WarningPopUp from "./WarningPopUp";
+import MachineData from "./MachineData";
 
 
 
@@ -69,11 +81,11 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 
-export default function MachinePopUp({machine,qrReader,setQrReader,handleClose,open,...rest}) { //qrReader: boolan pour dire s'il peut s'afficher ou pas
+export default function MachinePopUp({machine, setMachines, qrReader,setQrReader,handleClose,open,...rest}) { //qrReader: boolan pour dire s'il peut s'afficher ou pas
 
-    const [images,setImages]=useState([]);
+    const [images,setImages]=useState([]);   //pour la gallerie des images
     const [qrcodeScanned,setQrcodeScanned]=useState(false);
-    const [scannedWorker,setScannedWorker] = useState({}) ;
+    const [scannedWorker,setScannedWorker] = useState({}) ;  //l'employé scanné
     const [photosTaken,setPhotosTaken] = useState(false) ;
     const [warningPopUp,setWarningPopUp] = useState(false);
     const [qrcodeScanningLoading,setQrcodeScanningLoading]=useState(false);
@@ -106,7 +118,17 @@ export default function MachinePopUp({machine,qrReader,setQrReader,handleClose,o
   }
 
   const handleOnMachineAffectationSubmit=()=>{   //quand on valide sur le popup
-        cancelImagePicker();
+        MachineData.updateMachine({employe:scannedWorker.id},machine.id).then(res=>{
+
+             setMachines(currentMachines =>{
+                  let i = currentMachines.findIndex(m => m.id===machine.id);
+                  currentMachines[i]=FilterData.filterMachineDetailsData(res.data);
+                  console.log(currentMachines)
+                  return currentMachines;
+             })
+          handleCloseMachineDetails();  //fermer le popup quand on a fini de scanner l'outil'
+        })
+
   }
 
   const handleCloseMachineDetails=()=>{
@@ -176,7 +198,8 @@ export default function MachinePopUp({machine,qrReader,setQrReader,handleClose,o
 
                         variant="h4"
                       >
-                        {machine.employe != null ? machine.employe.nom : ''}
+                        {FilterData.getOccupantName(machine.employe)}
+
                       </Typography>
 
 
@@ -215,6 +238,7 @@ export default function MachinePopUp({machine,qrReader,setQrReader,handleClose,o
                        <Typography variant={'h4'}>
                          Employé scanné: {`${scannedWorker.nom} ${scannedWorker.prenom} `}
                        </Typography>
+
                      <CameraPicker handleImageTaken={handleImageTaken}
                                    qrcodeScanned={qrcodeScanned}
                                    setQrcodeScanned={setQrcodeScanned}

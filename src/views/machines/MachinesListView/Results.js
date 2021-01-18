@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import ClientEditPopUp from "../../util/ClientEditPopUp";
 
 import {
   Avatar,
@@ -25,16 +24,17 @@ import InfoSafety from "../../util/InfoSafety";
 import MoreOptionsIcon from "../../util/MoreOptionsIcon";
 import DIR from "../../../utils/dir";
 import MachinePopUp from "../../util/MachinePopUp";
+import FilterData from "../../../lib/FilterData";
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  avatar: {
-    marginRight: theme.spacing(2)
-  }
+    root: {},
+    avatar: {
+      marginRight: theme.spacing(2)
+    }
 }));
 
-const Results = ({ className,  machines,setMachineSelected,setIsOneMachineSelected,...rest }) => {
+const Results = ({ className, machines,setMachines,setMachineSelected,setIsOneMachineSelected,...rest }) => {
 
   const classes = useStyles();
   const [selectedMachineIds, setSelectedMachineIds] = useState([]);
@@ -48,9 +48,9 @@ const Results = ({ className,  machines,setMachineSelected,setIsOneMachineSelect
     let newSelectedMachineIds;
 
     if (event.target.checked) {
-      newSelectedMachineIds = machines.map((machine) => machine.id);
+        newSelectedMachineIds = machines.map((machine) => machine.id);
     } else {
-      newSelectedMachineIds = [];
+        newSelectedMachineIds = [];
     }
 
     setSelectedMachineIds(newSelectedMachineIds);
@@ -147,8 +147,7 @@ const Results = ({ className,  machines,setMachineSelected,setIsOneMachineSelect
                     onChange={(event)=>handleSelectAll(event,setMachineSelected)}
                   />
                 </TableCell>
-                <TableCell>Nom</TableCell><TableCell>Catégorie</TableCell>
-
+                <TableCell>Nom</TableCell><TableCell>Occupant</TableCell><TableCell>Catégorie</TableCell>
 
               </TableRow>
             </TableHead>
@@ -190,6 +189,10 @@ const Results = ({ className,  machines,setMachineSelected,setIsOneMachineSelect
                   </TableCell>
 
                   <TableCell>
+                    {FilterData.getOccupantName(machine.employe)}
+                  </TableCell>
+
+                  <TableCell>
                     {machine.categorie}
                   </TableCell>
 
@@ -209,7 +212,7 @@ const Results = ({ className,  machines,setMachineSelected,setIsOneMachineSelect
         rowsPerPageOptions={[5, 10, 25]}
       />
 
-      <MachinePopUp machine={clickedMachine} open={open} handleClose={handleClosePopup}/>
+      <MachinePopUp machine={clickedMachine} setMachines={setMachines} open={open} handleClose={handleClosePopup}/>
 
     </Card>
   );

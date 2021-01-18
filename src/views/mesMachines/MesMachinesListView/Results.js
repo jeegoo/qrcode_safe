@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Results = ({ className,  machines,setMachineSelected,setIsOneMachineSelected,...rest }) => {
+const Results = ({ className, machines, setMachines, setMachineSelected,setIsOneMachineSelected,...rest }) => {
 
   const classes = useStyles();
   const [selectedMachineIds, setSelectedMachineIds] = useState([]);
@@ -150,6 +150,7 @@ const Results = ({ className,  machines,setMachineSelected,setIsOneMachineSelect
                 <TableCell>Nom</TableCell><TableCell>Catégorie</TableCell>
 
 
+
               </TableRow>
             </TableHead>
             <TableBody>
@@ -209,7 +210,7 @@ const Results = ({ className,  machines,setMachineSelected,setIsOneMachineSelect
         rowsPerPageOptions={[5, 10, 25]}
       />
 
-      <MachinePopUp machine={clickedMachine} open={open} handleClose={handleClosePopup}/>
+      <MachinePopUp machine={clickedMachine} setMachines={setMachines} open={open} handleClose={handleClosePopup}/>
 
     </Card>
   );
