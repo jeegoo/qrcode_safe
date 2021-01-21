@@ -24,6 +24,7 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+import HistoryIcon from '@material-ui/icons/History';
 import Session from "../../../lib/Session";
 import DIR from "../../../utils/dir";
 
@@ -49,6 +50,11 @@ const items = [
     icon: LocalShippingIcon,
     title: 'Mes Outils'
   },
+  {
+    href: '/app/historique',
+    icon: HistoryIcon,
+    title: 'Historique'
+  },
   /**
   {
     href: '/app/products',
@@ -66,6 +72,7 @@ const items = [
     icon: SettingsIcon,
     title: 'Paramètres'
   },
+
   /**
   {
     href: '/login',

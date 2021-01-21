@@ -11,6 +11,7 @@ class FilterData {
                this.filterAllWorkerData=this.filterAllWorkerData.bind(this);
                this.filterAllMachinesDetailsData=this.filterAllMachinesDetailsData.bind(this);
                this.filterMachineDetailsData=this.filterMachineDetailsData.bind(this);
+               this.filterAllHestoricsDetailsData = this.filterAllHestoricsDetailsData.bind(this);
                this.getOccupantName=this.getOccupantName.bind(this);
                this.getValue=this.getValue.bind(this);
        }
@@ -115,6 +116,27 @@ class FilterData {
                 employe:employe!=null ? this.filterWorkerDetailsData(employe):null
               }
        }
+
+
+        filterAllHestoricsDetailsData(data){
+
+          const allHistorics=[];
+
+          data.map(({id,precedent_occupant,employe_attribuant,employe_attribue,machine,published_at,...rest})=> {
+            allHistorics.push({
+                id:this.getValue(id),
+                employe_attribuant:this.filterWorkerDetailsData(employe_attribuant),
+                employe_attribue:this.filterWorkerDetailsData(employe_attribue),
+                machine:this.filterMachineDetailsData(machine),
+                data_attribution:published_at
+              }
+            )
+          });
+
+          return allHistorics;
+        }
+
+
 
       getOccupantName(employe){
            return employe !=null ? employe.nom : "Dépôt";

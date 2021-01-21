@@ -26,9 +26,8 @@ export default function AgreePopUp({handleClose,handleOnAgreeChanges,open,messag
 
   const handleSuccessMessageClose = (event, reason) => {
     if (reason === 'clickaway') {
-      return;
+       return;
     }
-
     setOpenSuccessMessage(false);
   };
 

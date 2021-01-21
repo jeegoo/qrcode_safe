@@ -14,6 +14,7 @@ import MainLayout from "./layouts/MainLayout";
 import MachineDetailsView from "./views/machines/MachineDetailsView";
 import MachinesListView from "./views/machines/MachinesListView";
 import MesMachinesListView from "./views/mesMachines/MesMachinesListView";
+import HistoriqueView from "./views/historique";
 
 
 const routes =(isConnected)=> [
@@ -39,6 +40,7 @@ const routes =(isConnected)=> [
       { path: '/machines', element: <MachinesListView />},
       { path: '/machines/:id', element: <MachineDetailsView />},
       { path: '/mesMachines', element: <MesMachinesListView />},
+      { path: '/historique', element: <HistoriqueView />},
       { path: '/dashboard', element: <DashboardView />},
       { path: '/products', element: <ProductListView /> },
       { path: '/settings', element: <SettingsView /> },

@@ -34,6 +34,8 @@ import AgreePopUp from "./AgreePopUp";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import WarningPopUp from "./WarningPopUp";
 import MachineData from "./MachineData";
+import HistoryData from "./HistoryData";
+import Session from "../../lib/Session";
 
 
 
@@ -118,14 +120,22 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
   }
 
   const handleOnMachineAffectationSubmit=()=>{   //quand on valide sur le popup
+
+        let employeeId=machine.employe.id;
         MachineData.updateMachine({employe:scannedWorker.id},machine.id).then(res=>{
 
-             setMachines(currentMachines =>{
-                  let i = currentMachines.findIndex(m => m.id===machine.id);
-                  currentMachines[i]=FilterData.filterMachineDetailsData(res.data);
-                  console.log(currentMachines)
-                  return currentMachines;
-             })
+           HistoryData.postHestoricAttribution({employe_attribuant: Session.getUser().id,
+                                                     machine: machine.id,
+                                                     employe_attribue: scannedWorker.id}).then(res=>{
+
+                 setMachines(currentMachines =>{
+                   let i = currentMachines.findIndex(m => m.id===machine.id);
+                   currentMachines[i]=FilterData.filterMachineDetailsData(res.data);
+
+                   return currentMachines;
+                 });
+           })
+
           handleCloseMachineDetails();  //fermer le popup quand on a fini de scanner l'outil'
         })
 
@@ -142,7 +152,7 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
   }
 
   const hideWarningPopUp=()=>{
-    setWarningPopUp(false);
+     setWarningPopUp(false);
   }
 
   const showAgreePopUp=()=>{

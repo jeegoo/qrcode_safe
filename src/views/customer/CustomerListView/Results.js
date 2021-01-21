@@ -189,7 +189,7 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {customer.prenom}
                   </TableCell>
                   <TableCell>
                     {`${customer.ville}, ${customer.region}, ${customer.pays}`}
