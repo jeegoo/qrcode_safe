@@ -120,18 +120,21 @@ class FilterData {
 
         filterAllHestoricsDetailsData(data){
 
-          const allHistorics=[];
+            const allHistorics=[];
 
-          data.map(({id,precedent_occupant,employe_attribuant,employe_attribue,machine,published_at,...rest})=> {
-            allHistorics.push({
-                id:this.getValue(id),
-                employe_attribuant:this.filterWorkerDetailsData(employe_attribuant),
-                employe_attribue:this.filterWorkerDetailsData(employe_attribue),
-                machine:this.filterMachineDetailsData(machine),
-                data_attribution:published_at
-              }
-            )
-          });
+            console.log(data)
+
+            data.map(({id,precedent_occupant,employe_attribuant,employe_attribue,machine,published_at,...rest})=> {
+              allHistorics.push({
+                  id:this.getValue(id),
+                  employe_attribuant:this.filterUserDetailsData(employe_attribuant),
+                  precedent_occupant:precedent_occupant!==null ? this.filterWorkerDetailsData(precedent_occupant):null,
+                  employe_attribue:this.filterWorkerDetailsData(employe_attribue),
+                  machine:this.filterMachineDetailsData(machine),
+                  data_attribution:published_at
+                }
+              )
+            });
 
           return allHistorics;
         }
@@ -145,6 +148,8 @@ class FilterData {
       getValue(data){
            return data != null ? data :'';
       }
+
+
 
 
 }

@@ -121,20 +121,24 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
 
   const handleOnMachineAffectationSubmit=()=>{   //quand on valide sur le popup
 
-        let employeeId=machine.employe.id;
-        MachineData.updateMachine({employe:scannedWorker.id},machine.id).then(res=>{
+        let employeeId = machine.employe!==null?machine.employe.id:null;
+        MachineData.updateMachine({employe:scannedWorker.id},machine.id).then(updatedMachine=>{
 
-           HistoryData.postHestoricAttribution({employe_attribuant: Session.getUser().id,
-                                                     machine: machine.id,
-                                                     employe_attribue: scannedWorker.id}).then(res=>{
+              setMachines(currentMachines =>{
 
-                 setMachines(currentMachines =>{
-                   let i = currentMachines.findIndex(m => m.id===machine.id);
-                   currentMachines[i]=FilterData.filterMachineDetailsData(res.data);
+                let i = currentMachines.findIndex(m => m.id===machine.id);
+                currentMachines[i]=FilterData.filterMachineDetailsData(updatedMachine.data);
+                return currentMachines;
+              });
+               HistoryData.postHestoricAttribution({precedent_occupant:employeeId,
+                                                         employe_attribuant: Session.getUser().id,
+                                                         machine: machine.id,
+                                                         employe_attribue: scannedWorker.id}).then(res=>{
 
-                   return currentMachines;
-                 });
-           })
+                              console.log(updatedMachine)
+                              console.log(res)
+
+               })
 
           handleCloseMachineDetails();  //fermer le popup quand on a fini de scanner l'outil'
         })

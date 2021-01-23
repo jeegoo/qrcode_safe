@@ -129,6 +129,7 @@ console.log(worker.photo_profil)
                     p={3}
                   >
                     <QRCode value={`${DIR}/${worker.id}`} />
+
                   </Box>
                 </CardContent>
                 <Divider />

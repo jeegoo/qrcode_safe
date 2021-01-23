@@ -25,6 +25,7 @@ import InfoSafety from "../../util/InfoSafety";
 import MoreOptionsIcon from "../../util/MoreOptionsIcon";
 import DIR from "../../../utils/dir";
 import MachinePopUp from "../../util/MachinePopUp";
+import FilterData from "../../../lib/FilterData";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -85,10 +86,7 @@ const Results = ({ className, historicsAttribution, setHistoricsAttribution,...r
           <Table>
             <TableHead>
               <TableRow>
-
-                <TableCell>Employé Attribuant</TableCell> <TableCell>Employé Attribué</TableCell><TableCell>Machine</TableCell><TableCell>Date d'Attribution</TableCell>
-
-
+                <TableCell>Chef Attribuant</TableCell> <TableCell>Occupant précedent</TableCell> <TableCell>Employé Attribué</TableCell><TableCell>Machine</TableCell><TableCell>Date d'Attribution</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -97,7 +95,6 @@ const Results = ({ className, historicsAttribution, setHistoricsAttribution,...r
                   hover
                   key={historic.id}
                   selected={selectedMachineIds.indexOf(historic.id) !== -1}
-
                 >
 
                   <TableCell onClick={(event)=>{handleMachineOnClient(event,historic)}}>
@@ -116,6 +113,22 @@ const Results = ({ className, historicsAttribution, setHistoricsAttribution,...r
                         variant="body1"
                       >
                         <Link href="#" >{historic.employe_attribuant.nom}</Link>
+
+                      </Typography>
+                    </Box>
+                  </TableCell>
+
+                  <TableCell onClick={(event)=>{handleMachineOnClient(event,historic)}}>
+                    <Box
+                      alignItems="center"
+                      display="flex"
+                    >
+
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        <Link href="#" >{FilterData.getOccupantName(historic.precedent_occupant)}</Link>
 
                       </Typography>
                     </Box>
