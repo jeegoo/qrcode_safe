@@ -26,11 +26,13 @@ import MachineAttribution from "../util/MachineAttributorPopUp";
 const useStyles = makeStyles((theme) => ({
   root: {},
   importButton: {
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
+
   },
   exportButton: {
     marginRight: theme.spacing(1)
-  }
+  },
+
 }));
 
 

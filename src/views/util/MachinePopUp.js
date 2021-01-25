@@ -8,6 +8,8 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import { TextareaAutosize } from '@material-ui/core';
+
 import {
   Avatar,
   Box,
@@ -91,7 +93,7 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
     const [photosTaken,setPhotosTaken] = useState(false) ;
     const [warningPopUp,setWarningPopUp] = useState(false);
     const [qrcodeScanningLoading,setQrcodeScanningLoading]=useState(false);
-
+    const [inputData,setInputData]=useState({comment:''});
 
   const getScannedEmployeeById= (workerId) => {   //récuperer l'employé scanné
 
@@ -133,7 +135,9 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
                HistoryData.postHestoricAttribution({precedent_occupant:employeeId,
                                                          employe_attribuant: Session.getUser().id,
                                                          machine: machine.id,
-                                                         employe_attribue: scannedWorker.id}).then(res=>{
+                                                         employe_attribue: scannedWorker.id,
+                                                         commentaire:inputData.comment
+               }).then(res=>{
 
                               console.log(updatedMachine)
                               console.log(res)
@@ -167,6 +171,12 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
     setPhotosTaken(false);
   }
 
+  const handleChangeComment=(event)=>{
+      setInputData({
+        ...inputData,
+        [event.target.name]: event.target.value
+      });
+  }
 
   const handleImageTaken =(src)=>{
          setImages(oldImages=>[...oldImages,{src:src,title:oldImages.length}])
@@ -260,6 +270,11 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
                      />
                     <Divider />
                     <ImageSlider images={images} setImages={setImages} photo/>
+                       <Divider />
+                       <Divider />
+                       <Typography variant={'h4'}>Ajouter un commentaire</Typography>
+                       <TextareaAutosize name={"comment"}  onChange={handleChangeComment} rowsMin={5} rowsMax={7}/>
+
 
                      </>):null)
                     :(<CircularProgress />)

@@ -11,6 +11,7 @@ import MachineData from "../../util/MachineData";
 import {useParams} from "react-router-dom";
 import Session from "../../../lib/Session";
 import HistoryData from "../../util/HistoryData";
+import HistoricTable from "./HistoricTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,8 +50,7 @@ const MachinesListView = () => {
   return (
 
         <Box mt={3}>
-          <Results historicsAttribution={historicsAttribution} setHistoricsAttribution={setHistoricsAttribution}
-                  />
+          <HistoricTable historicsAttribution={historicsAttribution} setHistoricsAttribution={setHistoricsAttribution}/>
         </Box>
 
   );
