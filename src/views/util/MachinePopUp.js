@@ -136,11 +136,12 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
                                                          employe_attribuant: Session.getUser().id,
                                                          machine: machine.id,
                                                          employe_attribue: scannedWorker.id,
-                                                         commentaire:inputData.comment
+                                                         commentaire:inputData.comment,
+                                                         photos_etat_machine:images
+
                }).then(res=>{
 
-                              console.log(updatedMachine)
-                              console.log(res)
+
 
                })
 
@@ -180,7 +181,7 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
 
   const handleImageTaken =(src)=>{
          setImages(oldImages=>[...oldImages,{src:src,title:oldImages.length}])
-  }
+   }
 
   return (
     <div>

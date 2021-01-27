@@ -15,6 +15,8 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import FilterData from "../../../lib/FilterData";
+import ImageSlider from "../../util/ImageSlider";
+import moment from "moment";
 
 const useRowStyles = makeStyles({
   root: {
@@ -24,31 +26,10 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(employe_attribuant, occupant_precedent, employe_attribue, machine, date_creation,commentaire) {
-  return {
-    employe_attribuant,
-    occupant_precedent,
-    employe_attribue,
-    machine,
-    date_creation,
-    history: [
-      {date_creation, commentaire, etat_machine_images:[] },
-    ],
-  };
-}
 
-const makeHistoricObject=({employe_attribuant, occupant_precedent, employe_attribue, machine, date_creation,commentaire})=>{
-  return {
-    employe_attribuant: employe_attribuant.nom,
-    occupant_precedent: FilterData.getOccupantName(occupant_precedent),
-    employe_attribue: employe_attribue.nom,
-    machine: machine.nom,
-    date_creation,
-    commentaire
-  }
-}
 
 function Row(props) {
+
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
@@ -64,34 +45,34 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.employe_attribuant}
         </TableCell>
-        <TableCell align="right">{row.occupant_precedent}</TableCell>
-        <TableCell align="right">{row.employe_attribue}</TableCell>
-        <TableCell align="right">{row.machine}</TableCell>
-        <TableCell align="right">{row.date_creation}</TableCell>
+        <TableCell align="center">{row.occupant_precedent}</TableCell>
+        <TableCell align="center">{row.employe_attribue}</TableCell>
+        <TableCell align="center">{row.machine}</TableCell>
+        <TableCell align="center">{row.data_attribution}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
+              <Typography variant="h4" gutterBottom component="div">
+                Historique
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>Date de création</TableCell>
                     <TableCell>Commentaire</TableCell>
-                    <TableCell align="right">Etat de la machine</TableCell>
-
+                    <TableCell align="center">Etat de la machine</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date_creation}>
+                    <TableRow key={historyRow.historic_id}>
                       <TableCell component="th" scope="row">
-                        {historyRow.date_creation}
+                        {historyRow.data_attribution}
                       </TableCell>
                       <TableCell>{historyRow.commentaire}</TableCell>
+                      <TableCell > <ImageSlider images={historyRow.photos_etat_machine} displayDeleteIcon={true} /> </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -104,47 +85,12 @@ function Row(props) {
   );
 }
 
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
 
 
 
-export default function HistoricTable({historicsAttribution,...rest}) {
 
-  console.log("rows_data",historicsAttribution)
-  const [rows,setRows]=useState([]);
+export default function HistoricTable({rows,setRows,...rest}) {
 
-    useEffect(()=>{
-           setRows((prev)=>{
-                 let data=[];
-             historicsAttribution.map(historic=>{
-                   data.push(createData(
-                     historic.employe_attribuant.nom,
-                     FilterData.getOccupantName(historic.occupant_precedent.nom),
-                     historic.employe_attribue.nom,
-                     historic.machine.nom,
-                     historic.date_creation),
-                     historic.commentaire)
-                 })
-
-             return data;
-           })
-    },[])
 
   return (
     <TableContainer component={Paper}>
@@ -153,15 +99,15 @@ export default function HistoricTable({historicsAttribution,...rest}) {
           <TableRow>
             <TableCell />
             <TableCell>Chef Attribuant</TableCell>
-            <TableCell align="right">Occupant précedent</TableCell>
-            <TableCell align="right">Employé Attribué</TableCell>
-            <TableCell align="right">Machine</TableCell>
-            <TableCell align="right">Date d'Attribution</TableCell>
+            <TableCell align="center">Occupant précedent</TableCell>
+            <TableCell align="center">Employé Attribué</TableCell>
+            <TableCell align="center">Machine</TableCell>
+            <TableCell align="center">Date d'Attribution</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.name} row={row} />
+            <Row key={row.historic_id} row={row} />
           ))}
         </TableBody>
       </Table>

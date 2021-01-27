@@ -13,23 +13,15 @@ import Session from "../../../lib/Session";
 import HistoryData from "../../util/HistoryData";
 import HistoricTable from "./HistoricTable";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
-  }
-}));
+
+
+
 
 const MachinesListView = () => {
 
-  const classes = useStyles();
   const [historicsAttribution,setHistoricsAttribution] = useState([]);
-  //const [machineSelected, setMachineSelected] = useState(false);
-  //const [isOneMachineSelected, setIsOneMachineSelected] = useState(false);
-  const {id}= Session.getUser(); // l'utilisateur connecté
-
+  console.log("machine ListView")
+ console.log(historicsAttribution)
 
   useEffect(()=>{
 
@@ -50,7 +42,7 @@ const MachinesListView = () => {
   return (
 
         <Box mt={3}>
-          <HistoricTable historicsAttribution={historicsAttribution} setHistoricsAttribution={setHistoricsAttribution}/>
+          <HistoricTable rows={historicsAttribution} setRows={setHistoricsAttribution}/>
         </Box>
 
   );

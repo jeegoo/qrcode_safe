@@ -1,5 +1,5 @@
-
-
+import DIR from "../utils/dir";
+import moment from "moment";
 
 
 class FilterData {
@@ -12,6 +12,7 @@ class FilterData {
                this.filterAllMachinesDetailsData=this.filterAllMachinesDetailsData.bind(this);
                this.filterMachineDetailsData=this.filterMachineDetailsData.bind(this);
                this.filterAllHestoricsDetailsData = this.filterAllHestoricsDetailsData.bind(this);
+               this.getPhotosUrl=this.getPhotosUrl.bind(this);
                this.getOccupantName=this.getOccupantName.bind(this);
                this.getValue=this.getValue.bind(this);
        }
@@ -122,17 +123,18 @@ class FilterData {
 
             const allHistorics=[];
 
-            console.log(data)
+            data.map(({id,precedent_occupant,employe_attribuant,employe_attribue,machine,commentaire,photos_etat_machine,published_at,...rest})=> {
 
-            data.map(({id,precedent_occupant,employe_attribuant,employe_attribue,machine,commentaire,published_at,...rest})=> {
               allHistorics.push({
-                  id:this.getValue(id),
-                  employe_attribuant:this.filterUserDetailsData(employe_attribuant),
-                  precedent_occupant:precedent_occupant!==null ? this.filterWorkerDetailsData(precedent_occupant):null,
-                  employe_attribue:this.filterWorkerDetailsData(employe_attribue),
-                  machine:this.filterMachineDetailsData(machine),
-
-                  data_attribution:published_at
+                  historic_id:id,
+                  employe_attribuant: employe_attribuant.nom,
+                  occupant_precedent: this.getOccupantName(precedent_occupant),
+                  employe_attribue: employe_attribue.nom,
+                  machine: machine.nom,
+                  data_attribution:moment(published_at).format('DD/MM/YYYY'),
+                  history: [
+                    {historic_id:id,data_attribution:moment(published_at).format('DD/MM/YYYY'), commentaire, photos_etat_machine:this.getPhotosUrl(photos_etat_machine) },
+                  ],
                 }
               )
             });
@@ -141,6 +143,16 @@ class FilterData {
         }
 
 
+      getPhotosUrl(photos){
+
+         let photos_url=[];
+         let i=0;
+         photos.map(photo=>{
+               photos_url.push({src:DIR+photo.url,title:i});
+               i++;
+         })
+        return photos_url;
+      }
 
       getOccupantName(employe){
            return employe !=null ? employe.nom : "Dépôt";

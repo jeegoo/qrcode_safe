@@ -1,3 +1,5 @@
+import Session from "../../lib/Session";
+import Util from "../../lib/Util";
 
 const axios = require('axios')
 
@@ -26,8 +28,16 @@ class HestoricData{
 
 
   postHestoricAttribution(data){
-            return axios.post("http://82.165.184.180:1337/historique-attributions",data);
+
+          console.log(data.photos_etat_machine);
+          return  Util.postStrapiPictures(Util.getFilesImages(data.photos_etat_machine)).then(res=>{
+            console.log("return:");
+            console.log(res);
+               return axios.post("http://82.165.184.180:1337/historique-attributions",{photos_etat_machine:res.data,...data});
+            })
+
   }
+
 
 
 

@@ -15,7 +15,9 @@ export default function WebcamCapture({handleImageTaken,qrcodeScanned,cancelImag
   const webcamRef = React.useRef(null);
   const capture = React.useCallback(
     () => {
+
       const imageSrc = webcamRef.current.getScreenshot();
+
       handleImageTaken(imageSrc);
 
     },
@@ -25,11 +27,11 @@ export default function WebcamCapture({handleImageTaken,qrcodeScanned,cancelImag
   return (
         <>
           <Webcam
-            audio={false}
-            height={200}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            width={200}
+              audio={false}
+              height={200}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              width={200}
           />
           <ButtonGroup size="small" aria-label="small outlined button group" >
             <Button color="secondary"
@@ -45,6 +47,6 @@ export default function WebcamCapture({handleImageTaken,qrcodeScanned,cancelImag
 
           </ButtonGroup>
 
-    </>
+      </>
   );
 };

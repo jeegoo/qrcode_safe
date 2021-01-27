@@ -17,7 +17,7 @@ class WorkerData{
         }
 
 
-         getAllEmployees() {
+        getAllEmployees() {
 
               return  axios.get("http://82.165.184.180:1337/employes");
         }
@@ -55,8 +55,7 @@ class WorkerData{
                      headers: { 'Content-Type': 'image/jpeg' }
                    }
                    );
-
-        }
+         }
 
        postEmployeeWithAllAttributes({nom, prenom, email, telephone, fonction, apte,
                                      pays, region, ville, codePostal, photo_profil},updateWorkerValues){

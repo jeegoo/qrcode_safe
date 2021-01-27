@@ -5,13 +5,12 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import green from "@material-ui/core/colors/green";
 import {blue} from "@material-ui/core/colors";
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    width:'100%',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
@@ -19,9 +18,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
+    width:'50%',
     flexWrap: 'nowrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
+  },
+  gridListTile:{
+     width:'100%'
+
   },
   title: {
     color: theme.palette.primary.light,
@@ -32,26 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/**
- * The example data is structured as follows:
- *
- * import image from 'path/to/image.jpg';
- * [etc...]
- *
- * const images = [
- *   {
- *     img: image,
- *     title: 'Image',
- *     author: 'author',
- *   },
- *   {
- *     [etc...]
- *   },
- * ];
- */
-export default function SingleLineGridList({images,setImages,...rest}) {
+export default function SingleLineGridList({images,setImages,displayDeleteIcon,...rest}) {
+
   const classes = useStyles();
-  const handleImageDeleteIconClicked =(event,index)=>{
+  const handleImageDeleteIconClicked = (event,index)=>{
         setImages(oldImages=>oldImages.slice(0,index).concat(oldImages.slice(index+1,oldImages.length)));
   }
 
@@ -59,8 +47,8 @@ export default function SingleLineGridList({images,setImages,...rest}) {
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={2.5}>
         {images.map((img) => (
-          <GridListTile key={img.title}>
-            <img src={img.src} alt={img.title} />
+          <GridListTile key={img.title} >
+            <img src={img.src} alt={img.title} className={classes.gridListTile}/>
             <GridListTileBar
               title={img.title}
               classes={{
@@ -69,10 +57,11 @@ export default function SingleLineGridList({images,setImages,...rest}) {
               }}
               actionIcon={
                 <IconButton aria-label={`star ${img.title}`}
-                onClick={(event)=>handleImageDeleteIconClicked(event,img.title)}
-                >
-                    <DeleteIcon style={{ color: blue[200] }} />
-
+                  onClick={(event)=>handleImageDeleteIconClicked(event,img.title)}>
+                  {displayDeleteIcon === undefined?(
+                      <DeleteIcon style={{color: blue[200]}}/>
+                    ):null
+                  }
                 </IconButton>
               }
             />
