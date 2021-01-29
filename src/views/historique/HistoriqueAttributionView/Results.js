@@ -104,7 +104,7 @@ const Results = ({ className, historicsAttribution, setHistoricsAttribution,...r
                     >
                       <Avatar
                         className={classes.avatar}
-                        src={`${DIR}${historic.employe_attribuant.photo_profil_url}`}
+                        src={`${DIR.STRAPI}${historic.employe_attribuant.photo_profil_url}`}
                       >
                         {getInitials(historic.employe_attribuant.nom)}
                       </Avatar>

@@ -14,6 +14,10 @@ import UploadButton from "./UploadButton";
 import ProfilePicture from "./ProfilePicture";
 import SaveIcon from "@material-ui/icons/Save";
 import SuccessMessage from "./SuccessMessage";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 const QRCode = require('qrcode.react');
 
 const styles = (theme) => ({
@@ -27,6 +31,13 @@ const styles = (theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  }
 });
 
 const DialogTitle = withStyles(styles)((props) => {
@@ -177,8 +188,9 @@ export default function CreateClientPopUp({handleClose,handleSubmit,open,workerV
                       md={6}
                       xs={12}
                     >
-                      <DatePicker/>
+                      <DatePicker label={"Date de naissance"}/>
                     </Grid>
+
 
                     <Grid
                       item
@@ -259,15 +271,76 @@ export default function CreateClientPopUp({handleClose,handleSubmit,open,workerV
                     >
                       <TextField
                         fullWidth
-                        label="Select State"
-                        name="state"
+                        label="Numéro Sécurite Sociale"
+                        name="securite_sociale"
+                        onChange={handleChange}
                         required
-                        select
-                        SelectProps={{ native: true }}
                         variant="outlined"
-                      >
-                      </TextField>
+                      />
                     </Grid>
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Permis de conduire"
+                        name="permis_conduire"
+                        onChange={handleChange}
+                        required
+                        variant="outlined"
+                      />
+                    </Grid>
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <FormControl fullWidth>
+                        <InputLabel fullWidth>Vaccination</InputLabel>
+                        <Select
+                          fullWidth
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={"Vaccin"}
+
+                        >
+                          <MenuItem value={"OUI"}>OUI</MenuItem>
+                          <MenuItem value={"NON"}>NON</MenuItem>
+
+                        </Select>
+                      </FormControl>
+                    </Grid>
+
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <DatePicker label={"Derniere visite médicale"}/>
+                    </Grid>
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <DatePicker label={"Test covid"}/>
+                    </Grid>
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <DatePicker label={"Validité carte PRO BTP"}/>
+                      <UploadButton />
+                    </Grid>
+
                   </Grid>
 
                   <Box

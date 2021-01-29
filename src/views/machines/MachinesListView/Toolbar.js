@@ -23,6 +23,9 @@ import SyncAltIcon from '@material-ui/icons/SyncAlt';
 
 import WorkerData from '../../util/WorkerData'
 import MachineAttribution from "../../util/MachineAttributorPopUp";
+import CreateMachinePopUp from "../../util/CreateMachinePopUp";
+import MachineData from "../../util/MachineData";
+import FilterData from "../../../lib/FilterData";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -34,6 +37,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const resetMachineValues=()=>{
+  return {
+    nom:'',
+    type:'',
+    marque:''
+
+  }
+}
+
 
 
 const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSelected, ...rest }) => {
@@ -41,6 +53,7 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
   const classes = useStyles();
   const [open,setOpen]=useState(false);//ajouter une machine popup
   const [openMachineAttributor, setOpenMachineAttributor] = useState(false);
+  const [machineValues, setMachineValues] = useState(resetMachineValues());
 
   const handleMachineAttributorOpen = () => {
       setOpenMachineAttributor(true);
@@ -51,15 +64,10 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
   };
 
 
-  const resetMachineValues=()=>{
-    return {
-        nom:'',
-        categorie:''
-    }
-  }
 
-  const [machineValues, setMachineValues] = useState(resetMachineValues());
+
   const handleOnAddMachineClicked=(newMachine)=>{
+
     setOpen(true);
   }
 
@@ -85,6 +93,9 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
         [event.target.name]: event.target.files[0],
         photo_profil_url: URL.createObjectURL(event.target.files[0])
       });
+
+
+
     }
 
 
@@ -94,10 +105,10 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
 
   const handleCreateMachineSubmit = async () => {
 
-    await WorkerData.postEmployeeWithAllAttributes(machineValues).then(res => {
+    await MachineData.postMachine(machineValues).then(res => {
 
       setMachines([
-        ...machines, {photo_profil_url: machineValues.photo_profil_url, ...machineValues}
+        ...machines, {photo: machineValues.photo_profil_url, ...FilterData.filterMachineDetailsData(res.data)}
       ]);
       setOpen(false);
     })
@@ -183,7 +194,7 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
         </Card>
       </Box>
 
-      <CreateClientPopUp open={open} handleClose={handleClosePopup} handleSubmit={handleCreateMachineSubmit} machineValues={machineValues} setMachineValues={setMachineValues} handleChange={handleChange}/>
+      <CreateMachinePopUp open={open} handleClose={handleClosePopup} handleSubmit={handleCreateMachineSubmit} machineValues={machineValues} setMachineValues={setMachineValues} handleChange={handleChange}/>
       <MachineAttribution open={openMachineAttributor} handleClickOpen={handleMachineAttributorOpen} handleClose={handleMachineAttributorClose} />
 
     </div>

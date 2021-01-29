@@ -92,7 +92,7 @@ const TrafficByDevice = ({ className, ...rest }) => {
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <CardHeader title="Traffic by Device" />
+      <CardHeader title="Taux d'occupation" />
       <Divider />
       <CardContent>
         <Box

@@ -9,13 +9,12 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import {Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, Grid, TextField} from "@material-ui/core";
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import DatePicker from "./DatePicker";
+import UploadButton from "./UploadButton";
 import ProfilePicture from "./ProfilePicture";
-import {Link} from "react-router-dom";
-import DIR from "../../utils/dir";
+import SaveIcon from "@material-ui/icons/Save";
+import SuccessMessage from "./SuccessMessage";
 const QRCode = require('qrcode.react');
-
-
 
 const styles = (theme) => ({
   root: {
@@ -26,10 +25,8 @@ const styles = (theme) => ({
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500]
+    color: theme.palette.grey[500],
   },
-
-
 });
 
 const DialogTitle = withStyles(styles)((props) => {
@@ -45,7 +42,6 @@ const DialogTitle = withStyles(styles)((props) => {
     </MuiDialogTitle>
   );
 });
-
 
 const DialogContent = withStyles((theme) => ({
   root: {
@@ -63,17 +59,37 @@ const DialogActions = withStyles((theme) => ({
 
 
 
-export default function CustomizedDialogs({worker,handleClose,open,...rest}) {
+export default function CreateMachinePopUp({handleClose,handleSubmit,open,machineValues,setWorkerValues,handleChange,...rest}) {
 
-  console.log(worker.photo_profil)
+  const [openSuccessMessage,setOpenSuccessMessage] = useState(false);
 
+  const handleOnSubmitClientCreation=()=>{
+    setOpenSuccessMessage(true);
+  }
+
+
+  const handleSuccessMessageClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSuccessMessage(false);
+  };
+
+
+
+  function getData(data){
+
+    if(machineValues==null)
+      return "";
+    return machineValues[data];
+  }
 
   return (
     <div>
 
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Fiche d'ouvrier
+          Création fiche outil
         </DialogTitle>
         <DialogContent dividers>
           <form
@@ -88,7 +104,7 @@ export default function CustomizedDialogs({worker,handleClose,open,...rest}) {
                     display="flex"
                     flexDirection="column"
                   >
-                    <ProfilePicture  src={DIR.STRAPI+worker.photo_profil_url}/>
+                    <ProfilePicture src={getData("photo_profil_url")}/>
                     <Typography
                       color="textPrimary"
                       gutterBottom
@@ -96,15 +112,10 @@ export default function CustomizedDialogs({worker,handleClose,open,...rest}) {
                     >
                     </Typography>
                     <Typography
-
-                      variant="h4"
+                      color="textSecondary"
+                      variant="body1"
                     >
-                      {worker.nom}
                     </Typography>
-                    <CheckCircleIcon
-                      color="primary"
-
-                    />
 
                     <Typography
                       color="textSecondary"
@@ -112,23 +123,72 @@ export default function CustomizedDialogs({worker,handleClose,open,...rest}) {
                     >
                     </Typography>
                     <Divider />
-
+                    <CardActions>
+                      <UploadButton handleChange={handleChange}/>
+                    </CardActions>
                   </Box>
                 </CardContent>
 
               </Card>
 
+              <CardHeader
+                subheader="Veuillez remplir tous les champs"
+                title="Profile"
+              />
 
               <Divider />
               <CardContent>
+                <Grid
+                  container
+                  spacing={3}
+                >
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                    <TextField
+                      fullWidth
+                      label="Type"
+                      name="categorie"
+                      required
+                      onChange={handleChange}
+                      variant="outlined"
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                    <TextField
+                      fullWidth
+                      label="Marque"
+                      name="marque"
+                      required
+                      onChange={handleChange}
+                      variant="outlined"
+                    />
+                  </Grid>
+
+
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                    <DatePicker label={"Date d'achat"} />
+                  </Grid>
+
+
+                </Grid>
 
                 <Box
                   alignItems="center"
                   display="flex"
                   flexDirection="column"
-                  p={3}
+                  p={2}
                 >
-                  <QRCode value={`/app/customers/${worker.id}`} />
 
                 </Box>
               </CardContent>
@@ -140,7 +200,7 @@ export default function CustomizedDialogs({worker,handleClose,open,...rest}) {
         <DialogActions>
 
           <Button autoFocus onClick={handleClose} color="primary">
-            Fermer
+            Annuler
           </Button>
 
           <Box
@@ -148,19 +208,23 @@ export default function CustomizedDialogs({worker,handleClose,open,...rest}) {
             justifyContent="flex-end"
             p={2}
           >
-            <Link to={`/app/customers/${worker.id}`}>
-              <Button
-                color="primary"
-                variant="contained"
-                autoFocus
-              >
-                DETAILS
-              </Button>
-            </Link>
-
+            <Button
+              color="primary"
+              variant="contained"
+              autoFocus onClick={(event)=>{handleSubmit();
+              handleOnSubmitClientCreation();
+            }}
+              startIcon={<SaveIcon />}
+            >
+              ENREGISTRER
+            </Button>
           </Box>
         </DialogActions>
       </Dialog>
+
+      <SuccessMessage open={openSuccessMessage} handleClose={handleSuccessMessageClose} message={"Le salarié a été bien créé"}/>
+
     </div>
+
   );
 }

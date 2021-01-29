@@ -43,13 +43,28 @@ const TotalProfit = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              TOTAL PROFIT
+              Matériel défectueux
             </Typography>
             <Typography
               color="textPrimary"
-              variant="h3"
+              variant="h6"
             >
-              $23,200
+              5
+
+            </Typography>
+            <Typography
+              color="textPrimary"
+              variant="h6"
+            >
+              500 €
+
+            </Typography>
+            <Typography
+              color="textPrimary"
+              variant="h6"
+            >
+              15%
+
             </Typography>
           </Grid>
           <Grid item>

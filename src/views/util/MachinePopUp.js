@@ -137,13 +137,9 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
                                                          machine: machine.id,
                                                          employe_attribue: scannedWorker.id,
                                                          commentaire:inputData.comment,
-                                                         photos_etat_machine:images
+                                                         photos_etat_machine:Util.filterImages(images)
 
-               }).then(res=>{
-
-
-
-               })
+               });
 
           handleCloseMachineDetails();  //fermer le popup quand on a fini de scanner l'outil'
         })
@@ -204,7 +200,7 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
                       display="flex"
                       flexDirection="column"
                     >
-                      <ProfilePicture src={DIR + machine.photo_url}/>
+                      <ProfilePicture src={DIR.STRAPI+machine.photo_url}/>
                       <Typography
                         color="textPrimary"
                         gutterBottom

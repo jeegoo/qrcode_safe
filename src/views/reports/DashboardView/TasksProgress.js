@@ -45,13 +45,19 @@ const TasksProgress = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              TASKS PROGRESS
+              D'AFFECTATION DU MATERIEL
             </Typography>
             <Typography
               color="textPrimary"
-              variant="h3"
+              variant="h6"
             >
-              75.5%
+              17000 €
+            </Typography>
+            <Typography
+              color="textPrimary"
+              variant="h6"
+            >
+              86%
             </Typography>
           </Grid>
           <Grid item>

@@ -14,6 +14,7 @@ import {
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100%'
@@ -52,13 +53,25 @@ const TotalCustomers = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              TOTAL CUSTOMERS
+              MATERIEL TOTAL
             </Typography>
             <Typography
               color="textPrimary"
               variant="h3"
             >
-              1,600
+              264
+            </Typography>
+            <Typography
+              color="textPrimary"
+              variant="h6"
+            >
+              23000 €
+            </Typography>
+            <Typography
+              color="textPrimary"
+              variant="h6"
+            >
+              100%
             </Typography>
           </Grid>
           <Grid item>
@@ -73,12 +86,7 @@ const TotalCustomers = ({ className, ...rest }) => {
           alignItems="center"
         >
           <ArrowUpwardIcon className={classes.differenceIcon} />
-          <Typography
-            className={classes.differenceValue}
-            variant="body2"
-          >
-            16%
-          </Typography>
+
           <Typography
             color="textSecondary"
             variant="caption"

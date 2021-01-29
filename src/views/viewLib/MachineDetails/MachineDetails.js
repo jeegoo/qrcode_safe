@@ -9,13 +9,15 @@ import {
   CardContent,
   CardHeader,
   Divider, Grid,
-  makeStyles, TextField
+  makeStyles, TextField, Typography
 } from '@material-ui/core';
 import AgreePopUp from "../../util/AgreePopUp";
 import SaveIcon from "@material-ui/icons/Save";
 import CancelIcon from '@material-ui/icons/Cancel';
 import OptionMenu from "../../util/OptionsMenu";
 import WarningPopUp from "../../util/WarningPopUp";
+import DIR from "../../../utils/dir";
+const QRCode = require('qrcode.react');
 
 
 const useStyles = makeStyles(() => ({
@@ -103,12 +105,28 @@ const MachineDetails = ({ className,disabledInput,setDisabledInput,handleChange,
               <TextField
                 fullWidth
                 helperText="le nom de la machine"
-                label="Nom"
+                name="id"
+                onChange={handleChange}
+                disabled="true"
+                required
+                value={values.id}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                helperText="le nom de la machine"
+                label="Réference"
                 name="nom"
                 onChange={handleChange}
-                disabled={disabledInput}
+                disabled="true"
                 required
-                value={values.nom}
+                value={values.categorie+values.id}
                 variant="outlined"
               />
             </Grid>
@@ -128,8 +146,47 @@ const MachineDetails = ({ className,disabledInput,setDisabledInput,handleChange,
                 variant="outlined"
               />
             </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="marque"
+                name="marque"
+                onChange={handleChange}
+                disabled={disabledInput}
+                required
+                value={values.marque}
+                variant="outlined"
+              />
+            </Grid>
+
+
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+
+            </Grid>
 
           </Grid>
+        </CardContent>
+        <Divider />
+
+        <CardContent>
+
+          <Box
+            alignItems="center"
+            display="flex"
+            flexDirection="column"
+            p={3}
+          >
+            <QRCode value={`/app/machines/${values.id}`} />
+            <Typography > {values.categorie+values.id} </Typography>
+          </Box>
         </CardContent>
 
         {!disabledInput ?(

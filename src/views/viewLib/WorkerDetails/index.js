@@ -32,6 +32,7 @@ const Account = ({values,setValues,disabledInput,setDisabledInput,displayContent
             <Profile disabledInput={disabledInput} values={values} />
           </Grid>
           <Grid item lg={8} md={6} xs={12}>
+
             <ProfileDetails  disabledInput={disabledInput}
                              setDisabledInput={setDisabledInput}
                              resetInitialWorkerValues={resetInitialWorkerValues}

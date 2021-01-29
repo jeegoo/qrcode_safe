@@ -14,26 +14,26 @@ export default function  WorkerDetailsView () {
 
   useEffect(()=>{
 
-        WorkerData.getEmployeeById(id).then(res=>{
+    WorkerData.getEmployeeById(id).then(res=>{
 
-                 setValues(FilterData.filterWorkerDetailsData(res.data));
-                 setInitialWorkerValues(FilterData.filterWorkerDetailsData(res.data))
+      setValues(FilterData.filterWorkerDetailsData(res.data));
+      setInitialWorkerValues(FilterData.filterWorkerDetailsData(res.data))
 
-        })
+    })
 
   },[])
 
 
   const [values, setValues] = useState({
 
-      nom: '',
-      prenom: '',
-      email: '',
-      telephone: '',
-      region: '',
-      pays: '',
-      photo_profil: '',
-      timezone: 'GTM-7'
+    nom: '',
+    prenom: '',
+    email: '',
+    telephone: '',
+    region: '',
+    pays: '',
+    photo_profil: '',
+    timezone: 'GTM-7'
 
   });
 
@@ -60,11 +60,11 @@ export default function  WorkerDetailsView () {
   const handleChange = (event) => {
 
 
-      setValues({
-        ...values,
-        [event.target.name]: event.target.value
-      });
-      setValuesChanged(true);
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    });
+    setValuesChanged(true);
 
   };
 
@@ -72,7 +72,7 @@ export default function  WorkerDetailsView () {
 
   const resetInitialWorkerValues =()=>{
 
-           setValues({...initialWorkerValues})
+    setValues({...initialWorkerValues})
 
   }
 
@@ -207,7 +207,7 @@ export default function  WorkerDetailsView () {
                       flexDirection="column"
                       p={3}
                     >
-                      <QRCode value={DIR+`/app/customers/${id}`} />
+                      <QRCode value={`/app/customers/${id}`} />
                     </Box>
               </CardContent>
 

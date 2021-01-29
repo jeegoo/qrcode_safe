@@ -27,16 +27,21 @@ class HestoricData{
 
 
 
-  postHestoricAttribution(data){
+   async postHestoricAttribution(data) {
 
-          console.log(data.photos_etat_machine);
-          return  Util.postStrapiPictures(Util.getFilesImages(data.photos_etat_machine)).then(res=>{
-            console.log("return:");
-            console.log(res);
-               return axios.post("http://82.165.184.180:1337/historique-attributions",{photos_etat_machine:res.data,...data});
-            })
+     let imgs64Base= data.photos_etat_machine;
+     data.photos_etat_machine=[];
 
-  }
+     return axios.post("http://82.165.184.180:1337/historique-attributions", data).then(res=> {
+
+             Util.getFilesImages(imgs64Base).map(file => {
+               Util.postStrapibase64Pictures(file,"historique-attribution",res.data.id,"photos_etat_machine");
+             })
+
+     });
+
+
+   }
 
 
 

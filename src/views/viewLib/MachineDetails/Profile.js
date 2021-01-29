@@ -42,9 +42,15 @@ const Profile = ({ className,disabledInput,values, ...rest }) => {
           >
           <Avatar
             className={classes.avatar}
-            src={DIR+values.photo_url}
+            src={DIR.STRAPI+values.photo_url}
           />
-            {console.log(DIR+values.photo_url)}
+            <Typography
+              color="textPrimary"
+              gutterBottom
+              variant="h3"
+            >
+              {values.categorie+values.id}
+            </Typography>
 
         </Box>
       </CardContent>

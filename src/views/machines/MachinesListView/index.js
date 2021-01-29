@@ -35,7 +35,7 @@ const MachinesListView = () => {
        MachineData.getAllMachines().then(res=>{
         setMachines(FilterData.filterAllMachinesDetailsData(res.data));
          setAllMachinesLoading(false);
-        console.log(FilterData.filterAllMachinesDetailsData(res.data))
+
       })
 
     }

@@ -22,7 +22,8 @@ export default function  MachineDetailsView () {
   const [values, setValues] = useState({
 
     nom: '',
-    categorie:''
+    categorie:'',
+    marque:''
 
   });
 

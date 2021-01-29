@@ -92,14 +92,16 @@ class FilterData {
 
       filterAllMachinesDetailsData(data){
 
+
         const allMachines=[];
 
-        data.map(({id,nom,categorie,photo,employe,...rest})=> {
+        data.map(({id,nom,categorie,photo,marque,employe,...rest})=> {
           allMachines.push({
                id:this.getValue(id),
                nom:this.getValue(nom),
                categorie:this.getValue(categorie),
-               photo_url:this.getValue(photo) !== "" ? photo[0].url: "",
+               photo_url:this.getValue(photo) !== "" && photo[0]!==undefined? photo[0].url: "",
+               marque:this.getValue(marque),
                employe:employe!=null ? this.filterWorkerDetailsData(employe):null
           }
           )
@@ -108,12 +110,13 @@ class FilterData {
         return allMachines;
       }
 
-      filterMachineDetailsData({id,nom,categorie,photo,employe,...rest}) {
+      filterMachineDetailsData({id,nom,categorie,photo,marque,employe,...rest}) {
               return {
                 id:this.getValue(id),
                 nom:this.getValue(nom),
                 categorie:this.getValue(categorie),
-                photo_url:this.getValue(photo) !== "" ? photo[0].url: "",
+                marque:this.getValue(marque),
+                photo_url:this.getValue(photo) !== "" && photo[0]!==undefined? photo[0].url: "",
                 employe:employe!=null ? this.filterWorkerDetailsData(employe):null
               }
        }
@@ -130,7 +133,7 @@ class FilterData {
                   employe_attribuant: employe_attribuant.nom,
                   occupant_precedent: this.getOccupantName(precedent_occupant),
                   employe_attribue: employe_attribue.nom,
-                  machine: machine.nom,
+                  machine: machine.categorie+machine.id,
                   data_attribution:moment(published_at).format('DD/MM/YYYY'),
                   history: [
                     {historic_id:id,data_attribution:moment(published_at).format('DD/MM/YYYY'), commentaire, photos_etat_machine:this.getPhotosUrl(photos_etat_machine) },
@@ -148,7 +151,7 @@ class FilterData {
          let photos_url=[];
          let i=0;
          photos.map(photo=>{
-               photos_url.push({src:DIR+photo.url,title:i});
+               photos_url.push({src:DIR.STRAPI+photo.url,title:i});
                i++;
          })
         return photos_url;

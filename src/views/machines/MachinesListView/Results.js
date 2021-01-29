@@ -147,7 +147,7 @@ const Results = ({ className, machines,setMachines,setMachineSelected,setIsOneMa
                     onChange={(event)=>handleSelectAll(event,setMachineSelected)}
                   />
                 </TableCell>
-                <TableCell>Nom</TableCell><TableCell>Occupant</TableCell><TableCell>Catégorie</TableCell>
+                <TableCell>Réference</TableCell><TableCell>Occupant</TableCell><TableCell>Catégorie</TableCell><TableCell>Marque</TableCell>
 
               </TableRow>
             </TableHead>
@@ -174,7 +174,7 @@ const Results = ({ className, machines,setMachines,setMachineSelected,setIsOneMa
                     >
                       <Avatar
                         className={classes.avatar}
-                        src={`${DIR}${machine.photo_url}`}
+                        src={`${DIR.STRAPI}${machine.photo_url}`}
                       >
                         {getInitials(machine.nom)}
                       </Avatar>
@@ -182,7 +182,7 @@ const Results = ({ className, machines,setMachines,setMachineSelected,setIsOneMa
                         color="textPrimary"
                         variant="body1"
                       >
-                        <Link href="#" >{machine.nom}</Link>
+                        <Link href="#" >{machine.categorie+machine.id}</Link>
 
                       </Typography>
                     </Box>
@@ -194,6 +194,10 @@ const Results = ({ className, machines,setMachines,setMachineSelected,setIsOneMa
 
                   <TableCell>
                     {machine.categorie}
+                  </TableCell>
+
+                  <TableCell>
+                    {machine.marque}
                   </TableCell>
 
                 </TableRow>

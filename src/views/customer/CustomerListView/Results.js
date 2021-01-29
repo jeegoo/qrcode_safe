@@ -81,19 +81,19 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
 
 
   const displayOptionMenu=(selectedWorkers,setWorkerSelected)=>{
-      if(selectedWorkers.length===0)
-        setWorkerSelected(false);
-      else {
-        if (selectedWorkers.length === 1)   // if only one worker selected
-          setIsOneWorkerSelected(true);
-        else
-          setIsOneWorkerSelected(false);
-        setWorkerSelected(true);
-      }
+    if(selectedWorkers.length===0)
+      setWorkerSelected(false);
+    else {
+      if (selectedWorkers.length === 1)   // if only one worker selected
+        setIsOneWorkerSelected(true);
+      else
+        setIsOneWorkerSelected(false);
+      setWorkerSelected(true);
+    }
   }
 
   const noClientSelected=()=>{
-       return selectedCustomerIds.length===0;
+    return selectedCustomerIds.length===0;
   }
 
   const handleLimitChange = (event) => {
@@ -106,14 +106,14 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
 
   const handleClickOnClient= (event,customer) => {
 
-     // if(noClientSelected()){
-          setClickedWorker(customer);
-          setOpen(true);
-      //}
+    // if(noClientSelected()){
+    setClickedWorker(customer);
+    setOpen(true);
+    //}
   };
 
   const handleClosePopup = () => {
-        setOpen(false);
+    setOpen(false);
   };
 
   const handleChange = (event) => {
@@ -175,9 +175,9 @@ const Results = ({ className, customers,setworkerselected,setIsOneWorkerSelected
                     >
                       <Avatar
                         className={classes.avatar}
-                        src={`${DIR}${customer.photo_profil_url}`}
+                        src={`${DIR.STRAPI}${customer.photo_profil_url}`}
                       >
-                       {getInitials(customer.nom)}
+                        {getInitials(customer.nom)}
                       </Avatar>
                       <Typography
                         color="textPrimary"

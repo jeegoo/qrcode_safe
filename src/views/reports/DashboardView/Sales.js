@@ -29,7 +29,7 @@ const Sales = ({ className, ...rest }) => {
       {
         backgroundColor: colors.indigo[500],
         data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'This year'
+        label: 'AN DERNIER'
       },
       {
         backgroundColor: colors.grey[200],
@@ -37,7 +37,7 @@ const Sales = ({ className, ...rest }) => {
         label: 'Last year'
       }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
+    labels: ['JANVIER', 'FEVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN']
   };
 
   const options = {
@@ -107,10 +107,10 @@ const Sales = ({ className, ...rest }) => {
             size="small"
             variant="text"
           >
-            Last 7 days
+            MOIS
           </Button>
         )}
-        title="Latest Sales"
+        title="Taux de matériel défectueux"
       />
       <Divider />
       <CardContent>
@@ -136,7 +136,7 @@ const Sales = ({ className, ...rest }) => {
           size="small"
           variant="text"
         >
-          Overview
+          OUVRIR
         </Button>
       </Box>
     </Card>

@@ -16,6 +16,7 @@ import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from 'src/components/Logo';
 
+
 const useStyles = makeStyles(() => ({
   root: {},
   avatar: {
@@ -50,6 +51,7 @@ const TopBar = ({
               color="primary"
               variant="dot"
             >
+
               <NotificationsIcon />
             </Badge>
           </IconButton>

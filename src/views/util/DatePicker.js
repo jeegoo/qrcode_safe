@@ -8,7 +8,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-export default function MaterialUIPickers() {
+export default function MaterialUIPickers({label,...rest}) {
   // The first commit of Material-UI
   const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
@@ -23,7 +23,7 @@ export default function MaterialUIPickers() {
         <KeyboardDatePicker
           margin="normal"
           id="date-picker-dialog"
-          label="Date de naissance"
+          label={label}
           format="MM/dd/yyyy"
           value={selectedDate}
           onChange={handleDateChange}
