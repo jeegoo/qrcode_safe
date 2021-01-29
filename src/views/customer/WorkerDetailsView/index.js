@@ -1,16 +1,40 @@
 import React, {useEffect, useState} from "react";
 import WorkerDetails from "../../viewLib/WorkerDetails"
 import {Box, Card, CardContent, Divider, Grid, TextField} from "@material-ui/core";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import WorkerData from '../../util/WorkerData';
 import FilterData from "../../../lib/FilterData";
 import DIR from "../../../utils/dir";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import DatePicker from "../../util/DatePicker";
+import UploadButton from "../../util/UploadButton";
+import {Image} from "@material-ui/icons";
+import Avatar from "@material-ui/core/Avatar";
 
 const QRCode = require('qrcode.react');
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
 
 export default function  WorkerDetailsView () {
 
   const {id}=useParams();
+  const classes = useStyles();
 
   useEffect(()=>{
 
@@ -33,6 +57,7 @@ export default function  WorkerDetailsView () {
     region: '',
     pays: '',
     photo_profil: '',
+    machines:[],
     timezone: 'GTM-7'
 
   });
@@ -94,8 +119,7 @@ export default function  WorkerDetailsView () {
                   >
                     <TextField
                       fullWidth
-                      helperText="Please specify the first name"
-                      label="First name"
+                      label="Nom"
                       name="nom"
                       onChange={handleChange}
                       disabled={disabledInput}
@@ -111,7 +135,7 @@ export default function  WorkerDetailsView () {
                   >
                     <TextField
                       fullWidth
-                      label="Last name"
+                      label="Prénom"
                       name="prenom"
                       onChange={handleChange}
                       disabled={disabledInput}
@@ -127,7 +151,7 @@ export default function  WorkerDetailsView () {
                   >
                     <TextField
                       fullWidth
-                      label="Email Address"
+                      label="Email"
                       name="email"
                       onChange={handleChange}
                       disabled={disabledInput}
@@ -143,7 +167,7 @@ export default function  WorkerDetailsView () {
                   >
                     <TextField
                       fullWidth
-                      label="Phone Number"
+                      label="Téléphone"
                       name="telephone"
                       onChange={handleChange}
                       disabled={disabledInput}
@@ -159,7 +183,7 @@ export default function  WorkerDetailsView () {
                   >
                     <TextField
                       fullWidth
-                      label="Country"
+                      label="Pays"
                       name="pays"
                       onChange={handleChange}
                       disabled={disabledInput}
@@ -168,33 +192,105 @@ export default function  WorkerDetailsView () {
                       variant="outlined"
                     />
                   </Grid>
-                  <Grid
-                    item
-                    md={6}
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      label="Select State"
-                      name="state"
-                      onChange={handleChange}
-                      disabled={disabledInput}
-                      required
-                      select
-                      SelectProps={{ native: true }}
-                      value={values.state}
-                      variant="outlined"
-                    >
-                      {states.map((option) => (
-                        <option
-                          key={option.value}
-                          value={option.value}
+                   <Grid
+                     item
+                     md={6}
+                     xs={12}
+                   >
+                        <FormControl variant="outlined"  fullWidth>
+                        <InputLabel id="demo-simple-select-outlined-label" fullWidth>Machines Occupées</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          value={"Machines Occupées"}
+                          onChange={handleChange}
+                          label="Machines Occupées"
                         >
-                          {option.label}
-                        </option>
-                      ))}
-                    </TextField>
+
+                          {values.machines.map(machine=>
+                            <MenuItem value={machine.id}><Link to={`/app/machines/${machine.id}`}>{machine.categorie+machine.id}</Link></MenuItem>
+                          )}
+
+                        </Select>
+                       </FormControl>
                   </Grid>
+                   <Grid
+                     item
+                     md={6}
+                     xs={12}
+                   >
+                      <TextField
+                        fullWidth
+                        label="Numéro Sécurite Sociale"
+                        name="securite_sociale"
+                        onChange={handleChange}
+                        required
+                        variant="outlined"
+                      />
+                    </Grid>
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Permis de conduire"
+                        name="permis_conduire"
+                        onChange={handleChange}
+                        required
+                        variant="outlined"
+                      />
+                    </Grid>
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <FormControl fullWidth>
+                        <InputLabel fullWidth>Vaccination</InputLabel>
+                        <Select
+                          fullWidth
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={"Vaccin"}
+
+                        >
+                          <MenuItem value={"OUI"}>OUI</MenuItem>
+                          <MenuItem value={"NON"}>NON</MenuItem>
+
+                        </Select>
+                      </FormControl>
+                    </Grid>
+
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <DatePicker label={"Derniere visite médicale"}/>
+                    </Grid>
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <DatePicker label={"Test covid"}/>
+                    </Grid>
+
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+
+                      <UploadButton />
+                    </Grid>
+
                 </Grid>
                   </CardContent>
                       <Divider />

@@ -23,7 +23,8 @@ export default function  MachineDetailsView () {
 
     nom: '',
     categorie:'',
-    marque:''
+    marque:'',
+    employe:{}
 
   });
 

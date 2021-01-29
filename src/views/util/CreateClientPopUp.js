@@ -272,7 +272,7 @@ export default function CreateClientPopUp({handleClose,handleSubmit,open,workerV
                       <TextField
                         fullWidth
                         label="Numéro Sécurite Sociale"
-                        name="securite_sociale"
+
                         onChange={handleChange}
                         required
                         variant="outlined"
@@ -287,7 +287,7 @@ export default function CreateClientPopUp({handleClose,handleSubmit,open,workerV
                       <TextField
                         fullWidth
                         label="Permis de conduire"
-                        name="permis_conduire"
+
                         onChange={handleChange}
                         required
                         variant="outlined"

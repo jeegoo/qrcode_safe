@@ -23,13 +23,14 @@ import WorkerData from '../../util/WorkerData'
 import SettingsEthernetIcon from "@material-ui/icons/SettingsEthernet";
 import Machine from "../../viewLib/MachineDetails";
 import MachineAttribution from "../../util/MachineAttributorPopUp";
+import { useMediaQuery } from 'react-responsive'
+
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  importButton: {
-    marginRight: theme.spacing(1)
+  root: {
+    width1:'100%'
   },
-  exportButton: {
+  toolBarButton: {
     marginRight: theme.spacing(1)
   }
 }));
@@ -40,6 +41,7 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
 
   const classes = useStyles();
   const [open,setOpen]=useState(false);
+  const isDesktop = useMediaQuery({query: '(min-device-width: 800px)'})
 
   const resetWorkerValues=()=>{
       return {
@@ -86,10 +88,7 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
             photo_profil_url: URL.createObjectURL(event.target.files[0])
           });
         }
-
-
-     // console.log(workerValues)
-
+        
   }
 
   const handleCreateWorkerSubmit = async () => {
@@ -116,39 +115,44 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <Box
-        display="flex"
-        justifyContent="flex-end"
-      >
-        <Button className={classes.importButton}
-        startIcon={<CloudUploadIcon/>}
-                color={"default"}
-        >
-          Importer
-        </Button>
-        <Button className={classes.exportButton}
-                color={"primary"}
-                startIcon={<CloudDownloadIcon/>}
-        >
-          Exporter
-        </Button>
+      {isDesktop?(
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+          >
 
-        <Button className={classes.exportButton}
-                color={"primary"}
-                startIcon={<SettingsEthernetIcon/>}
-        >
-          Attributions
-        </Button>
+            <Button className={classes.toolBarButton}
+            startIcon={<CloudUploadIcon/>}
+                    color={"default"}
+            >
+              Importer
+            </Button>
+            <Button className={classes.toolBarButton}
+                    color={"primary"}
+                    startIcon={<CloudDownloadIcon/>}
+            >
+              Exporter
+            </Button>
 
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleOnAddCustomerClicked}
-        >
-          Ajouter un ouvrier
+            <Button className={classes.toolBarButton}
+                    color={"primary"}
+                    startIcon={<SettingsEthernetIcon/>}
+            >
+              Attributions
+            </Button>
 
-        </Button>
-      </Box>
+            <Button
+              className={classes.toolBarButton}
+              color="primary"
+              variant="contained"
+              onClick={handleOnAddCustomerClicked}
+            >
+              Ajouter un ouvrier
+
+            </Button>
+          </Box>
+      ):null}
+
       <Box mt={3}>
         <Card>
           <CardContent>

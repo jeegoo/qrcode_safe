@@ -22,6 +22,7 @@ import SyncAltIcon from '@material-ui/icons/SyncAlt';
 import PrintIcon from '@material-ui/icons/Print';
 import WorkerData from '../util/WorkerData'
 import MachineAttribution from "../util/MachineAttributorPopUp";
+import {useMediaQuery} from "react-responsive";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -42,6 +43,7 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
   const classes = useStyles();
   const [open,setOpen]=useState(false);//ajouter une machine popup
   const [openMachineAttributor, setOpenMachineAttributor] = useState(false);
+  const isDesktop = useMediaQuery({query: '(min-device-width: 800px)'})
 
   const handleMachineAttributorOpen = () => {
       setOpenMachineAttributor(true);
@@ -77,6 +79,7 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
       className={clsx(classes.root, className)}
       {...rest}
     >
+      {isDesktop?(
       <Box
         display="flex"
         justifyContent="flex-end"
@@ -107,8 +110,8 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
           Attributions
         </Button>
 
-
-      </Box>
+      </Box>):null
+      }
       <Box mt={3}>
         <Card>
           <CardContent>

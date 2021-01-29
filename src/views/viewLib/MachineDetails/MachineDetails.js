@@ -17,6 +17,12 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import OptionMenu from "../../util/OptionsMenu";
 import WarningPopUp from "../../util/WarningPopUp";
 import DIR from "../../../utils/dir";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import {Link} from "react-router-dom";
+import {AccountCircle} from "@material-ui/icons";
 const QRCode = require('qrcode.react');
 
 
@@ -163,14 +169,29 @@ const MachineDetails = ({ className,disabledInput,setDisabledInput,handleChange,
               />
             </Grid>
 
-
             <Grid
               item
               md={6}
               xs={12}
             >
+              <FormControl variant="outlined"  fullWidth>
+                <InputLabel id="demo-simple-select-outlined-label" fullWidth>Employé occupant</InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={values.employe.nom}
+                  onChange={handleChange}
+                  label="Employé Occupant"
+                >
+                  <MenuItem value={0}><Link fullwidth to={`/app/customers/${values.employe.id}`}>{values.employe.nom}</Link></MenuItem>
 
+
+                </Select>
+              </FormControl>
             </Grid>
+
+
+
 
           </Grid>
         </CardContent>

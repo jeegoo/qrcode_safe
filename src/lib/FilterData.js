@@ -18,9 +18,10 @@ class FilterData {
        }
 
        filterWorkerDetailsData({id,nom, prenom, email,
-                                 telephone, adresse, photo_profil,information_employes,...rest}){
+                                 telephone, adresse, photo_profil,information_employes,machines,...rest}){
 
              return  {
+
                      id :this.getValue(id),
                      nom:this.getValue(nom),
                      prenom:this.getValue(prenom),
@@ -33,6 +34,7 @@ class FilterData {
                      photo_profil_url:this.getValue(photo_profil) !== "" ? photo_profil.url: "",
                      apte:this.getValue(information_employes)!=="" &&
                      information_employes[0]!==undefined ?information_employes[0].apte:"",
+                     machines,
                      timezone: 'GTM-7'
              };
        }
@@ -62,7 +64,7 @@ class FilterData {
 
          const allWorkers=[]
 
-         data.map(({id,nom,prenom,adresse,email,telephone,created_at,updated_at,photo_profil,information_employes,...rest})=>{
+         data.map(({id,nom,prenom,adresse,email,telephone,created_at,updated_at,photo_profil,machines,information_employes,...rest})=>{
                 allWorkers.push({
 
                     id :this.getValue(id),
@@ -80,7 +82,8 @@ class FilterData {
                     region:this.getValue(adresse)!=="" ? adresse.region:"",
                     ville:this.getValue(adresse) !== "" ? adresse.ville:"",
                     codePostal:this.getValue(adresse) !== "" ? adresse.codePostal:"",
-                    photo_profil_url:this.getValue(photo_profil) !== "" ? photo_profil.url: ""
+                    photo_profil_url:this.getValue(photo_profil) !== "" ? photo_profil.url: "",
+                    machines
 
                 })
          })
