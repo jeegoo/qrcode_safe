@@ -54,7 +54,7 @@ const LoginView = () => {
 
 
   const handleOnSubmitLoginForm=(values)=>{
-        axios.post(`${DIR}/auth/local`,{
+        axios.post(`${DIR.STRAPI}/auth/local`,{
               identifier:values.email,
               password:values.password
         }).then((res)=>{
