@@ -24,6 +24,7 @@ import SettingsEthernetIcon from "@material-ui/icons/SettingsEthernet";
 import Machine from "../../viewLib/MachineDetails";
 import MachineAttribution from "../../util/MachineAttributorPopUp";
 import { useMediaQuery } from 'react-responsive'
+import MachineAttributor from "../../util/MachineAttributor";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +46,6 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
 
   const resetWorkerValues=()=>{
       return {
-
           nom:'',
           prenom:'',
           email:'',
@@ -93,14 +93,13 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
 
   const handleCreateWorkerSubmit = async () => {
 
-    await WorkerData.postEmployeeWithAllAttributes(workerValues).then(res => {
+      await WorkerData.postEmployeeWithAllAttributes(workerValues).then(res => {
 
-      setCustomers([
-        ...customers, {photo_profil_url: workerValues.photo_profil_url, ...workerValues}
-      ]);
-      setOpen(false);
-    })
-
+        setCustomers([
+             ...customers, {photo_profil_url: workerValues.photo_profil_url, ...workerValues}
+          ]);
+          setOpen(false);
+        })
 
   }
 
@@ -120,26 +119,19 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
             display="flex"
             justifyContent="flex-end"
           >
-
-            <Button className={classes.toolBarButton}
-            startIcon={<CloudUploadIcon/>}
+            <Button className={classes.importButton}
+                    startIcon={<CloudUploadIcon/>}
                     color={"default"}
             >
               Importer
             </Button>
-            <Button className={classes.toolBarButton}
+            <Button className={classes.exportButton}
                     color={"primary"}
                     startIcon={<CloudDownloadIcon/>}
             >
               Exporter
             </Button>
-
-            <Button className={classes.toolBarButton}
-                    color={"primary"}
-                    startIcon={<SettingsEthernetIcon/>}
-            >
-              Attributions
-            </Button>
+            <MachineAttributor />
 
             <Button
               className={classes.toolBarButton}
@@ -150,8 +142,10 @@ const Toolbar = ({ className,workerselected,customers,setCustomers,isOneWorkerSe
               Ajouter un ouvrier
 
             </Button>
-          </Box>
-      ):null}
+          </Box>):
+        <MachineAttributor />}
+
+
 
       <Box mt={3}>
         <Card>

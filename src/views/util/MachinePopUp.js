@@ -95,6 +95,11 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
     const [qrcodeScanningLoading,setQrcodeScanningLoading]=useState(false);
     const [inputData,setInputData]=useState({comment:''});
 
+
+
+
+
+
   const getScannedEmployeeById= (workerId) => {   //récuperer l'employé scanné
 
     setQrcodeScanningLoading(true);
@@ -107,6 +112,10 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
          window.alert("une erreur de connexion veuillez rafrichir la page!")
             })
     },2000)
+  }
+
+  const onScannedId=(id)=>{
+      getScannedEmployeeById(id);
   }
 
   const cancelImagePicker=()=>{
@@ -249,7 +258,7 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
 
                   <QrReaderView scannedWorker={scannedWorker} setScannedWorker={setScannedWorker}
                                 qrcodeScanned={qrcodeScanned} setQrcodeScanned={setQrcodeScanned}
-                                getScannedEmployeById={getScannedEmployeeById}/>
+                                onScannedId={onScannedId}/>
 
                   <Divider />
                   {!qrcodeScanningLoading?(
@@ -271,7 +280,6 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
                        <Divider />
                        <Typography variant={'h4'}>Ajouter un commentaire</Typography>
                        <TextareaAutosize name={"comment"}  onChange={handleChangeComment} rowsMin={5} rowsMax={7}/>
-
 
                      </>):null)
                     :(<CircularProgress />)

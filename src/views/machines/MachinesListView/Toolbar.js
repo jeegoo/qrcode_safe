@@ -27,6 +27,7 @@ import CreateMachinePopUp from "../../util/CreateMachinePopUp";
 import MachineData from "../../util/MachineData";
 import FilterData from "../../../lib/FilterData";
 import {useMediaQuery} from "react-responsive";
+import MachineAttributor from "../../util/MachineAttributor";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -146,13 +147,7 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
         >
           Exporter
         </Button>
-        <Button className={classes.exportButton}
-                color={"primary"}
-                startIcon={<SyncAltIcon/>}
-                onClick={handleMachineAttributorOpen}
-        >
-          Attributions
-        </Button>
+        <MachineAttributor />
 
         <Button
           color="primary"
@@ -162,7 +157,10 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
           Ajouter une Machine
 
         </Button>
-      </Box>):null}
+      </Box>):
+        <MachineAttributor />
+
+      }
 
       <Box mt={3}>
         <Card>
@@ -199,7 +197,6 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
       </Box>
 
       <CreateMachinePopUp open={open} handleClose={handleClosePopup} handleSubmit={handleCreateMachineSubmit} machineValues={machineValues} setMachineValues={setMachineValues} handleChange={handleChange}/>
-      <MachineAttribution open={openMachineAttributor} handleClickOpen={handleMachineAttributorOpen} handleClose={handleMachineAttributorClose} />
 
     </div>
 

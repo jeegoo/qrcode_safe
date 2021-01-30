@@ -23,6 +23,7 @@ import PrintIcon from '@material-ui/icons/Print';
 import WorkerData from '../util/WorkerData'
 import MachineAttribution from "../util/MachineAttributorPopUp";
 import {useMediaQuery} from "react-responsive";
+import MachineAttributor from "../util/MachineAttributor";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -80,37 +81,26 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
       {...rest}
     >
       {isDesktop?(
-      <Box
-        display="flex"
-        justifyContent="flex-end"
-      >
-        <Button className={classes.importButton}
-                startIcon={<PrintIcon/>}
-                color={"default"}
-        >
-          Imprimer
-        </Button>
-        <Button className={classes.importButton}
-                startIcon={<CloudUploadIcon/>}
-                color={"default"}
-        >
-          Importer
-        </Button>
-        <Button className={classes.exportButton}
-                color={"primary"}
-                startIcon={<CloudDownloadIcon/>}
-        >
-          Exporter
-        </Button>
-        <Button className={classes.exportButton}
-                color={"primary"}
-                startIcon={<SyncAltIcon/>}
-                onClick={handleMachineAttributorOpen}
-        >
-          Attributions
-        </Button>
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+          >
+            <Button className={classes.importButton}
+                    startIcon={<CloudUploadIcon/>}
+                    color={"default"}
+            >
+              Importer
+            </Button>
+            <Button className={classes.exportButton}
+                    color={"primary"}
+                    startIcon={<CloudDownloadIcon/>}
+            >
+              Exporter
+            </Button>
+            <MachineAttributor />
 
-      </Box>):null
+          </Box>):
+        <MachineAttributor />
       }
       <Box mt={3}>
         <Card>

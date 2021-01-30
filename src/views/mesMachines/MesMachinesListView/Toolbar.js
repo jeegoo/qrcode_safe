@@ -23,6 +23,8 @@ import SyncAltIcon from '@material-ui/icons/SyncAlt';
 
 import WorkerData from '../../util/WorkerData'
 import MachineAttribution from "../../util/MachineAttributorPopUp";
+import MachineAttributor from "../../util/MachineAttributor";
+import {useMediaQuery} from "react-responsive";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -41,6 +43,7 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
   const classes = useStyles();
   const [open,setOpen]=useState(false);//ajouter une machine popup
   const [openMachineAttributor, setOpenMachineAttributor] = useState(false);
+  const isDesktop = useMediaQuery({query: '(min-device-width: 800px)'})
 
   const handleMachineAttributorOpen = () => {
       setOpenMachineAttributor(true);
@@ -116,39 +119,36 @@ const Toolbar = ({ className,machineselected,machines,setMachines,isOneMachineSe
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <Box
-        display="flex"
-        justifyContent="flex-end"
-      >
-        <Button className={classes.importButton}
-                startIcon={<CloudUploadIcon/>}
-                color={"default"}
-        >
-          Importer
-        </Button>
-        <Button className={classes.exportButton}
-                color={"primary"}
-                startIcon={<CloudDownloadIcon/>}
-        >
-          Exporter
-        </Button>
-        <Button className={classes.exportButton}
-                color={"primary"}
-                startIcon={<SyncAltIcon/>}
-                onClick={handleMachineAttributorOpen}
-        >
-          Attributions
-        </Button>
+        {isDesktop?(
+            <Box
+              display="flex"
+              justifyContent="flex-end"
+            >
+              <Button className={classes.importButton}
+                      startIcon={<CloudUploadIcon/>}
+                      color={"default"}
+              >
+                Importer
+              </Button>
+              <Button className={classes.exportButton}
+                      color={"primary"}
+                      startIcon={<CloudDownloadIcon/>}
+              >
+                Exporter
+              </Button>
+              <MachineAttributor />
 
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleOnAddMachineClicked}
-        >
-          Ajouter une Machine
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={handleOnAddMachineClicked}
+              >
+                Ajouter une Machine
 
-        </Button>
-      </Box>
+              </Button>
+            </Box>):
+          <MachineAttributor />}
+
       <Box mt={3}>
         <Card>
           <CardContent>

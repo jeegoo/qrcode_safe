@@ -9,7 +9,7 @@ const parse = require('url-parse');
 
 const queryString = require('query-string');
 
-export default function QrReaderView({qrcodeScanned,setQrcodeScanned,scannedWorker,setScannedWorker,getScannedEmployeById,...rest}) {
+export default function QrReaderView({onScannedId,...rest}) {
 
   const [displayQrcodeReader,setDisplayQrcodeReader]=useState(false);
 
@@ -17,8 +17,8 @@ export default function QrReaderView({qrcodeScanned,setQrcodeScanned,scannedWork
   const handleScan = async data => {
       if (data) {
 
-              getScannedEmployeById(Util.getIdFromUrl(data));  //notifier le component parent
-              setDisplayQrcodeReader(false);
+        onScannedId(Util.getIdFromUrl(data));  //notifier le component parent
+        setDisplayQrcodeReader(false);
 
 
       }
@@ -44,7 +44,7 @@ export default function QrReaderView({qrcodeScanned,setQrcodeScanned,scannedWork
 
   return (
       <div>
-        {!qrcodeScanned?(  //tant que on a pas encore scanné
+        {
           displayQrcodeReader?(  //tant que on a pas scanné
             <div>
                 <QrReader
@@ -69,8 +69,8 @@ export default function QrReaderView({qrcodeScanned,setQrcodeScanned,scannedWork
                     onClick={handleDisplayClick}
                     >
                     Attribuer
-                  </Button>):null
-            }
+                  </Button>
+        }
 
 
 

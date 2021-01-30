@@ -10,7 +10,7 @@ const videoConstraints = {
   facingMode: "user"
 };
 
-export default function WebcamCapture({handleImageTaken,qrcodeScanned,cancelImagePicker,...rest}) {
+export default function WebcamCapture({handleImageTaken,cancelImagePicker,...rest}) {
 
   const webcamRef = React.useRef(null);
   const capture = React.useCallback(
@@ -25,15 +25,16 @@ export default function WebcamCapture({handleImageTaken,qrcodeScanned,cancelImag
   );
 
   return (
-        <>
+        <div align={"center"} >
           <Webcam
               audio={false}
               height={200}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               width={200}
+              align={"center"}
           />
-          <ButtonGroup size="small" aria-label="small outlined button group" >
+          <ButtonGroup size="small" aria-label="small outlined button group" align={"center"}>
             <Button color="secondary"
                     variant="contained"
                     onClick={capture}>
@@ -47,6 +48,6 @@ export default function WebcamCapture({handleImageTaken,qrcodeScanned,cancelImag
 
           </ButtonGroup>
 
-      </>
+      </div>
   );
 };
