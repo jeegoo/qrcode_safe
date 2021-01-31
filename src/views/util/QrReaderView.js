@@ -57,6 +57,7 @@ export default function QrReaderView({onScannedId,...rest}) {
                   variant="outlined"
                   color="secondary"
                   onClick={handleCancelClick}
+                  style={{ margin: '5px' }}
                 >
                   Annuler
                 </Button>

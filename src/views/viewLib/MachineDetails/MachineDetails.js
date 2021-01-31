@@ -23,6 +23,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import {Link} from "react-router-dom";
 import {AccountCircle} from "@material-ui/icons";
+import WorkersList from "../../util/WorkersList";
 const QRCode = require('qrcode.react');
 
 
@@ -169,29 +170,9 @@ const MachineDetails = ({ className,disabledInput,setDisabledInput,handleChange,
               />
             </Grid>
 
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <FormControl variant="outlined"  fullWidth>
-                <InputLabel id="demo-simple-select-outlined-label" fullWidth>Employé occupant</InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={values.employe.nom}
-                  onChange={handleChange}
-                  label="Employé Occupant"
-                >
-                  <MenuItem value={0}><Link fullwidth to={`/app/customers/${values.employe.id}`}>{values.employe.nom}</Link></MenuItem>
+               <Typography variant={"h6"}>Employé(s) occupant(s): 1</Typography>
 
-
-                </Select>
-              </FormControl>
-            </Grid>
-
-
-
+            <WorkersList workers={[values.employe]} />
 
           </Grid>
         </CardContent>

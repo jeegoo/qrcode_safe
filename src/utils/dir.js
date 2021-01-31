@@ -2,7 +2,7 @@
 
 
 const DIR = {
-      SERVER:"http://82.165.184.180:8082",
+      SERVER:"qrcode-safe.vercel.app" ,
       STRAPI:"http://82.165.184.180:1337"
 }
 export default DIR;

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import WorkerDetails from "../../viewLib/WorkerDetails"
-import {Box, Card, CardContent, Divider, Grid, TextField} from "@material-ui/core";
+import {Box, Card, CardContent, Divider, Grid, TextField, Typography} from "@material-ui/core";
 import {Link, useParams} from "react-router-dom";
 import WorkerData from '../../util/WorkerData';
 import FilterData from "../../../lib/FilterData";
@@ -14,6 +14,7 @@ import DatePicker from "../../util/DatePicker";
 import UploadButton from "../../util/UploadButton";
 import {Image} from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
+import MachinesList from "../../util/MachinesList";
 
 const QRCode = require('qrcode.react');
 
@@ -67,20 +68,6 @@ export default function  WorkerDetailsView () {
   const [valuesChanged,setValuesChanged]=useState(false);
   const [initialWorkerValues,setInitialWorkerValues]=useState({});
 
-  const states = [
-    {
-      value: 'alabama',
-      label: 'Alabama'
-    },
-    {
-      value: 'new-york',
-      label: 'New York'
-    },
-    {
-      value: 'san-francisco',
-      label: 'San Francisco'
-    }
-  ];
 
   const handleChange = (event) => {
 
@@ -192,28 +179,7 @@ export default function  WorkerDetailsView () {
                       variant="outlined"
                     />
                   </Grid>
-                   <Grid
-                     item
-                     md={6}
-                     xs={12}
-                   >
-                        <FormControl variant="outlined"  fullWidth>
-                        <InputLabel id="demo-simple-select-outlined-label" fullWidth>Machines Occupées</InputLabel>
-                        <Select
-                          labelId="demo-simple-select-outlined-label"
-                          id="demo-simple-select-outlined"
-                          value={"Machines Occupées"}
-                          onChange={handleChange}
-                          label="Machines Occupées"
-                        >
 
-                          {values.machines.map(machine=>
-                            <MenuItem value={machine.id}><Link to={`/app/machines/${machine.id}`}>{machine.categorie+machine.id}</Link></MenuItem>
-                          )}
-
-                        </Select>
-                       </FormControl>
-                  </Grid>
                    <Grid
                      item
                      md={6}
@@ -282,14 +248,10 @@ export default function  WorkerDetailsView () {
                       <DatePicker label={"Test covid"}/>
                     </Grid>
 
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
+                    <Typography variant={"h6"}>Machines occupées: {values.machines.length}</Typography>
 
-                      <UploadButton />
-                    </Grid>
+                    <MachinesList machines={values.machines} />
+
 
                 </Grid>
                   </CardContent>

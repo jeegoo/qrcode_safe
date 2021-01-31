@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
   },
   qrcode: {
-    width: '30%',
+    width: '60%',
   },
   divImages:{
     margin:'2%'
