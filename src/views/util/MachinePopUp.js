@@ -189,9 +189,8 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
    }
 
   return (
-    <div>
 
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+        <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Fiche machine
         </DialogTitle>
@@ -200,7 +199,8 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
             autoComplete="off"
             noValidate
           >
-            <Card>
+
+               <Card>
               <Card>
                 {!qrcodeScanned ?(  //cacher cette section pour permettre la prise des photos d'états de la machine
                   <CardContent>
@@ -255,11 +255,11 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
                   flexDirection="column"
                   p={3}
                 >
-
+                  {!qrcodeScanned ?
                   <QrReaderView scannedWorker={scannedWorker} setScannedWorker={setScannedWorker}
                                 qrcodeScanned={qrcodeScanned} setQrcodeScanned={setQrcodeScanned}
-                                onScannedId={onScannedId}/>
-
+                                onScannedId={onScannedId}/>:null
+                  }
                   <Divider />
                   {!qrcodeScanningLoading?(
                     qrcodeScanned ?(
@@ -296,11 +296,11 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
                                 handleOnAgree={handleCloseMachineDetails} />
 
 
-                </Box>
-              </CardContent>
-              <Divider />
+                 </Box>
+                 </CardContent>
+                 <Divider />
 
-            </Card>
+               </Card>
           </form>
         </DialogContent>
         <DialogActions>
@@ -341,6 +341,7 @@ export default function MachinePopUp({machine, setMachines, qrReader,setQrReader
           </Box>
         </DialogActions>
       </Dialog>
-    </div>
+
+
   );
 }

@@ -26,6 +26,7 @@ import HistoryData from "./HistoryData";
 import Session from "../../lib/Session";
 import Util from "../../lib/Util";
 import CameraPicker from "./CameraPicker";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -35,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  gridAttribution:{
+    margin:'5%'
+  }
 }));
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -55,14 +59,16 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
   const [warningPopUp,setWarningPopUp] = useState(false);
   const [qrcodeScanningLoading,setQrcodeScanningLoading] = useState(false);
   const [inputData,setInputData] = useState({comment:''});
-  const [ok,setOk]=useState(false);
+  const [okMachine,setOkMachine]=useState(false);
+  const [okEmploye,setOkEmploye]=useState(false);
+  const [okEtatMachine,setOkEtatMachine]=useState(false);
+
 
 
   const getMachineById=(machineId)=>{
 
        MachineData.getMachineById(machineId).then(machine=>{
-             alert(machine.data.id)
-            setScannedMachine(FilterData.filterMachineDetailsData(machine.data));
+             setScannedMachine(FilterData.filterMachineDetailsData(machine.data));
              setMachineQrcodeScanned(true);
        }).catch(err=>{
             alert("ce qrcode n'appatient à aucune machine")
@@ -72,9 +78,12 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
     const getWorkerById=(employeId)=>{
 
       WorkerData.getEmployeeById(employeId).then(employe=>{
-        alert(employe.data.id)
-        setScannedWorker(FilterData.filterWorkerDetailsData(employe.data));
-        setWorkerQrcodeScanned(true);
+
+            setScannedWorker(FilterData.filterWorkerDetailsData(employe.data));
+            setWorkerQrcodeScanned(true);
+
+      }).catch(err=>{
+        alert("ce qrcode n'appatient à aucun employé")
       })
     }
 
@@ -85,6 +94,19 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
     const cancelImagePicker=()=>{
 
     }
+
+  const handleChangeComment=(event)=>{
+    setInputData({
+      ...inputData,
+      [event.target.name]: event.target.value
+    });
+  }
+
+  const handleImageTaken =(src)=>{
+
+    setImages(oldImages=>[...oldImages,{src:src,title:oldImages.length}])
+    setPhotosTaken(images.length>0);
+  }
 
 
   const handleOnMachineAffectationSubmit=()=>{   //quand on valide sur le popup
@@ -112,16 +134,12 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
                       setQrcodeScanned={setMachineQrcodeScanned} onScannedId={getMachineById}/>
                       :null
          }
-        {!workerQrcodeScanned && machineQrcodeScanned && ok?  //si le qrcode de l'employé n'est pas encore scannée et non celui de la machine
+        {!workerQrcodeScanned && machineQrcodeScanned && okMachine?  //si le qrcode de l'employé n'est pas encore scannée et non celui de la machine
           <QrReaderView qrcodeScanned={machineQrcodeScanned}
                         setQrcodeScanned={setMachineQrcodeScanned} onScannedId={getWorkerById}/>
           :null
         }
-      {workerQrcodeScanned && machineQrcodeScanned && ok?
-         <CameraPicker  cancelImagePicker={cancelImagePicker} handleImageTaken={handleCameraImageTaken} />
-      :null
 
-      }
     </Container>
     )
 
@@ -146,16 +164,26 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
           </div>
         </AppBar>
 
-        <React.Fragment>
+        <React.Fragment >
           <CssBaseline />
-          <Container maxWidth="sm" align={"center"}>
+          <Grid maxWidth="sm" alignItems={"center"} >
             <Divider/>
 
             <Stepper content={content} machineQrcodeScanned={machineQrcodeScanned}
-                     workerQrcodeScanned={workerQrcodeScanned} ok={ok} setOk={setOk}
+                     workerQrcodeScanned={workerQrcodeScanned}
+                     okMachine={okMachine} setOkMachine={setOkMachine}
+                     okEmploye={okEmploye} setOkEmploye={setOkEmploye}
+                     okEtatMachine={okEtatMachine}
+                     setOkEtatMachine={setOkEtatMachine}
                      scannedWorker={scannedWorker} scannedMachine={scannedMachine}
+                     images={images} setImages={setImages}
+                     handleImageTaken={handleImageTaken}
+                     cancelImagePicker={cancelImagePicker}
+                     handleChangeComment={handleChangeComment}
+                     photosTaken={photosTaken}
+
             />
-          </Container>
+          </Grid>
 
 
         </React.Fragment>

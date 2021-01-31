@@ -5,6 +5,12 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import DIR from "../../utils/dir";
+import CameraPicker from "./CameraPicker";
+import Container from "@material-ui/core/Container";
+import {Divider, Grid, TextareaAutosize} from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import ImageSlider from "./ImageSlider";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,10 +23,21 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  qrcode: {
+    width: '30%',
+  },
+  divImages:{
+    margin:'5%'
+  },
+
+  imageSlider:{
+    width:'50%',
+
+  }
 }));
 
 function getSteps() {
-  return ['QRCODE Machine', 'QRCODE Ouvrier', 'Validation'];
+  return ['QRCODE Machine', 'QRCODE Ouvrier','Etat de la machine', 'Validation'];
 }
 
 function getStepContent(stepIndex) {
@@ -30,31 +47,68 @@ function getStepContent(stepIndex) {
     case 1:
       return 'Scanner QRCODE de l\'employé';
     case 2:
+      return 'Veuillez prendre des photos de l\'état de la machine';
+    case 3 :
       return 'Veuillez valider l\'attribution de la machine';
     default:
       return 'Unknown stepIndex';
   }
 }
 
-export default function HorizontalLabelPositionBelowStepper({content,machineQrcodeScanned,workerQrcodeScanned,scannedMachine,scannedWorker,ok,setOk,...rest}) {
+export default function HorizontalLabelPositionBelowStepper({content,machineQrcodeScanned,workerQrcodeScanned,
+                                                              photosTaken,setPhotosTaken,
+                                                              okMachine, setOkMachine,
+                                                              okEmploye, setOkEmploye,
+                                                              okEtatMachine,setOkEtatMachine,
+                                                              scannedWorker, scannedMachine,
+                                                              images,setImages,
+                                                              handleChangeComment,
+                                                              cancelImagePicker,handleImageTaken
+                                                              ,...rest}) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
-  const handleNext = () => {
-    setOk(true);
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const setStepValues=(value)=>{
 
+    switch (activeStep) {
+        case 0:
+          setOkMachine(value);
+          break;
+        case 1:
+          setOkEmploye(value);
+          break;
+        case 2:
+          setOkEtatMachine(value);
+          break;
+    }
+  }
+
+
+  const canBeDisplayed=(step)=>{
+      return activeStep ===step;
+  }
+
+
+  const handleNext = () => {
+
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setStepValues(true);
   };
 
   const handleBack = () => {
-    setOk(false);
+
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setStepValues(false);
+
   };
 
   const handleReset = () => {
     setActiveStep(0);
   };
+
+
 
   return (
     <div align={"center"} className={classes.root}>
@@ -65,9 +119,11 @@ export default function HorizontalLabelPositionBelowStepper({content,machineQrco
           </Step>
         ))}
       </Stepper>
-      {content}
+     <div className={classes.qrcode}>
+        {content}
+     </div>
       <div>
-        {activeStep === steps.length ? (
+        {canBeDisplayed(steps.length) ? (
           <div>
             <Typography className={classes.instructions}>Machine <strong>{scannedMachine.categorie+scannedMachine.id}
             </strong> a été affectée à l'employé : <strong>{scannedWorker.nom}</strong></Typography>
@@ -75,29 +131,58 @@ export default function HorizontalLabelPositionBelowStepper({content,machineQrco
           </div>
         ) :
           <div>
-            {!machineQrcodeScanned ?
+            {(!machineQrcodeScanned && canBeDisplayed(0) ||
+                 (!workerQrcodeScanned && canBeDisplayed(1))
+                  || (!photosTaken && canBeDisplayed(2))
+            )?
               <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
               :null
             }
-            {machineQrcodeScanned && !ok ?
-            <Typography className={classes.instructions}>Machine scannée  <strong>{scannedMachine.categorie+scannedMachine.id}</strong></Typography>
+            {machineQrcodeScanned && ! okMachine && canBeDisplayed(0)?(<>
+                 <Typography className={classes.instructions}>Machine scannée  <strong>{scannedMachine.categorie+scannedMachine.id}</strong></Typography>
+                 <img width={"50%"}  src={DIR.STRAPI+scannedMachine.photo_url} alt={"pas de photo"} />
+              </>
+              )
               :null}
 
-            {!workerQrcodeScanned && machineQrcodeScanned && ok?
-              <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-              :null
-            }
-            {workerQrcodeScanned && machineQrcodeScanned && ok && !(activeStep === steps.length-1)?
-              <Typography className={classes.instructions}>Employé scannée <strong>{scannedWorker.nom}</strong></Typography>
+
+            {workerQrcodeScanned && machineQrcodeScanned && ! okEmploye && canBeDisplayed(1)?(<>
+                 <Typography className={classes.instructions}>Employé scannée <strong>{scannedWorker.nom}</strong></Typography>
+                  <img width={"50%"} src={DIR.STRAPI+scannedWorker.photo_profil_url} alt={"pas de photo"} />
+                </>
+              )
               :null}
 
-            {activeStep === steps.length-1?
-              <Typography className={classes.instructions}>La machine <strong>{scannedMachine.categorie+scannedMachine.id}</strong>  sera affectée à <strong> {scannedWorker.nom}</strong> </Typography>
+            {workerQrcodeScanned && machineQrcodeScanned && okMachine && okEmploye && canBeDisplayed(2)?
+              <Box alignItems="center"
+                   display="flex"
+                   flexDirection="column"
+                   >
+                 <CameraPicker  cancelImagePicker={cancelImagePicker}  handleImageTaken={handleImageTaken}/>
+                 <div className={classes.divImages}>
+                   <ImageSlider   images={images} setImages={setImages} />
+
+                    <Divider />
+                    <Divider />
+                    <Typography variant={'h4'}>Ajouter un commentaire</Typography>
+                    <TextareaAutosize name={"comment"}  onChange={handleChangeComment} cols={40} rowsMin={5} rowsMax={5}/>
+                 </div>
+              </Box>
+              :null}
+
+
+            {canBeDisplayed(3)?(
+               <>
+                 <Typography className={classes.instructions}>La machine <strong>{scannedMachine.categorie+scannedMachine.id}</strong>  sera affectée à <strong> {scannedWorker.nom}</strong> </Typography>
+                 <Typography > Etat de la machine:</Typography>
+               </>
+              )
               :null
             }
 
-            {(machineQrcodeScanned && !ok) || workerQrcodeScanned?(
-              <div>
+            {(machineQrcodeScanned && !okMachine) || (workerQrcodeScanned && ! okEmploye)
+                      || (photosTaken && ! okEtatMachine)?(
+              <div >
                 <Button
                   disabled={activeStep === 0}
                   onClick={handleBack}
