@@ -20,9 +20,10 @@ const makeAnAlertForWorkerState=(safety,message)=>{
          case "not_safe":
              return <Alert severity="error">{"non valide"}</Alert>;
          case "not_very_safe":
+           return <Alert severity="warning">{"document(s) expiré(s)"}</Alert>;
 
-         return <Alert severity="warning">{message}</Alert>;
      }
+     return <Alert severity="info">{"information(s) manquante(s)"}</Alert>;
 }
 
 export default function CustomizedSnackbars(props) {

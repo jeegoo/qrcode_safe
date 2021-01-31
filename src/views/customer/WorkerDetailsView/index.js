@@ -192,6 +192,8 @@ export default function  WorkerDetailsView () {
                         onChange={handleChange}
                         required
                         variant="outlined"
+                        value={"153124500723 148"}
+                        disabled={disabledInput}
                       />
                     </Grid>
 
@@ -207,6 +209,8 @@ export default function  WorkerDetailsView () {
                         onChange={handleChange}
                         required
                         variant="outlined"
+                        value={"B"}
+                        disabled={disabledInput}
                       />
                     </Grid>
 
@@ -215,37 +219,43 @@ export default function  WorkerDetailsView () {
                       md={6}
                       xs={12}
                     >
-                      <FormControl fullWidth>
-                        <InputLabel fullWidth>Vaccination</InputLabel>
-                        <Select
-                          fullWidth
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={"Vaccin"}
+                      <TextField
+                        fullWidth
+                        label="Visite Médicale"
+                        name="visite_medicale"
+                        onChange={handleChange}
+                        required
+                        variant="outlined"
+                        value={"12/06/2020"}
+                        disabled={disabledInput}
+                      />
 
-                        >
-                          <MenuItem value={"OUI"}>OUI</MenuItem>
-                          <MenuItem value={"NON"}>NON</MenuItem>
-
-                        </Select>
-                      </FormControl>
                     </Grid>
 
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                      <TextField
+                        fullWidth
+                        label="Test covid"
+                        name="test_covid"
+                        onChange={handleChange}
+                        required
+                        variant="outlined"
+                        value={"17/11/2020"}
+                        disabled={disabledInput}
+                      />
 
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <DatePicker label={"Derniere visite médicale"}/>
                     </Grid>
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
 
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <DatePicker label={"Test covid"}/>
+
                     </Grid>
 
                     <Typography variant={"h6"}>Machines occupées: {values.machines.length}</Typography>
