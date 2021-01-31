@@ -74,7 +74,10 @@ export default function HorizontalLabelPositionBelowStepper({content,machineQrco
                                                               scannedWorker, scannedMachine,
                                                               images,setImages,
                                                               handleChangeComment,
-                                                              cancelImagePicker,handleImageTaken
+                                                              cancelImagePicker,handleImageTaken,
+                                                              handleOnMachineAffectationSubmit,
+                                                              commentaire,
+                                                              resetValues
                                                               ,...rest}) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -116,7 +119,9 @@ export default function HorizontalLabelPositionBelowStepper({content,machineQrco
   };
 
   const handleReset = () => {
+    resetValues();
     setActiveStep(0);
+
   };
 
 
@@ -138,7 +143,6 @@ export default function HorizontalLabelPositionBelowStepper({content,machineQrco
           <div >
             <Typography className={classes.instructions}>Machine <strong>{scannedMachine.categorie+scannedMachine.id}
             </strong> a été affectée à l'employé : <strong>{scannedWorker.nom}</strong></Typography>
-            <CheckCircleOutlineIcon />
             <Button onClick={handleReset} color="secondary">Scanner à nouveau</Button>
           </div>
         ) :
@@ -189,6 +193,7 @@ export default function HorizontalLabelPositionBelowStepper({content,machineQrco
                  <Typography> Etat de la machine:</Typography>
                  <div className={classes.divImagesRecap}>
                    <ImageSlider images={images} setImages={setImages} />
+                   <Typography >Commentaire: <strong>{commentaire}</strong></Typography>
                  </div>
                </>
               )
@@ -204,7 +209,10 @@ export default function HorizontalLabelPositionBelowStepper({content,machineQrco
                 >
                   PRECEDENT
                 </Button>
-                <Button variant="contained" color="primary" onClick={handleNext}>
+                <Button variant="contained" color="primary" onClick={!canBeDisplayed(steps.length - 1)?handleNext:()=>{
+                                                                                           handleOnMachineAffectationSubmit();
+                                                                                           handleNext();
+                }}>
                   {activeStep === steps.length - 1 ? 'VALIDER' : 'OK'}
                 </Button>
               </div>):null}

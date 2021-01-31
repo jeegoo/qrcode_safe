@@ -28,6 +28,7 @@ import Util from "../../lib/Util";
 import CameraPicker from "./CameraPicker";
 import Grid from "@material-ui/core/Grid";
 import LoadingFullScreen from "./LoadingFullScreen";
+import SuccessMessage from "./SuccessMessage";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -63,6 +64,7 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
   const [okMachine,setOkMachine]=useState(false);
   const [okEmploye,setOkEmploye]=useState(false);
   const [okEtatMachine,setOkEtatMachine]=useState(false);
+  const [successMessage,setSuccessMessage] = useState(false);
 
 
 
@@ -80,6 +82,7 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
             alert("ce qrcode n'appatient à aucune machine")
        })
   }
+
 
     const getWorkerById=(employeId)=>{
       setQrcodeScanningLoading(true);
@@ -116,6 +119,9 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
     setPhotosTaken(true);
   }
 
+  const handleSuccessMessage=()=>{
+       setSuccessMessage(false);
+  }
 
   const handleOnMachineAffectationSubmit=()=>{   //quand on valide sur le popup
 
@@ -128,10 +134,36 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
           employe_attribue: scannedWorker.id,
           commentaire:inputData.comment,
           photos_etat_machine:Util.filterImages(images)
-        });
-
+        }).then(()=>{
+          setSuccessMessage(true);
+        })
     })
 
+
+
+  }
+
+  const resetValues=()=>{
+
+      setImages([]);
+      setMachineQrcodeScanned(false);
+      setWorkerQrcodeScanned(false);
+      setScannedMachine ({});
+      setScannedWorker({});
+      setPhotosTaken(false);
+      setWarningPopUp(false) ;
+      setQrcodeScanningLoading(false);
+      setInputData({comment:''});
+      setOkMachine(false);
+      setOkEmploye(false);
+      setOkEtatMachine(false);
+      setSuccessMessage(false);
+  }
+
+
+ const  handleCloseAttributionPopUp=()=>{
+       resetValues();
+       handleClose();
   }
 
 
@@ -154,18 +186,16 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
   return (
     <div>
 
-      <Dialog  fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+      <Dialog  fullScreen open={open} onClose={handleCloseAttributionPopUp} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+            <IconButton edge="start" color="inherit" onClick={handleCloseAttributionPopUp} aria-label="close">
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
               ANNULER
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              ENREGISTRER
-            </Button>
+
           </Toolbar>
           <div >
 
@@ -189,9 +219,13 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
                      cancelImagePicker={cancelImagePicker}
                      handleChangeComment={handleChangeComment}
                      photosTaken={photosTaken}
+                     handleOnMachineAffectationSubmit={handleOnMachineAffectationSubmit}
+                     commentaire={inputData.comment}
+                     resetValues={resetValues}
 
             />
             <LoadingFullScreen open={qrcodeScanningLoading}/>
+            <SuccessMessage message={`Affectation terminée avec succes`} open={successMessage} handleClose={handleSuccessMessage} />
           </Grid>
 
 
