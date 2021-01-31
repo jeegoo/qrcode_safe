@@ -27,6 +27,7 @@ import Session from "../../lib/Session";
 import Util from "../../lib/Util";
 import CameraPicker from "./CameraPicker";
 import Grid from "@material-ui/core/Grid";
+import LoadingFullScreen from "./LoadingFullScreen";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -67,20 +68,27 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
 
   const getMachineById=(machineId)=>{
 
+       setQrcodeScanningLoading(true);
        MachineData.getMachineById(machineId).then(machine=>{
-             setScannedMachine(FilterData.filterMachineDetailsData(machine.data));
-             setMachineQrcodeScanned(true);
+          setTimeout(()=>{
+              setScannedMachine(FilterData.filterMachineDetailsData(machine.data));
+              setQrcodeScanningLoading(false);
+              setMachineQrcodeScanned(true);
+          },1000)
+
        }).catch(err=>{
             alert("ce qrcode n'appatient à aucune machine")
        })
   }
 
     const getWorkerById=(employeId)=>{
-
+      setQrcodeScanningLoading(true);
       WorkerData.getEmployeeById(employeId).then(employe=>{
-
+        setTimeout(()=>{
             setScannedWorker(FilterData.filterWorkerDetailsData(employe.data));
+            setQrcodeScanningLoading(false);
             setWorkerQrcodeScanned(true);
+        },1000)
 
       }).catch(err=>{
         alert("ce qrcode n'appatient à aucun employé")
@@ -105,7 +113,7 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
   const handleImageTaken =(src)=>{
 
     setImages(oldImages=>[...oldImages,{src:src,title:oldImages.length}])
-    setPhotosTaken(images.length>0);
+    setPhotosTaken(true);
   }
 
 
@@ -183,6 +191,7 @@ export default function MachineAttribution({open,handleClickOpen,handleClose,...
                      photosTaken={photosTaken}
 
             />
+            <LoadingFullScreen open={qrcodeScanningLoading}/>
           </Grid>
 
 

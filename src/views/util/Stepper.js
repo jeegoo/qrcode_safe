@@ -7,10 +7,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import DIR from "../../utils/dir";
 import CameraPicker from "./CameraPicker";
-import Container from "@material-ui/core/Container";
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import {Divider, Grid, TextareaAutosize} from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import ImageSlider from "./ImageSlider";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,17 +23,27 @@ const useStyles = makeStyles((theme) => ({
   instructions: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+
   },
   qrcode: {
     width: '30%',
   },
   divImages:{
-    margin:'5%'
+    margin:'2%'
+  },
+
+  divImagesRecap:{
+    margin:'2%',
+    width:'60%'
   },
 
   imageSlider:{
     width:'50%',
+  },
 
+  successAttributionMessage:{
+    display: 'inline-flex',
+    verticalAlign: 'middle'
   }
 }));
 
@@ -124,10 +135,11 @@ export default function HorizontalLabelPositionBelowStepper({content,machineQrco
      </div>
       <div>
         {canBeDisplayed(steps.length) ? (
-          <div>
+          <div >
             <Typography className={classes.instructions}>Machine <strong>{scannedMachine.categorie+scannedMachine.id}
             </strong> a été affectée à l'employé : <strong>{scannedWorker.nom}</strong></Typography>
-            <Button onClick={handleReset}>Scanner à nouveau</Button>
+            <CheckCircleOutlineIcon />
+            <Button onClick={handleReset} color="secondary">Scanner à nouveau</Button>
           </div>
         ) :
           <div>
@@ -174,14 +186,16 @@ export default function HorizontalLabelPositionBelowStepper({content,machineQrco
             {canBeDisplayed(3)?(
                <>
                  <Typography className={classes.instructions}>La machine <strong>{scannedMachine.categorie+scannedMachine.id}</strong>  sera affectée à <strong> {scannedWorker.nom}</strong> </Typography>
-                 <Typography > Etat de la machine:</Typography>
+                 <Typography> Etat de la machine:</Typography>
+                 <div className={classes.divImagesRecap}>
+                   <ImageSlider images={images} setImages={setImages} />
+                 </div>
                </>
               )
               :null
             }
-
             {(machineQrcodeScanned && !okMachine) || (workerQrcodeScanned && ! okEmploye)
-                      || (photosTaken && ! okEtatMachine)?(
+            || (photosTaken && ! okEtatMachine) || canBeDisplayed(steps.length - 1 ) ?(
               <div >
                 <Button
                   disabled={activeStep === 0}
@@ -191,7 +205,7 @@ export default function HorizontalLabelPositionBelowStepper({content,machineQrco
                   PRECEDENT
                 </Button>
                 <Button variant="contained" color="primary" onClick={handleNext}>
-                  {activeStep === steps.length - 1 ? 'Valider' : 'OK'}
+                  {activeStep === steps.length - 1 ? 'VALIDER' : 'OK'}
                 </Button>
               </div>):null}
           </div>
