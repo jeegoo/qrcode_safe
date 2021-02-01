@@ -32,6 +32,7 @@ export default function WebcamCapture({handleImageTaken,qrcodeScanned,cancelImag
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         width={300}
+        videoConstraints={videoConstraints}
       />
       <ButtonGroup size="small" aria-label="small outlined button group" >
         <Button color="secondary"
