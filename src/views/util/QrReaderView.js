@@ -1,13 +1,10 @@
 import React, {Component, useState} from 'react'
 import QrReader from 'react-qr-reader'
 import {Button} from "@material-ui/core";
-import AgreePopUp from "./AgreePopUp";
-import WorkerData from "./WorkerData";
-import Util from "../../lib/Util";
-import FilterData from "../../lib/FilterData";
-const parse = require('url-parse');
 
-const queryString = require('query-string');
+import Util from "../../lib/Util";
+
+
 
 export default function QrReaderView({onScannedId,...rest}) {
 
