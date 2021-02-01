@@ -180,6 +180,23 @@ export default function  WorkerDetailsView () {
                     />
                   </Grid>
 
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                      <TextField
+                        fullWidth
+                        label="Caces"
+                        name="caces"
+                        onChange={handleChange}
+                        required
+                        variant="outlined"
+                        value={"Manutention"}
+                        disabled={disabledInput}
+                      />
+                    </Grid>
+
                    <Grid
                      item
                      md={6}
@@ -249,18 +266,14 @@ export default function  WorkerDetailsView () {
                       />
 
                     </Grid>
-                  <Grid
-                    item
-                    md={6}
-                    xs={12}
-                  >
+                  
 
 
+                    <Grid>
+                      <Typography variant={"h6"}>Machines occupées: {values.machines.length}</Typography>
+
+                      <MachinesList machines={values.machines} />
                     </Grid>
-
-                    <Typography variant={"h6"}>Machines occupées: {values.machines.length}</Typography>
-
-                    <MachinesList machines={values.machines} />
 
 
                 </Grid>

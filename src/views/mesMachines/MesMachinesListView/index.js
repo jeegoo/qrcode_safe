@@ -5,12 +5,15 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import Results from './Results';
+
 import Toolbar from './Toolbar';
 import FilterData from "../../../lib/FilterData";
 import MachineData from "../../util/MachineData";
 import {useParams} from "react-router-dom";
 import Session from "../../../lib/Session";
+import HistoricTable from "../../historique/HistoriqueAttributionView/HistoricTable"
+import HistoryData from "../../util/HistoryData";
+import HistoriqueAttributionView from "../../historique/HistoriqueAttributionView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,16 +27,16 @@ const useStyles = makeStyles((theme) => ({
 const MachinesListView = () => {
 
   const classes = useStyles();
-  const [machines,setMachines] = useState([]);
-  const [machineSelected, setMachineSelected] = useState(false);
-  const [isOneMachineSelected, setIsOneMachineSelected] = useState(false);
-  const {id}= Session.getUser(); // l'utilisateur connecté
+  const [attributions,setAttribution] = useState([]);
+ // const {id}= Session.getUser(); // l'utilisateur connecté
+
+  let {id}=Session.getUser();
 
 
   useEffect(()=>{
-      MachineData.getAllMachinesForWorkerById(id).then(res=>{
-        
-        setMachines(FilterData.filterAllMachinesDetailsData(res.data));
+      HistoryData.getAllHestoricAttributionByUser(id).then(res=>{
+
+        setAttribution(FilterData.filterAllHestoricsDetailsData(res.data));
 
       })
 
@@ -50,13 +53,13 @@ const MachinesListView = () => {
       title="Machines"
     >
       <Container maxWidth={false}>
-        <Toolbar machineSelected={machineSelected} isOneMachineSelected={isOneMachineSelected} machines={machines} setMachines={setMachines}/>
+        <Toolbar machineSelected={{}} isOneMachineSelected={true} machines={[]} setMachines={()=>{}}/>
         <Box mt={3}>
-          <Results machines={machines} setMachines={setMachines} setMachineSelected={setMachineSelected}
-                   setIsOneMachineSelected={setIsOneMachineSelected}/>
+          <HistoricTable rows={attributions} setRows={setAttribution} />
         </Box>
       </Container>
     </Page>
+
   );
 };
 

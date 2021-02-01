@@ -17,6 +17,7 @@ import Session from "../../lib/Session";
 import Alert from "@material-ui/lab/Alert";
 import DIR from '../../utils/dir'
 import FilterData from "../../lib/FilterData";
+import Logo from 'src/components/Logo';
 const axios = require('axios')
 
 
@@ -83,6 +84,7 @@ const LoginView = () => {
         height="100%"
         justifyContent="center"
       >
+
         <Container maxWidth="sm">
               <form onSubmit={formik.handleSubmit}>
                 <Box mb={3}>

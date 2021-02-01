@@ -12,6 +12,7 @@ class HestoricData{
       this.getAllAttributionsHestorics=this.getAllAttributionsHestorics.bind(this);
       this.getHestoricAttributionById=this.getHestoricAttributionById.bind(this);
       this.postHestoricAttribution=this.postHestoricAttribution.bind(this);
+      this.getAllHestoricAttributionByUser=this.getAllHestoricAttributionByUser.bind(this);
 
   }
 
@@ -23,6 +24,10 @@ class HestoricData{
 
   getHestoricAttributionById(id){
             return axios.get(`http://82.165.184.180:1337/historique-attributions/${id}`);
+  }
+
+  getAllHestoricAttributionByUser(id){
+    return axios.get(`http://82.165.184.180:1337/historique-attributions?employe_attribuant=${id}`);
   }
 
 

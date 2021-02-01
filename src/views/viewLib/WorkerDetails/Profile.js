@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import UploadButton from "../../util/UploadButton";
 import DIR from "../../../utils/dir";
+import Grid from "@material-ui/core/Grid";
 
 
 
@@ -71,7 +72,7 @@ const Profile = ({ className,disabledInput,values, ...rest }) => {
       {!disabledInput ?(
         <span>
             <Divider />
-            <CardActions>
+
               <Box
                 alignItems="center"
                 display="flex"
@@ -80,7 +81,7 @@ const Profile = ({ className,disabledInput,values, ...rest }) => {
                 <UploadButton/>
 
               </Box>
-            </CardActions>
+
           </span>
           ):null}
 

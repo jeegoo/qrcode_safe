@@ -40,20 +40,6 @@ export default function  WorkerDetailsView () {
   const [valuesChanged,setValuesChanged]=useState(false);
   const [initialWorkerValues,setInitialWorkerValues]=useState({});
 
-  const states = [
-    {
-      value: 'alabama',
-      label: 'Alabama'
-    },
-    {
-      value: 'new-york',
-      label: 'New York'
-    },
-    {
-      value: 'san-francisco',
-      label: 'San Francisco'
-    }
-  ];
 
   const handleChange = (event) => {
 
@@ -76,7 +62,6 @@ export default function  WorkerDetailsView () {
 
   const displayContent=()=>{
 
-    console.log(values.ville)
     return  (<span>
 
              <Divider />
@@ -92,46 +77,16 @@ export default function  WorkerDetailsView () {
                   >
                     <TextField
                       fullWidth
-                      helperText="Please specify the first name"
-                      label="Nom utilisateur"
+                      label="Nom"
                       name="username"
-                      onChange={handleChange}
-                      disabled={disabledInput}
-                      value={values.username}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    md={6}
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      helperText="Please specify the first name"
-                      label="First name"
-                      name="nom"
                       onChange={handleChange}
                       disabled={disabledInput}
                       value={values.nom}
                       variant="outlined"
                     />
                   </Grid>
-                  <Grid
-                    item
-                    md={6}
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      label="Prenom"
-                      name="prenom"
-                      onChange={handleChange}
-                      disabled={disabledInput}
-                      value={values.prenom}
-                      variant="outlined"
-                    />
-                  </Grid>
+
+
                   <Grid
                     item
                     md={6}
@@ -147,93 +102,8 @@ export default function  WorkerDetailsView () {
                       variant="outlined"
                     />
                   </Grid>
-
-                  <Grid
-                    item
-                    md={6}
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      label="ville"
-                      name="ville"
-                      onChange={handleChange}
-                      disabled={disabledInput}
-                      value={values.ville}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    md={6}
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      label="Region"
-                      name="region"
-                      onChange={handleChange}
-                      disabled={disabledInput}
-                      value={values.region}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    md={6}
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      label="Pays"
-                      name="pays"
-                      onChange={handleChange}
-                      disabled={disabledInput}
-                      required
-                      value={values.pays}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid
-                    item
-                    md={6}
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      label="Select State"
-                      name="state"
-                      onChange={handleChange}
-                      disabled={disabledInput}
-                      select
-                      SelectProps={{ native: true }}
-                      value={values.state}
-                      variant="outlined"
-                    >
-                      {states.map((option) => (
-                        <option
-                          key={option.value}
-                          value={option.value}
-                        >
-                          {option.label}
-                        </option>
-                      ))}
-                    </TextField>
-                  </Grid>
                 </Grid>
-                  </CardContent>
-                      <Divider />
 
-                  <CardContent>
-
-                    <Box
-                      alignItems="center"
-                      display="flex"
-                      flexDirection="column"
-                      p={3}
-                    >
-
-                    </Box>
               </CardContent>
                </span>)
   }

@@ -170,9 +170,10 @@ const MachineDetails = ({ className,disabledInput,setDisabledInput,handleChange,
               />
             </Grid>
 
+            <Grid>
                <Typography variant={"h6"}>Employé(s) occupant(s):{values.employe!=null?1:0}</Typography>
-
-            <WorkersList workers={values.employe!=null?[values.employe]:[]} />
+               <WorkersList workers={values.employe!=null?[values.employe]:[]} />
+            </Grid>
 
           </Grid>
         </CardContent>

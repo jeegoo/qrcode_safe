@@ -40,6 +40,7 @@ const routes =(isConnected)=> [
       { path: '/machines', element: <MachinesListView />},
       { path: '/machines/:id', element: <MachineDetailsView />},
       { path: '/mesMachines', element: <MesMachinesListView />},
+      { path: '/mesMachines/:id', element: <MesMachinesListView />},
       { path: '/historique', element: <HistoriqueView />},
       { path: '/dashboard', element: <DashboardView />},
       { path: '/products', element: <ProductListView /> },

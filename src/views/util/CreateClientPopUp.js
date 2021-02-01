@@ -315,6 +315,26 @@ export default function CreateClientPopUp({handleClose,handleSubmit,open,workerV
                       </FormControl>
                     </Grid>
 
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <FormControl fullWidth>
+                        <InputLabel fullWidth>Caces</InputLabel>
+                        <Select
+                          fullWidth
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={"Caces"}
+
+                        >
+                          <MenuItem value={"Manutention"}>Manutention</MenuItem>
+                          <MenuItem value={"Travaux publics"}>Travaux publics</MenuItem>
+
+                        </Select>
+                      </FormControl>
+                    </Grid>
 
                     <Grid
                       item

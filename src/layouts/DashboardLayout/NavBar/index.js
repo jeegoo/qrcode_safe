@@ -27,6 +27,7 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import HistoryIcon from '@material-ui/icons/History';
 import Session from "../../../lib/Session";
 import DIR from "../../../utils/dir";
+import ShuffleIcon from '@material-ui/icons/Shuffle';
 
 
 const items = [
@@ -47,8 +48,8 @@ const items = [
   },
   {
     href: `/app/mesMachines`,   //les machines du user connecté
-    icon: LocalShippingIcon,
-    title: 'Mes Outils'
+    icon: ShuffleIcon,
+    title: 'Mes Attributions'
   },
   {
     href: '/app/historique',
