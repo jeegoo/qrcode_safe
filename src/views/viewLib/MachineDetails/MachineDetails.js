@@ -187,7 +187,7 @@ const MachineDetails = ({ className,disabledInput,setDisabledInput,handleChange,
             flexDirection="column"
             p={3}
           >
-            <QRCode value={`/app/machines/${values.id}`} />
+            <QRCode value={`${DIR.SERVER}/app/machines/${values.id}`} />
             <Typography > {values.categorie+values.id} </Typography>
           </Box>
         </CardContent>

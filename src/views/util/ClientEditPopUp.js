@@ -128,7 +128,7 @@ export default function CustomizedDialogs({worker,handleClose,open,...rest}) {
                   flexDirection="column"
                   p={3}
                 >
-                  <QRCode value={`/app/customers/${worker.id}`} />
+                  <QRCode value={`${DIR.SERVER}/app/customers/${worker.id}`} />
 
                 </Box>
               </CardContent>

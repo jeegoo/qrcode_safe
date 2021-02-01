@@ -266,7 +266,7 @@ export default function  WorkerDetailsView () {
                       />
 
                     </Grid>
-                  
+
 
 
                     <Grid>
@@ -288,7 +288,7 @@ export default function  WorkerDetailsView () {
                       flexDirection="column"
                       p={3}
                     >
-                      <QRCode value={`/app/customers/${id}`} />
+                      <QRCode value={`${DIR.SERVER}/app/customers/${id}`} />
                     </Box>
               </CardContent>
 
